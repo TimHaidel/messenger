@@ -3,9 +3,10 @@ package by.itacademy.jd2.th.messenger.service.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
@@ -21,9 +22,11 @@ public class UserToUserGroupServiceTest extends AbstractTest {
         final IUserToUserGroup entityFromDb = userToUserGroupService.get(entity.getId());
 
         assertNotNull(entityFromDb);
-        assertEquals(entity.getUser().getId(), entityFromDb.getUser().getId());
-        assertEquals(entity.getUserGroup().getId(), entityFromDb.getUserGroup().getId());
         assertEquals(entity.getUserGroupRole(), entityFromDb.getUserGroupRole());
+        assertEquals(entity.getUserGroup().getId(), entityFromDb.getUserGroup().getId());
+
+        assertEquals(entity.getUser().getId(), entityFromDb.getUser().getId());
+
         assertNotNull(entityFromDb.getId());
     }
 

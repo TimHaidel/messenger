@@ -8,9 +8,14 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import by.itacademy.jd2.th.messenger.dao.api.IUserAccountDao;
+import by.itacademy.jd2.th.messenger.dao.api.IUserGroupDao;
 import by.itacademy.jd2.th.messenger.dao.api.IUserToUserGroupDao;
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserToUserGroup;
 import by.itacademy.jd2.th.messenger.dao.api.filter.UserToUserGroupFilter;
 import by.itacademy.jd2.th.messenger.jdbc.impl.entity.UserAccount;
@@ -22,180 +27,189 @@ import by.itacademy.jd2.th.messenger.jdbc.impl.util.SQLExecutionException;
 @Repository
 public class UserToUserGroupDaoImpl extends AbstractDaoImpl<IUserToUserGroup, Integer> implements IUserToUserGroupDao {
 
-	@Override
-	public IUserToUserGroup createEntity() {
-		return new UserToUserGroup();
-	}
+    private final IUserAccountDao userAccountDao;
+    private final IUserGroupDao userGroupDao;
 
-	@Override
-	public void update(final IUserToUserGroup entity) {
-		try (Connection c = getConnection()) {
-			c.setAutoCommit(false);
-			try {
-				executeStatement(new PreparedStatementAction<IUserToUserGroup>(String
-						.format("update %s set group_id = ?, user_id = ?, group_role = ? where id=?", getTableName())) {
-					@Override
-					public IUserToUserGroup doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
-						pStmt.setInt(1, entity.getUserGroup().getId());
-						pStmt.setInt(2, entity.getUser().getId());
-						pStmt.setInt(3, entity.getUserGroupRole());
-						pStmt.setInt(4, entity.getId());
-						pStmt.executeUpdate();
-						return entity;
-					}
-				});
+    @Autowired
+    public UserToUserGroupDaoImpl(final IUserAccountDao userAccountDao, final IUserGroupDao userGroupDao) {
+        super();
+        this.userAccountDao = userAccountDao;
+        this.userGroupDao = userGroupDao;
+    }
 
-				c.commit();
-			} catch (final Exception e) {
-				c.rollback();
-				throw new RuntimeException(e);
-			}
+    @Override
+    public IUserToUserGroup createEntity() {
+        return new UserToUserGroup();
+    }
 
-		} catch (final SQLException e) {
-			throw new SQLExecutionException(e);
-		}
+    @Override
+    public void update(final IUserToUserGroup entity) {
+        try (Connection c = getConnection()) {
+            c.setAutoCommit(false);
+            try {
+                executeStatement(new PreparedStatementAction<IUserToUserGroup>(String
+                        .format("update %s set group_id = ?, user_id = ?, group_role = ? where id=?", getTableName())) {
+                    @Override
+                    public IUserToUserGroup doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
+                        pStmt.setInt(1, entity.getUserGroup().getId());
+                        pStmt.setInt(2, entity.getUser().getId());
+                        pStmt.setInt(3, entity.getUserGroupRole());
+                        pStmt.setInt(4, entity.getId());
+                        pStmt.executeUpdate();
+                        return entity;
+                    }
+                });
 
-	}
+                c.commit();
+            } catch (final Exception e) {
+                c.rollback();
+                throw new RuntimeException(e);
+            }
 
-	@Override
-	protected IUserToUserGroup parseRow(final ResultSet resultSet, final Set<String> columns) throws SQLException {
-		final IUserToUserGroup entity = createEntity();
-		entity.setId((Integer) resultSet.getObject("id"));
-		entity.setUserGroupRole(resultSet.getInt("group_role"));
+        } catch (final SQLException e) {
+            throw new SQLExecutionException(e);
+        }
 
-		final Integer userGroupId = (Integer) resultSet.getObject("group_id");
-		if (userGroupId != null) {
-			final UserGroup bunch = new UserGroup();
-			bunch.setId(userGroupId);
-			if (columns.contains("name")) {
-				bunch.setName(resultSet.getString("name"));
-			}
-			if (columns.contains("status")) {
-				bunch.setStatus(resultSet.getInt("status"));
-			}
-			if (columns.contains("created")) {
-				bunch.setCreated(resultSet.getDate("created"));
-			}
-			if (columns.contains("updated")) {
-				bunch.setUpdated(resultSet.getDate("updated"));
-			}
-			entity.setUserGroup(bunch);
+    }
 
-		}
+    @Override
+    protected IUserToUserGroup parseRow(final ResultSet resultSet, final Set<String> columns) throws SQLException {
+        final IUserToUserGroup entity = createEntity();
+        entity.setId((Integer) resultSet.getObject("id"));
+        entity.setUserGroupRole(resultSet.getInt("group_role"));
 
-		final Integer userId = (Integer) resultSet.getObject("user_id");
-		if (userId != null) {
-			final UserAccount user = new UserAccount();
-			user.setId(userId);
-			if (columns.contains("firstname")) {
-				user.setFirstname(resultSet.getString("firstname"));
-			}
-			if (columns.contains("lastname")) {
-				user.setLastname(resultSet.getString("lastname"));
-			}
-			if (columns.contains("password")) {
-				user.setPassword(resultSet.getString("password"));
-			}
-			if (columns.contains("email")) {
-				user.setEmail(resultSet.getString("email"));
-			}
-			if (columns.contains("avatar")) {
-				user.setAvatar(resultSet.getString("avatar"));
-			}
-			if (columns.contains("role")) {
-				user.setRole(resultSet.getInt("role"));
-			}
-			if (columns.contains("created")) {
-				user.setCreated(resultSet.getDate("created"));
-			}
-			if (columns.contains("updated")) {
-				user.setUpdated(resultSet.getDate("updated"));
-			}
+        final Integer userGroupId = (Integer) resultSet.getObject("group_id");
+        if (userGroupId != null) {
+            final IUserGroup userGroup = new UserGroup();
+            userGroup.setId(userGroupId);
+            if (columns.contains("name")) {
+                userGroup.setName(resultSet.getString("name"));
+            }
+            if (columns.contains("status")) {
+                userGroup.setStatus(resultSet.getInt("status"));
+            }
+            if (columns.contains("created")) {
+                userGroup.setCreated(resultSet.getDate("created"));
+            }
+            if (columns.contains("updated")) {
+                userGroup.setUpdated(resultSet.getDate("updated"));
+            }
+            entity.setUserGroup(userGroup);
 
-			entity.setUser(user);
-		}
+        }
 
-		return entity;
-	}
+        final Integer userId = (Integer) resultSet.getObject("user_id");
+        if (userId != null) {
+            final IUserAccount user = new UserAccount();
+            user.setId(userId);
+            if (columns.contains("firstname")) {
+                user.setFirstname(resultSet.getString("firstname"));
+            }
+            if (columns.contains("lastname")) {
+                user.setLastname(resultSet.getString("lastname"));
+            }
+            if (columns.contains("password")) {
+                user.setPassword(resultSet.getString("password"));
+            }
+            if (columns.contains("email")) {
+                user.setEmail(resultSet.getString("email"));
+            }
+            if (columns.contains("avatar")) {
+                user.setAvatar(resultSet.getString("avatar"));
+            }
+            if (columns.contains("role")) {
+                user.setRole(resultSet.getInt("role"));
+            }
+            if (columns.contains("created")) {
+                user.setCreated(resultSet.getDate("created"));
+            }
+            if (columns.contains("updated")) {
+                user.setUpdated(resultSet.getDate("updated"));
+            }
 
-	@Override
-	public void insert(final IUserToUserGroup entity) {
+            entity.setUser(user);
+        }
 
-		executeStatement(new PreparedStatementAction<IUserToUserGroup>(
-				String.format("insert into %s (group_id, user_id, group_role) values(?,?,?)", getTableName()), true) {
-			@Override
-			public IUserToUserGroup doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
-				pStmt.setInt(1, entity.getUserGroup().getId());
-				pStmt.setInt(2, entity.getUser().getId());
-				pStmt.setInt(3, entity.getUserGroupRole());
-				pStmt.executeUpdate();
+        return entity;
+    }
 
-				pStmt.executeUpdate();
+    @Override
+    public void insert(final IUserToUserGroup entity) {
 
-				final ResultSet rs = pStmt.getGeneratedKeys();
-				rs.next();
-				final int id = rs.getInt("id");
+        executeStatement(new PreparedStatementAction<IUserToUserGroup>(
+                String.format("insert into %s (group_id, user_id, group_role) values(?,?,?)", getTableName()), true) {
+            @Override
+            public IUserToUserGroup doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
+                pStmt.setInt(1, entity.getUserGroup().getId());
+                pStmt.setInt(2, entity.getUser().getId());
+                pStmt.setInt(3, entity.getUserGroupRole());
 
-				rs.close();
+                pStmt.executeUpdate();
 
-				entity.setId(id);
-				return entity;
-			}
-		});
+                final ResultSet rs = pStmt.getGeneratedKeys();
+                rs.next();
+                final int id = rs.getInt("id");
 
-	}
+                rs.close();
 
-	@Override
-	protected String getTableName() {
-		return "user_2_group";
-	}
+                entity.setId(id);
+                return entity;
+            }
+        });
 
-	@Override
-	public List<IUserToUserGroup> find(final UserToUserGroupFilter filter) {
-		throw new RuntimeException("not implemented");
-	}
+    }
 
-	@Override
-	public long getCount(final UserToUserGroupFilter filter) {
-		throw new RuntimeException("not implemented");
-	}
+    @Override
+    protected String getTableName() {
+        return "user_2_group";
+    }
 
-	@Override
-	public void save(final IUserToUserGroup... entities) {
-		try (Connection c = getConnection()) {
-			c.setAutoCommit(false);
-			try {
+    @Override
+    public List<IUserToUserGroup> find(final UserToUserGroupFilter filter) {
+        throw new RuntimeException("not implemented");
+    }
 
-				for (final IUserToUserGroup entity : entities) {
-					final PreparedStatement pStmt = c.prepareStatement(String
-							.format("insert into %s (group_id, user_id, group_role) values(?,?,?)", getTableName()),
-							Statement.RETURN_GENERATED_KEYS);
+    @Override
+    public long getCount(final UserToUserGroupFilter filter) {
+        throw new RuntimeException("not implemented");
+    }
 
-					pStmt.setInt(1, entity.getUserGroup().getId());
-					pStmt.setInt(2, entity.getUser().getId());
-					pStmt.setInt(3, entity.getUserGroupRole());
+    @Override
+    public void save(final IUserToUserGroup... entities) {
+        try (Connection c = getConnection()) {
+            c.setAutoCommit(false);
+            try {
 
-					pStmt.executeUpdate();
+                for (final IUserToUserGroup entity : entities) {
+                    final PreparedStatement pStmt = c.prepareStatement(String
+                            .format("insert into %s (group_id, user_id, group_role) values(?,?,?)", getTableName()),
+                            Statement.RETURN_GENERATED_KEYS);
 
-					final ResultSet rs = pStmt.getGeneratedKeys();
-					rs.next();
-					final int id = rs.getInt("id");
+                    pStmt.setInt(1, entity.getUserGroup().getId());
+                    pStmt.setInt(2, entity.getUser().getId());
+                    pStmt.setInt(3, entity.getUserGroupRole());
 
-					rs.close();
-					pStmt.close();
-					entity.setId(id);
-				}
+                    pStmt.executeUpdate();
 
-				c.commit();
-			} catch (final Exception e) {
-				c.rollback();
-				throw new RuntimeException(e);
-			}
+                    final ResultSet rs = pStmt.getGeneratedKeys();
+                    rs.next();
+                    final int id = rs.getInt("id");
 
-		} catch (final SQLException e) {
-			throw new SQLExecutionException(e);
-		}
+                    rs.close();
+                    pStmt.close();
+                    entity.setId(id);
+                }
 
-	}
+                c.commit();
+            } catch (final Exception e) {
+                c.rollback();
+                throw new RuntimeException(e);
+            }
+
+        } catch (final SQLException e) {
+            throw new SQLExecutionException(e);
+        }
+
+    }
 
 }

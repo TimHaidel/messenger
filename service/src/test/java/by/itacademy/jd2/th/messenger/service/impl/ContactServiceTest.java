@@ -3,10 +3,10 @@ package by.itacademy.jd2.th.messenger.service.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IContact;
@@ -21,7 +21,7 @@ public class ContactServiceTest extends AbstractTest {
         final IContact entityFromDb = contactService.get(entity.getId());
 
         assertNotNull(entityFromDb);
-        assertEquals(entity.getInitiator().getId(), entityFromDb.getInitiator().getId());
+        assertEquals(entity.getInitiator(), entityFromDb.getInitiator());
         assertEquals(entity.getAcceptor().getId(), entityFromDb.getAcceptor().getId());
         assertEquals(entity.getStatus(), entityFromDb.getStatus());
         assertNotNull(entityFromDb.getId());

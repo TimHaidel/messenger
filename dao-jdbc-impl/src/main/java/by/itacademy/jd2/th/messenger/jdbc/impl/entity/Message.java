@@ -1,6 +1,5 @@
 package by.itacademy.jd2.th.messenger.jdbc.impl.entity;
 
-import by.itacademy.jd2.th.messenger.dao.api.entity.table.IAttachment;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IMessage;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
@@ -10,17 +9,6 @@ public class Message extends BaseEntity implements IMessage {
     IMessage parrentMessage;
     IUserAccount user;
     IUserGroup userGroup;
-    IAttachment attachment;
-
-    @Override
-    public IAttachment getAttachment() {
-        return attachment;
-    }
-
-    @Override
-    public void setAttachment(final IAttachment attachment) {
-        this.attachment = attachment;
-    }
 
     @Override
     public String getMessage() {

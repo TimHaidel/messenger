@@ -3,7 +3,8 @@ package by.itacademy.jd2.th.messenger.service.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
@@ -27,7 +28,6 @@ public class MessageServiceTest extends AbstractTest {
         // entityFromDb.getParrentMessage().getId());
         assertEquals(entity.getUser().getId(), entityFromDb.getUser().getId());
         assertEquals(entity.getUserGroup().getId(), entityFromDb.getUserGroup().getId());
-        assertEquals(entity.getAttachment().getId(), entityFromDb.getAttachment().getId());
         assertNotNull(entityFromDb.getId());
         assertNotNull(entityFromDb.getCreated());
         assertNotNull(entityFromDb.getUpdated());
