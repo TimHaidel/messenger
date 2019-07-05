@@ -19,96 +19,96 @@ import by.itacademy.jd2.th.messenger.jdbc.impl.util.PreparedStatementAction;
 @Repository
 public class SmileDaoImpl extends AbstractDaoImpl<ISmile, Integer> implements ISmileDao {
 
-	@Override
-	public ISmile createEntity() {
-		return new Smile();
-	}
+    @Override
+    public ISmile createEntity() {
+        return new Smile();
+    }
 
-	@Override
-	public void update(final ISmile entity) {
+    @Override
+    public void update(final ISmile entity) {
 
-		executeStatement(new PreparedStatementAction<ISmile>(
-				String.format("update %s set name = ?, marker = ?, smile_group_id = ? where id=?", getTableName())) {
-			@Override
-			public ISmile doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
-				pStmt.setString(1, entity.getName());
-				pStmt.setString(2, entity.getMarker());
-				pStmt.setInt(3, entity.getSmileGroup().getId());
-				pStmt.setInt(4, entity.getId());
-				pStmt.executeUpdate();
-				return entity;
-			}
-		});
+        executeStatement(new PreparedStatementAction<ISmile>(
+                String.format("update %s set name = ?, marker = ?, smile_group_id = ? where id=?", getTableName())) {
+            @Override
+            public ISmile doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
+                pStmt.setString(1, entity.getName());
+                pStmt.setString(2, entity.getMarker());
+                pStmt.setInt(3, entity.getSmileGroup().getId());
+                pStmt.setInt(4, entity.getId());
+                pStmt.executeUpdate();
+                return entity;
+            }
+        });
 
-	}
+    }
 
-	@Override
-	protected ISmile parseRow(final ResultSet resultSet, final Set<String> columns) throws SQLException {
-		final ISmile entity = createEntity();
-		entity.setId((Integer) resultSet.getObject("id"));
-		entity.setName(resultSet.getString("name"));
-		entity.setMarker(resultSet.getString("marker"));
+    @Override
+    protected ISmile parseRow(final ResultSet resultSet, final Set<String> columns) throws SQLException {
+        final ISmile entity = createEntity();
+        entity.setId((Integer) resultSet.getObject("id"));
+        entity.setName(resultSet.getString("name"));
+        entity.setMarker(resultSet.getString("marker"));
 
-		final Integer smileGroupId = (Integer) resultSet.getObject("smile_group_id");
-		if (smileGroupId != null) {
-			final ISmileGroup smileGroup = new SmileGroup();
-			smileGroup.setId(smileGroupId);
-			if (columns.contains("name")) {
-				smileGroup.setName(resultSet.getString("name"));
-			}
+        final Integer smileGroupId = (Integer) resultSet.getObject("smile_group_id");
+        if (smileGroupId != null) {
+            final ISmileGroup smileGroup = new SmileGroup();
+            smileGroup.setId(smileGroupId);
+            if (columns.contains("name")) {
+                smileGroup.setName(resultSet.getString("name"));
+            }
 
-			entity.setSmileGroup(smileGroup);
+            entity.setSmileGroup(smileGroup);
 
-		}
+        }
 
-		return entity;
-	}
+        return entity;
+    }
 
-	@Override
-	public void insert(final ISmile entity) {
+    @Override
+    public void insert(final ISmile entity) {
 
-		executeStatement(new PreparedStatementAction<ISmile>(
-				String.format("insert into %s (name, marker, smile_group_id) values(?, ?, ?)", getTableName()), true) {
-			@Override
-			public ISmile doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
-				pStmt.setString(1, entity.getName());
-				pStmt.setString(2, entity.getMarker());
-				pStmt.setInt(3, entity.getSmileGroup().getId());
+        executeStatement(new PreparedStatementAction<ISmile>(
+                String.format("insert into %s (name, marker, smile_group_id) values(?, ?, ?)", getTableName()), true) {
+            @Override
+            public ISmile doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
+                pStmt.setString(1, entity.getName());
+                pStmt.setString(2, entity.getMarker());
+                pStmt.setInt(3, entity.getSmileGroup().getId());
 
-				pStmt.executeUpdate();
+                pStmt.executeUpdate();
 
-				final ResultSet rs = pStmt.getGeneratedKeys();
-				rs.next();
-				final int id = rs.getInt("id");
+                final ResultSet rs = pStmt.getGeneratedKeys();
+                rs.next();
+                final int id = rs.getInt("id");
 
-				rs.close();
+                rs.close();
 
-				entity.setId(id);
-				return entity;
-			}
-		});
+                entity.setId(id);
+                return entity;
+            }
+        });
 
-	}
+    }
 
-	@Override
-	protected String getTableName() {
-		return "smile";
-	}
+    @Override
+    protected String getTableName() {
+        return "smile";
+    }
 
-	@Override
-	public List<ISmile> find(final SmileFilter filter) {
-		throw new RuntimeException("not implemented");
-	}
+    @Override
+    public List<ISmile> find(final SmileFilter filter) {
+        throw new RuntimeException("not implemented");
+    }
 
-	@Override
-	public long getCount(final SmileFilter filter) {
-		throw new RuntimeException("not implemented");
-	}
+    @Override
+    public long getCount(final SmileFilter filter) {
+        throw new RuntimeException("not implemented");
+    }
 
-	@Override
-	public void save(final ISmile[] entities) {
-		throw new RuntimeException("not implemented");
+    @Override
+    public void save(final ISmile[] entities) {
+        throw new RuntimeException("not implemented");
 
-	}
+    }
 
 }
