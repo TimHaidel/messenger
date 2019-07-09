@@ -24,4 +24,6 @@ public interface IAttachmentService {
 
     IAttachment attachMessage(final IMessage message);
 
+	void update(final IAttachment entity);
+
 }

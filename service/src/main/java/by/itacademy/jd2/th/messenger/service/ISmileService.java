@@ -7,22 +7,20 @@ import by.itacademy.jd2.th.messenger.dao.api.filter.SmileFilter;
 
 public interface ISmileService {
 
-    void save(final ISmile... entities);
+	long getCount(final SmileFilter filter);
 
-    long getCount(final SmileFilter filter);
+	List<ISmile> find(final SmileFilter filter);
 
-    List<ISmile> find(final SmileFilter filter);
+	List<ISmile> getAll();
 
-    List<ISmile> getAll();
+	void deleteAll();
 
-    void deleteAll();
+	void delete(final Integer id);
 
-    void delete(final Integer id);
+	ISmile get(final Integer id);
 
-    ISmile get(final Integer id);
+	void save(final ISmile entity);
 
-    void save(final ISmile entity);
-
-    ISmile createEntity();
+	ISmile createEntity();
 
 }

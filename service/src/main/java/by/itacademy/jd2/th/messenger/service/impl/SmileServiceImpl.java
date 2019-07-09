@@ -67,11 +67,4 @@ public class SmileServiceImpl implements ISmileService {
 		return dao.getCount(filter);
 	}
 
-	@Override
-	public void save(final ISmile... entities) {
-
-		dao.save(entities);
-
-	}
-
 }

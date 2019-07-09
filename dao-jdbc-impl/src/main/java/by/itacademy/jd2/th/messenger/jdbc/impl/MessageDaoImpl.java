@@ -31,7 +31,7 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 	@Override
 	public void update(final IMessage entity) {
 		executeStatement(new PreparedStatementAction<IMessage>(String.format(
-				"update %s set message = ?, updated = ?, user_id = ?, bunch_id = ? where id=?", getTableName())) {
+				"update %s set message = ?, updated = ?, user_id = ?, group_id = ? where id=?", getTableName())) {
 			@Override
 			public IMessage doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
 				pStmt.setString(1, entity.getMessage());
@@ -61,7 +61,6 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 
 				pStmt.setInt(4, entity.getUser().getId());
 				pStmt.setInt(5, entity.getUserGroup().getId());
-				pStmt.executeUpdate();
 
 				pStmt.executeUpdate();
 
@@ -88,23 +87,23 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 
 		// entity.setParentMessage(resultSet.getInt("parent_message"));
 
-		final Integer bunchId = (Integer) resultSet.getObject("bunch_id");
-		if (bunchId != null) {
-			final UserGroup bunch = new UserGroup();
-			bunch.setId(bunchId);
+		final Integer gourpId = (Integer) resultSet.getObject("group_id");
+		if (gourpId != null) {
+			final UserGroup group = new UserGroup();
+			group.setId(gourpId);
 			if (columns.contains("name")) {
-				bunch.setName(resultSet.getString("name"));
+				group.setName(resultSet.getString("name"));
 			}
 			if (columns.contains("status")) {
-				bunch.setStatus(resultSet.getInt("status"));
+				group.setStatus(resultSet.getInt("status"));
 			}
 			if (columns.contains("created")) {
-				bunch.setCreated(resultSet.getDate("created"));
+				group.setCreated(resultSet.getDate("created"));
 			}
 			if (columns.contains("updated")) {
-				bunch.setUpdated(resultSet.getDate("updated"));
+				group.setUpdated(resultSet.getDate("updated"));
 			}
-			entity.setUserGroup(bunch);
+			entity.setUserGroup(group);
 
 		}
 
@@ -174,7 +173,6 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 					pStmt.setInt(4, entity.getParrentMessage().getId());
 					pStmt.setInt(5, entity.getUser().getId());
 					pStmt.setInt(6, entity.getUserGroup().getId());
-					pStmt.executeUpdate();
 
 					pStmt.executeUpdate();
 

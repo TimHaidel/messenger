@@ -15,61 +15,69 @@ import by.itacademy.jd2.th.messenger.service.IAttachmentService;
 @Service
 public class AttachmentServiceImpl implements IAttachmentService {
 
-    private final IAttachmentDao dao;
+	private final IAttachmentDao dao;
 
-    @Autowired
-    public AttachmentServiceImpl(final IAttachmentDao dao) {
-        super();
-        this.dao = dao;
-    }
+	@Autowired
+	public AttachmentServiceImpl(final IAttachmentDao dao) {
+		super();
+		this.dao = dao;
+	}
 
-    @Override
-    public IAttachment attachMessage(final IMessage message) {
-        final IAttachment attachDao = dao.createEntity();
-        attachDao.setId(message.getId());
-        return attachDao;
-    }
+	@Override
+	public IAttachment attachMessage(final IMessage message) {
+		final IAttachment attachDao = dao.createEntity();
+		attachDao.setId(message.getId());
+		return attachDao;
+	}
 
-    @Override
-    public void save(final IAttachment entity) {
-        final Date modifedOn = new Date();
-        entity.setUpdated(modifedOn);
+	@Override
+	public void save(final IAttachment entity) {
+		final Date modifedOn = new Date();
+		entity.setUpdated(modifedOn);
 
-        entity.setCreated(modifedOn);
-        dao.insert(entity);
+		entity.setCreated(modifedOn);
+		dao.insert(entity);
 
-    }
+	}
 
-    @Override
-    public IAttachment get(final Integer id) {
-        final IAttachment entity = dao.get(id);
-        return entity;
-    }
+	@Override
+	public void update(final IAttachment entity) {
+		final Date modifedOn = new Date();
+		entity.setUpdated(modifedOn);
+		dao.update(entity);
 
-    @Override
-    public void delete(final Integer id) {
-        dao.delete(id);
-    }
+	}
 
-    @Override
-    public void deleteAll() {
-        dao.deleteAll();
-    }
+	@Override
+	public IAttachment get(final Integer id) {
+		final IAttachment entity = dao.get(id);
+		return entity;
+	}
 
-    @Override
-    public List<IAttachment> getAll() {
-        final List<IAttachment> all = dao.selectAll();
-        return all;
-    }
+	@Override
+	public void delete(final Integer id) {
+		dao.delete(id);
+	}
 
-    @Override
-    public List<IAttachment> find(final AttachmentFilter filter) {
-        return dao.find(filter);
-    }
+	@Override
+	public void deleteAll() {
+		dao.deleteAll();
+	}
 
-    @Override
-    public long getCount(final AttachmentFilter filter) {
-        return dao.getCount(filter);
-    }
+	@Override
+	public List<IAttachment> getAll() {
+		final List<IAttachment> all = dao.selectAll();
+		return all;
+	}
+
+	@Override
+	public List<IAttachment> find(final AttachmentFilter filter) {
+		return dao.find(filter);
+	}
+
+	@Override
+	public long getCount(final AttachmentFilter filter) {
+		return dao.getCount(filter);
+	}
 
 }
