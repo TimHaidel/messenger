@@ -13,12 +13,14 @@ import org.springframework.stereotype.Repository;
 
 import by.itacademy.jd2.th.messenger.dao.api.IMessageDao;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IMessage;
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.filter.MessageFilter;
 import by.itacademy.jd2.th.messenger.jdbc.impl.entity.Message;
 import by.itacademy.jd2.th.messenger.jdbc.impl.entity.UserAccount;
 import by.itacademy.jd2.th.messenger.jdbc.impl.entity.UserGroup;
 import by.itacademy.jd2.th.messenger.jdbc.impl.util.PreparedStatementAction;
 import by.itacademy.jd2.th.messenger.jdbc.impl.util.SQLExecutionException;
+import by.itacademy.jd2.th.messenger.jdbc.impl.util.StatementAction;
 
 @Repository
 public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implements IMessageDao {
@@ -26,6 +28,88 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 	@Override
 	public IMessage createEntity() {
 		return new Message();
+	}
+
+	@Override
+	public void deleteAllPinnedMessages() {
+		executeStatement(new PreparedStatementAction<Integer>("delete from pinned_message") {
+			@Override
+			public Integer doWithPreparedStatement(final PreparedStatement prepareStatement) throws SQLException {
+				final int executeUpdate = prepareStatement.executeUpdate();
+				return executeUpdate;
+			}
+		});
+	}
+
+	@Override
+	public void insertPinMessage(IMessage message, IUserAccount user) {
+//		executeStatement(
+//				new PreparedStatementAction<IMessage>("insert into pinned_message (message_id, user_id) values(?,?)") {
+//					@Override
+//					public IMessage doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
+//						pStmt.setInt(1, message.getId());
+//						pStmt.setInt(2, user.getId());
+//
+//						pStmt.executeUpdate();
+//
+//						return message;
+//					}
+//				});
+		try (Connection c = getConnection()) {
+
+			PreparedStatement stmt = c.prepareStatement("insert into pinned_message (message_id, user_id) values(?,?)");
+			stmt.setInt(1, message.getId());
+			stmt.setInt(2, user.getId());
+			stmt.executeUpdate();
+			stmt.close();
+		} catch (final SQLException e) {
+			throw new SQLExecutionException(e);
+		}
+	}
+
+	@Override
+	public void deletePinnedMessage(IMessage message) {
+
+//		executeStatement(new PreparedStatementAction<IMessage>("delete from pinned_message where messege_id=?") {
+//			@Override
+//			public IMessage doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
+//				pStmt.setInt(1, message.getId());
+//				pStmt.executeUpdate();
+//				return message;
+//			}
+//		});
+		try (Connection c = getConnection()) {
+			final PreparedStatement deleteStmt = c.prepareStatement("delete from pinned_message where messege_id=?");
+			deleteStmt.setInt(1, message.getId());
+			deleteStmt.executeUpdate();
+			deleteStmt.close();
+		} catch (final SQLException e) {
+			throw new SQLExecutionException(e);
+		}
+
+	}
+
+	@Override
+	public IMessage getPinnedMessage(Integer id) {
+		IMessage entity = createEntity();
+		try (Connection c = getConnection()) {
+			Statement statement = c.createStatement();
+			statement.executeQuery("select * from pinned_message where message_id=" + id);
+
+			final ResultSet resultSet = statement.getResultSet();
+
+			final boolean hasNext = resultSet.next();
+			int messageId = 0;
+			if (hasNext) {
+				messageId = resultSet.getInt(1);
+				entity = get(messageId);
+			}
+			resultSet.close();
+
+		} catch (final SQLException e) {
+			throw new SQLExecutionException(e);
+		}
+		return entity;
 	}
 
 	@Override
@@ -84,8 +168,6 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 		entity.setCreated(resultSet.getTimestamp("created"));
 		entity.setUpdated(resultSet.getTimestamp("updated"));
 		entity.setMessage(resultSet.getString("message"));
-
-		// entity.setParentMessage(resultSet.getInt("parent_message"));
 
 		final Integer gourpId = (Integer) resultSet.getObject("group_id");
 		if (gourpId != null) {

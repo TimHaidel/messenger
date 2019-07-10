@@ -49,6 +49,7 @@ public abstract class AbstractTest {
 		// clean DB recursive
 		userToUserGroupService.deleteAll();
 		attachmentService.deleteAll();
+		messageService.deleteAllPinned();
 		messageService.deleteAll();
 		userGroupService.deleteAll();
 		contactService.deleteAll();
@@ -67,6 +68,13 @@ public abstract class AbstractTest {
 
 	public Random getRANDOM() {
 		return RANDOM;
+	}
+
+	protected IMessage pinNewMessage() {
+		IMessage message = saveNewMessage();
+		IUserAccount user = saveNewUserAccount();
+		messageService.pinMessage(message, user);
+		return message;
 	}
 
 	protected IAttachment attachNewMessage() {
