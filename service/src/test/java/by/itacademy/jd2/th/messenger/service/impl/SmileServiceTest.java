@@ -22,7 +22,8 @@ public class SmileServiceTest extends AbstractTest {
 		assertNotNull(entityFromDb);
 		assertEquals(entity.getName(), entityFromDb.getName());
 		assertEquals(entity.getMarker(), entityFromDb.getMarker());
-		assertEquals(entity.getSmileGroup().getId(), entityFromDb.getSmileGroup().getId());
+		// assertEquals(entity.getSmileGroup().getId(),
+		// entityFromDb.getSmileGroup().getId());
 		assertNotNull(entityFromDb.getId());
 	}
 

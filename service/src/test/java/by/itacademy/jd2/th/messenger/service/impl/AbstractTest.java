@@ -23,7 +23,7 @@ import by.itacademy.jd2.th.messenger.service.IUserAccountService;
 import by.itacademy.jd2.th.messenger.service.IUserGroupService;
 import by.itacademy.jd2.th.messenger.service.IUserToUserGroupService;
 
-@SpringJUnitConfig(locations = "classpath:service-context.xml")
+@SpringJUnitConfig(locations = "classpath:service-context-test.xml")
 public abstract class AbstractTest {
 	@Autowired
 	protected IUserAccountService userAccountService;
