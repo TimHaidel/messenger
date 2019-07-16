@@ -102,7 +102,7 @@ CREATE TABLE "smile_group" (
 
 
 CREATE TABLE "attachment" (
-	"id" serial NOT NULL,
+	"id" integer NOT NULL,
 	"content" character varying NOT NULL,
 	"content_type" integer,
 	"created" time with time zone NOT NULL DEFAULT 'now()',
@@ -119,10 +119,9 @@ CREATE TABLE "attachment" (
 ALTER TABLE "user_2_group" ADD CONSTRAINT "user_2_group_fk0" FOREIGN KEY ("group_id") REFERENCES "user_group"("id");
 ALTER TABLE "user_2_group" ADD CONSTRAINT "user_2_group_fk1" FOREIGN KEY ("user_id") REFERENCES "user_account"("id");
 
-ALTER TABLE "message" ADD CONSTRAINT "message_fk0" FOREIGN KEY ("id") REFERENCES "attachment"("id");
-ALTER TABLE "message" ADD CONSTRAINT "message_fk1" FOREIGN KEY ("parent_message") REFERENCES "message"("id");
-ALTER TABLE "message" ADD CONSTRAINT "message_fk2" FOREIGN KEY ("user_id") REFERENCES "user_account"("id");
-ALTER TABLE "message" ADD CONSTRAINT "message_fk3" FOREIGN KEY ("group_id") REFERENCES "user_group"("id");
+ALTER TABLE "message" ADD CONSTRAINT "message_fk0" FOREIGN KEY ("parent_message") REFERENCES "message"("id");
+ALTER TABLE "message" ADD CONSTRAINT "message_fk1" FOREIGN KEY ("user_id") REFERENCES "user_account"("id");
+ALTER TABLE "message" ADD CONSTRAINT "message_fk2" FOREIGN KEY ("group_id") REFERENCES "user_group"("id");
 
 ALTER TABLE "pinned_message" ADD CONSTRAINT "pinned_message_fk0" FOREIGN KEY ("message_id") REFERENCES "message"("id");
 ALTER TABLE "pinned_message" ADD CONSTRAINT "pinned_message_fk1" FOREIGN KEY ("user_id") REFERENCES "user_account"("id");
@@ -131,3 +130,6 @@ ALTER TABLE "contact" ADD CONSTRAINT "contact_fk0" FOREIGN KEY ("initiator_id") 
 ALTER TABLE "contact" ADD CONSTRAINT "contact_fk1" FOREIGN KEY ("acceptor_id") REFERENCES "user_account"("id");
 
 ALTER TABLE "smile" ADD CONSTRAINT "smile_fk0" FOREIGN KEY ("smile_group_id") REFERENCES "smile_group"("id");
+
+
+ALTER TABLE "attachment" ADD CONSTRAINT "attachment_fk0" FOREIGN KEY ("id") REFERENCES "message"("id");

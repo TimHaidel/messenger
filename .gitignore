@@ -4,3 +4,4 @@ dao-jdbc-impl/target/
 service/target/
 web/target/
 service/logs/
+web/logs/

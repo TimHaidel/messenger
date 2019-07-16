@@ -10,6 +10,7 @@ import by.itacademy.jd2.th.messenger.web.dto.SmileDTO;
 @Component
 public class SmileToDTOConverter implements Function<ISmile, SmileDTO> {
 
+	@Override
 	public SmileDTO apply(ISmile entity) {
 		SmileDTO dto = new SmileDTO();
 		dto.setId(entity.getId());
