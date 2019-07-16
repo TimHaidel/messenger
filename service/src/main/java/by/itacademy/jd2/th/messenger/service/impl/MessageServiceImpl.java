@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import by.itacademy.jd2.th.messenger.dao.api.IMessageDao;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IMessage;
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.filter.MessageFilter;
 import by.itacademy.jd2.th.messenger.service.IMessageService;
 
@@ -20,6 +21,26 @@ public class MessageServiceImpl implements IMessageService {
 	public MessageServiceImpl(IMessageDao dao) {
 		super();
 		this.dao = dao;
+	}
+
+	@Override
+	public IMessage getPinned(final Integer id) {
+		final IMessage entity = dao.getPinnedMessage(id);
+		return entity;
+	}
+
+	@Override
+	public void pinMessage(IMessage message, IUserAccount user) {
+
+		dao.insertPinMessage(message, user);
+
+	}
+
+	@Override
+	public void unpinMessage(IMessage message) {
+
+		dao.deletePinnedMessage(message);
+
 	}
 
 	@Override
@@ -66,6 +87,12 @@ public class MessageServiceImpl implements IMessageService {
 	@Override
 	public void deleteAll() {
 		dao.deleteAll();
+	}
+
+	@Override
+	public void deleteAllPinned() {
+		dao.deleteAllPinnedMessages();
+
 	}
 
 	@Override
