@@ -106,7 +106,7 @@ public class SmileDaoImpl extends AbstractDaoImpl<ISmile, Integer> implements IS
 
 	@Override
 	public long getCount(final SmileFilter filter) {
-		throw new RuntimeException("not implemented");
+		return executeCountQuery("");
 	}
 
 	@Override

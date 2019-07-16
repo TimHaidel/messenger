@@ -100,12 +100,15 @@ public class UserAccountDaoImpl extends AbstractDaoImpl<IUserAccount, Integer> i
 
 	@Override
 	public List<IUserAccount> find(final UserAccountFilter filter) {
-		throw new RuntimeException("not implemented");
+		final StringBuilder sqlTile = new StringBuilder("");
+		appendSort(filter, sqlTile);
+		appendPaging(filter, sqlTile);
+		return executeFindQuery(sqlTile.toString());
 	}
 
 	@Override
 	public long getCount(final UserAccountFilter filter) {
-		throw new RuntimeException("not implemented");
+		return executeCountQuery("");
 	}
 
 	@Override

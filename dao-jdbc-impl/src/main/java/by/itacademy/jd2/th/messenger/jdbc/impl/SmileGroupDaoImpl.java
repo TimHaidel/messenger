@@ -75,12 +75,15 @@ public class SmileGroupDaoImpl extends AbstractDaoImpl<ISmileGroup, Integer> imp
 
 	@Override
 	public List<ISmileGroup> find(final SmileGroupFilter filter) {
-		throw new RuntimeException("not implemented");
+		final StringBuilder sqlTile = new StringBuilder("");
+		appendSort(filter, sqlTile);
+		appendPaging(filter, sqlTile);
+		return executeFindQuery(sqlTile.toString());
 	}
 
 	@Override
 	public long getCount(final SmileGroupFilter filter) {
-		throw new RuntimeException("not implemented");
+		return executeCountQuery("");
 	}
 
 	@Override

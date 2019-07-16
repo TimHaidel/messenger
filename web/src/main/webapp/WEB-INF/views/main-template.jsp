@@ -3,6 +3,10 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"
 	scope="request" />
 <c:set var="pagesSmile" value="${contextPath}/smile" scope="request" />
+<c:set var="pagesSmileGroup" value="${contextPath}/smile-group"
+	scope="request" />
+<c:set var="pagesUserAccount" value="${contextPath}/user-account"
+	scope="request" />
 
 
 <html xmlns="http://www.w3.org/1999/xhtml">
