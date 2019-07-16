@@ -7,7 +7,7 @@ public class SmileDTO {
 	private Integer id;
 	private String name;
 	private String marker;
-	private ISmileGroup smileGroup;
+	private Integer smileGroup;
 
 	public Integer getId() {
 		return id;
@@ -33,12 +33,12 @@ public class SmileDTO {
 		this.marker = marker;
 	}
 
-	public ISmileGroup getSmileGroup() {
+	public Integer getSmileGroup() {
 		return smileGroup;
 	}
 
-	public void setSmileGroup(ISmileGroup SmileGroup) {
-		this.smileGroup = SmileGroup;
+	public void setSmileGroup(Integer smileGroup) {
+		this.smileGroup = smileGroup;
 	}
 
 }

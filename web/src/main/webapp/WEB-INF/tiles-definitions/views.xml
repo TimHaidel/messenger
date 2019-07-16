@@ -4,36 +4,33 @@
 "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
-	<definition name="DefaultTemplate"
-		template="/WEB-INF/views/main-template.jsp">
+	<definition name="DefaultTemplate" template="/WEB-INF/views/main-template.jsp">
 		<put-attribute name="title" value="Spyke" />
-		<put-attribute name="header"
-			value="/WEB-INF/views/header.jsp" />
+		<put-attribute name="header" value="/WEB-INF/views/header.jsp" />
 		<put-attribute name="body" value="" />
-		<put-attribute name="footer"
-			value="/WEB-INF/views/footer.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />
 	</definition>
 
 	<definition name="home" extends="DefaultTemplate">
-		<put-attribute name="body"
-			value="/WEB-INF/views/home.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
 	</definition>
 
-	<definition name="user-account.list"
-		extends="DefaultTemplate">
+	<definition name="user-account.list" extends="DefaultTemplate">
 		<put-attribute name="body"
 			value="/WEB-INF/views/user-account/list.jsp" />
 	</definition>
 
 	<definition name="smile.list" extends="DefaultTemplate">
-		<put-attribute name="body"
-			value="/WEB-INF/views/smile/list.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/smile/list.jsp" />
 	</definition>
 
-	<definition name="smile-group.list"
-		extends="DefaultTemplate">
+	<definition name="smile-group.list" extends="DefaultTemplate">
 		<put-attribute name="body"
 			value="/WEB-INF/views/smile-group/list.jsp" />
+	</definition>
+
+	<definition name="smile.edit" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/smile/form.jsp" />
 	</definition>
 
 
