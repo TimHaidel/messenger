@@ -9,18 +9,18 @@
 			<th>name</th>
 			<th></th>
 		</tr>
-		<c:forEach var="smile-group" items="${gridItems}"
+		<c:forEach var="smileGroup" items="${gridItems}"
 			varStatus="loopCounter">
 			<tr>
-				<td><c:out value="${smile-group.id}" /></td>
-				<td><c:out value="${smile-group.name}" /></td>
+				<td><c:out value="${smileGroup.id}" /></td>
+				<td><c:out value="${smileGroup.name}" /></td>
 
 				<td class="right"><a class="btn-floating"
-					href="${pagesSmileGroup}/${smile-group.id}"><i
+					href="${pagesSmileGroup}/${smileGroup.id}"><i
 						class="material-icons">info</i></a> <a class="btn-floating"
-					href="${pagesSmileGroup}/${smile-group.id}/edit"><i
+					href="${pagesSmileGroup}/${smileGroup.id}/edit"><i
 						class="material-icons">edit</i></a> <a class="btn-floating red"
-					href="${pagesSmileGroup}/${smile-group.id}/delete"><i
+					href="${pagesSmileGroup}/${smileGroup.id}/delete"><i
 						class="material-icons">delete</i></a></td>
 			</tr>
 		</c:forEach>

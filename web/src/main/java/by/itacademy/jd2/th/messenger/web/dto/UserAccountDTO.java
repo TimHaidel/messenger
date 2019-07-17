@@ -1,12 +1,21 @@
 package by.itacademy.jd2.th.messenger.web.dto;
 
 public class UserAccountDTO {
+	private Integer id;
 	private String firstname;
 	private String lastname;
 	private String email;
 	private String phone;
 	private Integer role;
 	private String avatar;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getFirstname() {
 		return firstname;
