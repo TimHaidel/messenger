@@ -13,12 +13,14 @@ public class UserAccountToDTOConverter implements Function<IUserAccount, UserAcc
 	@Override
 	public UserAccountDTO apply(IUserAccount entity) {
 		UserAccountDTO dto = new UserAccountDTO();
+		dto.setId(entity.getId());
 		dto.setAvatar(entity.getAvatar());
 		dto.setEmail(entity.getEmail());
 		dto.setFirstname(entity.getFirstname());
 		dto.setLastname(entity.getLastname());
 		dto.setPhone(entity.getPhone());
 		dto.setRole(entity.getRole());
+		dto.setPassword(entity.getPassword());
 
 		return dto;
 	}

@@ -5,6 +5,7 @@ import java.util.function.Function;
 import org.springframework.stereotype.Component;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmile;
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmileGroup;
 import by.itacademy.jd2.th.messenger.web.dto.SmileDTO;
 
 @Component
@@ -16,7 +17,11 @@ public class SmileToDTOConverter implements Function<ISmile, SmileDTO> {
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
 		dto.setMarker(entity.getMarker());
-		dto.setSmileGroup(entity.getSmileGroup());
+
+		ISmileGroup smileGroup = entity.getSmileGroup();
+		if (smileGroup != null) {
+			dto.setSmileGroup(smileGroup.getId());
+		}
 		return dto;
 	}
 }

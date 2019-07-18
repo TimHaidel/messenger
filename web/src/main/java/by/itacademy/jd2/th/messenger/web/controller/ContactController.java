@@ -18,27 +18,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmile;
-import by.itacademy.jd2.th.messenger.dao.api.filter.SmileFilter;
-import by.itacademy.jd2.th.messenger.service.ISmileService;
-import by.itacademy.jd2.th.messenger.web.converter.SmileFromDTOConverter;
-import by.itacademy.jd2.th.messenger.web.converter.SmileToDTOConverter;
-import by.itacademy.jd2.th.messenger.web.dto.SmileDTO;
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.IContact;
+import by.itacademy.jd2.th.messenger.dao.api.filter.ContactFilter;
+import by.itacademy.jd2.th.messenger.service.IContactService;
+import by.itacademy.jd2.th.messenger.web.converter.ContactFromDTOConverter;
+import by.itacademy.jd2.th.messenger.web.converter.ContactToDTOConverter;
+import by.itacademy.jd2.th.messenger.web.dto.ContactDTO;
 import by.itacademy.jd2.th.messenger.web.dto.grid.GridStateDTO;
 
 @Controller
-@RequestMapping(value = "/smile")
-public class SmileController extends AbstractController {
+@RequestMapping(value = "/contact")
+public class ContactController extends AbstractController {
 
-	private ISmileService smileService;
-	private SmileToDTOConverter toDtoConverter;
-	private SmileFromDTOConverter fromDtoConverter;
+	IContactService contactService;
+	ContactToDTOConverter toDtoConverter;
+	ContactFromDTOConverter fromDtoConverter;
 
 	@Autowired
-	public SmileController(ISmileService smileService, SmileToDTOConverter toDtoConverter,
-			SmileFromDTOConverter fromDtoConverter) {
+	public ContactController(IContactService contactService, ContactToDTOConverter toDtoConverter,
+			ContactFromDTOConverter fromDtoConverter) {
 		super();
-		this.smileService = smileService;
+		this.contactService = contactService;
 		this.toDtoConverter = toDtoConverter;
 		this.fromDtoConverter = fromDtoConverter;
 	}
@@ -52,62 +52,63 @@ public class SmileController extends AbstractController {
 		gridState.setPage(pageNumber);
 		gridState.setSort(sortColumn, "id");
 
-		final SmileFilter filter = new SmileFilter();
+		final ContactFilter filter = new ContactFilter();
 		prepareFilter(gridState, filter);
 
-		final List<ISmile> entities = smileService.find(filter);
-		List<SmileDTO> dtos = entities.stream().map(toDtoConverter).collect(Collectors.toList());
-		gridState.setTotalCount(smileService.getCount(filter));
+		final List<IContact> entities = contactService.find(filter);
+		List<ContactDTO> dtos = entities.stream().map(toDtoConverter).collect(Collectors.toList());
+		gridState.setTotalCount(contactService.getCount(filter));
 
 		final Map<String, Object> models = new HashMap<>();
 		models.put("gridItems", dtos);
-		return new ModelAndView("smile.list", models);
+		return new ModelAndView("contact.list", models);
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public ModelAndView showForm() {
 		final Map<String, Object> hashMap = new HashMap<>();
-		final ISmile newEntity = smileService.createEntity();
+		final IContact newEntity = contactService.createEntity();
 		hashMap.put("formModel", toDtoConverter.apply(newEntity));
 
-		return new ModelAndView("smile.edit", hashMap);
+		return new ModelAndView("contact.edit", hashMap);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String save(@Valid @ModelAttribute("formModel") final SmileDTO formModel, final BindingResult result) {
+	public String save(@Valid @ModelAttribute("formModel") final ContactDTO formModel, final BindingResult result) {
 		if (result.hasErrors()) {
-			return "smile.edit";
+			return "contact.edit";
 		} else {
-			final ISmile entity = fromDtoConverter.apply(formModel);
-			smileService.save(entity);
-			return "redirect:/smile";
+			final IContact entity = fromDtoConverter.apply(formModel);
+			contactService.save(entity);
+			return "redirect:/contact";
 		}
 	}
 
 	@RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
 	public String delete(@PathVariable(name = "id", required = true) final Integer id) {
-		smileService.delete(id);
-		return "redirect:/smile";
+		contactService.delete(id);
+		return "redirect:/contact";
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ModelAndView viewDetails(@PathVariable(name = "id", required = true) final Integer id) {
-		final ISmile dbModel = smileService.get(id);
-		final SmileDTO dto = toDtoConverter.apply(dbModel);
+		final IContact dbModel = contactService.get(id);
+		final ContactDTO dto = toDtoConverter.apply(dbModel);
 		final Map<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
 		hashMap.put("readonly", true);
 
-		return new ModelAndView("smile.edit", hashMap);
+		return new ModelAndView("contact.edit", hashMap);
 	}
 
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@PathVariable(name = "id", required = true) final Integer id) {
-		final SmileDTO dto = toDtoConverter.apply(smileService.get(id));
+		final ContactDTO dto = toDtoConverter.apply(contactService.get(id));
 
 		final Map<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
 
-		return new ModelAndView("smile.edit", hashMap);
+		return new ModelAndView("contact.edit", hashMap);
 	}
+
 }

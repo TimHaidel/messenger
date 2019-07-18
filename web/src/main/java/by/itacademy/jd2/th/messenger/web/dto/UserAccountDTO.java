@@ -1,13 +1,31 @@
 package by.itacademy.jd2.th.messenger.web.dto;
 
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+
 public class UserAccountDTO {
 	private Integer id;
+	@Size(min = 2, max = 10)
 	private String firstname;
+	@Size(min = 2, max = 10)
 	private String lastname;
+	@Email
 	private String email;
+	@Pattern(regexp = "(^$|[0-9]{10})")
 	private String phone;
 	private Integer role;
 	private String avatar;
+	private String password;
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	public Integer getId() {
 		return id;

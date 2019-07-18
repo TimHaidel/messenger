@@ -1,5 +1,7 @@
 package by.itacademy.jd2.th.messenger.dao.api.entity.table;
 
+import java.util.Date;
+
 public interface IContact {
 
     void setStatus(final Integer status);
@@ -17,5 +19,13 @@ public interface IContact {
     void setId(final Integer id);
 
     Integer getId();
+
+	void setUdpated(Date udpated);
+
+	Date getUdpated();
+
+	void setCreated(Date created);
+
+	Date getCreated();
 
 }

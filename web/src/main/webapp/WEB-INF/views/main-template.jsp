@@ -7,6 +7,8 @@
 	scope="request" />
 <c:set var="pagesUserAccount" value="${contextPath}/user-account"
 	scope="request" />
+<!-- <c:set var="pagesContact" value="${contextPath}/contact" scope="request" /> -->
+
 
 
 <html xmlns="http://www.w3.org/1999/xhtml">

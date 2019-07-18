@@ -36,5 +36,22 @@
 			value="/WEB-INF/views/smile-group/list.jsp" />
 	</definition>
 
+	<definition name="smile.edit" extends="DefaultTemplate">
+		<put-attribute name="body"
+			value="/WEB-INF/views/smile/form.jsp" />
+	</definition>
+
+	<definition name="smile-group.edit"
+		extends="DefaultTemplate">
+		<put-attribute name="body"
+			value="/WEB-INF/views/smile-group/form.jsp" />
+	</definition>
+
+	<definition name="user-account.edit"
+		extends="DefaultTemplate">
+		<put-attribute name="body"
+			value="/WEB-INF/views/user-account/form.jsp" />
+	</definition>
+
 
 </tiles-definitions>
