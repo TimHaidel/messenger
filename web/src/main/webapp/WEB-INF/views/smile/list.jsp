@@ -7,14 +7,18 @@
 <table class="bordered highlight">
 	<tbody>
 		<tr>
-			<th><mytaglib:sort-link pageUrl="${pagesBrand}" column="id">id</mytaglib:sort-link></th>
-			<th><mytaglib:sort-link pageUrl="${pagesBrand}" column="name">name</mytaglib:sort-link></th>
-			<th></th>
+			<th><mytaglib:sort-link pageUrl="${pagesSmile}" column="id">id</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link pageUrl="${pagesSmile}" column="name">name</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link pageUrl="${pagesSmile}" column="marker">marker</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link pageUrl="${pagesSmile}"
+					column="smileGroup">group</mytaglib:sort-link></th>
 		</tr>
 		<c:forEach var="smile" items="${gridItems}" varStatus="loopCounter">
 			<tr>
 				<td><c:out value="${smile.id}" /></td>
 				<td><c:out value="${smile.name}" /></td>
+				<td><c:out value="${smile.marker}" /></td>
+				<td><c:out value="${smile.smileGroup}" /></td>
 
 				<td class="right"><a class="btn-floating"
 					href="${pagesSmile}/${smile.id}"><i class="material-icons">info</i></a>

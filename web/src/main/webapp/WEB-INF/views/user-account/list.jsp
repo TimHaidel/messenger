@@ -13,23 +13,23 @@
 			<th>role</th>
 			<th>avatar</th>
 		</tr>
-		<c:forEach var="user-account" items="${gridItems}"
+		<c:forEach var="userAccount" items="${gridItems}"
 			varStatus="loopCounter">
 			<tr>
-				<td><c:out value="${user-account.id}" /></td>
-				<td><c:out value="${user-account.firstname}" /></td>
-				<td><c:out value="${user-account.lastname}" /></td>
-				<td><c:out value="${user-account.email}" /></td>
-				<td><c:out value="${user-account.phone}" /></td>
-				<td><c:out value="${user-account.role}" /></td>
-				<td><c:out value="${user-account.avatar}" /></td>
+				<td><c:out value="${userAccount.id}" /></td>
+				<td><c:out value="${userAccount.firstname}" /></td>
+				<td><c:out value="${userAccount.lastname}" /></td>
+				<td><c:out value="${userAccount.email}" /></td>
+				<td><c:out value="${userAccount.phone}" /></td>
+				<td><c:out value="${userAccount.role}" /></td>
+				<td><c:out value="${userAccount.avatar}" /></td>
 
 				<td class="right"><a class="btn-floating"
-					href="${pagesUserAccount}/${user-account.id}"><i
+					href="${pagesUserAccount}/${userAccount.id}"><i
 						class="material-icons">info</i></a> <a class="btn-floating"
-					href="${pagesUserAccount}/${user-account.id}/edit"><i
+					href="${pagesUserAccount}/${userAccount.id}/edit"><i
 						class="material-icons">edit</i></a> <a class="btn-floating red"
-					href="${pagesUserAccount}/${user-account.id}/delete"><i
+					href="${pagesUserAccount}/${userAccount.id}/delete"><i
 						class="material-icons">delete</i></a></td>
 			</tr>
 		</c:forEach>

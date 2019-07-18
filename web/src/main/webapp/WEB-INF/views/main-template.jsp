@@ -7,6 +7,7 @@
 	scope="request" />
 <c:set var="pagesUserAccount" value="${contextPath}/user-account"
 	scope="request" />
+<!-- <c:set var="pagesContact" value="${contextPath}/contact" scope="request" /> -->
 
 
 

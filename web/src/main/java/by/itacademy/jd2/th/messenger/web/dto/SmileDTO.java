@@ -1,10 +1,13 @@
 package by.itacademy.jd2.th.messenger.web.dto;
 
+import javax.validation.constraints.Size;
+
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmileGroup;
 
 public class SmileDTO {
 
 	private Integer id;
+	@Size(min = 2, max = 10)
 	private String name;
 	private String marker;
 	private Integer smileGroup;

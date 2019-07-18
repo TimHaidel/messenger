@@ -18,27 +18,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
-import by.itacademy.jd2.th.messenger.dao.api.filter.UserAccountFilter;
-import by.itacademy.jd2.th.messenger.service.IUserAccountService;
-import by.itacademy.jd2.th.messenger.web.converter.UserAccountFromDTOConverter;
-import by.itacademy.jd2.th.messenger.web.converter.UserAccountToDTOConverter;
-import by.itacademy.jd2.th.messenger.web.dto.UserAccountDTO;
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.IContact;
+import by.itacademy.jd2.th.messenger.dao.api.filter.ContactFilter;
+import by.itacademy.jd2.th.messenger.service.IContactService;
+import by.itacademy.jd2.th.messenger.web.converter.ContactFromDTOConverter;
+import by.itacademy.jd2.th.messenger.web.converter.ContactToDTOConverter;
+import by.itacademy.jd2.th.messenger.web.dto.ContactDTO;
 import by.itacademy.jd2.th.messenger.web.dto.grid.GridStateDTO;
 
 @Controller
-@RequestMapping(value = "/user-account")
-public class UserAccountController extends AbstractController {
+@RequestMapping(value = "/contact")
+public class ContactController extends AbstractController {
 
-	private IUserAccountService userAccountService;
-	private UserAccountToDTOConverter toDtoConverter;
-	private UserAccountFromDTOConverter fromDtoConverter;
+	IContactService contactService;
+	ContactToDTOConverter toDtoConverter;
+	ContactFromDTOConverter fromDtoConverter;
 
 	@Autowired
-	public UserAccountController(IUserAccountService userAccountService, UserAccountToDTOConverter toDtoConverter,
-			UserAccountFromDTOConverter fromDtoConverter) {
+	public ContactController(IContactService contactService, ContactToDTOConverter toDtoConverter,
+			ContactFromDTOConverter fromDtoConverter) {
 		super();
-		this.userAccountService = userAccountService;
+		this.contactService = contactService;
 		this.toDtoConverter = toDtoConverter;
 		this.fromDtoConverter = fromDtoConverter;
 	}
@@ -52,63 +52,63 @@ public class UserAccountController extends AbstractController {
 		gridState.setPage(pageNumber);
 		gridState.setSort(sortColumn, "id");
 
-		final UserAccountFilter filter = new UserAccountFilter();
+		final ContactFilter filter = new ContactFilter();
 		prepareFilter(gridState, filter);
 
-		final List<IUserAccount> entities = userAccountService.find(filter);
-		List<UserAccountDTO> dtos = entities.stream().map(toDtoConverter).collect(Collectors.toList());
-		gridState.setTotalCount(userAccountService.getCount(filter));
+		final List<IContact> entities = contactService.find(filter);
+		List<ContactDTO> dtos = entities.stream().map(toDtoConverter).collect(Collectors.toList());
+		gridState.setTotalCount(contactService.getCount(filter));
 
 		final Map<String, Object> models = new HashMap<>();
 		models.put("gridItems", dtos);
-		return new ModelAndView("user-account.list", models);
+		return new ModelAndView("contact.list", models);
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public ModelAndView showForm() {
 		final Map<String, Object> hashMap = new HashMap<>();
-		final IUserAccount newEntity = userAccountService.createEntity();
+		final IContact newEntity = contactService.createEntity();
 		hashMap.put("formModel", toDtoConverter.apply(newEntity));
 
-		return new ModelAndView("user-account.edit", hashMap);
+		return new ModelAndView("contact.edit", hashMap);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String save(@Valid @ModelAttribute("formModel") final UserAccountDTO formModel, final BindingResult result) {
+	public String save(@Valid @ModelAttribute("formModel") final ContactDTO formModel, final BindingResult result) {
 		if (result.hasErrors()) {
-			return "user-account.edit";
+			return "contact.edit";
 		} else {
-			final IUserAccount entity = fromDtoConverter.apply(formModel);
-			userAccountService.save(entity);
-			return "redirect:/user-account";
+			final IContact entity = fromDtoConverter.apply(formModel);
+			contactService.save(entity);
+			return "redirect:/contact";
 		}
 	}
 
 	@RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
 	public String delete(@PathVariable(name = "id", required = true) final Integer id) {
-		userAccountService.delete(id);
-		return "redirect:/user-account";
+		contactService.delete(id);
+		return "redirect:/contact";
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ModelAndView viewDetails(@PathVariable(name = "id", required = true) final Integer id) {
-		final IUserAccount dbModel = userAccountService.get(id);
-		final UserAccountDTO dto = toDtoConverter.apply(dbModel);
+		final IContact dbModel = contactService.get(id);
+		final ContactDTO dto = toDtoConverter.apply(dbModel);
 		final Map<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
 		hashMap.put("readonly", true);
 
-		return new ModelAndView("user-account.edit", hashMap);
+		return new ModelAndView("contact.edit", hashMap);
 	}
 
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@PathVariable(name = "id", required = true) final Integer id) {
-		final UserAccountDTO dto = toDtoConverter.apply(userAccountService.get(id));
+		final ContactDTO dto = toDtoConverter.apply(contactService.get(id));
 
 		final Map<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
 
-		return new ModelAndView("user-account.edit", hashMap);
+		return new ModelAndView("contact.edit", hashMap);
 	}
 
 }
