@@ -53,5 +53,14 @@
 			value="/WEB-INF/views/user-account/form.jsp" />
 	</definition>
 
+	<definition name="attachment.edit" extends="DefaultTemplate">
+		<put-attribute name="body"
+			value="/WEB-INF/views/attachment/form.jsp" />
+	</definition>
+	<definition name="attachment.list" extends="DefaultTemplate">
+		<put-attribute name="body"
+			value="/WEB-INF/views/attachment/list.jsp" />
+	</definition>
+
 
 </tiles-definitions>

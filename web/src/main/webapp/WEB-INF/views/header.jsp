@@ -5,8 +5,9 @@
 			<ul class="left hide-on-med-and-down">
 				<li><a href="${contextPath}/">home</a></li>
 				<li><a href="${pagesSmile}">smiles</a></li>
-				<li><a href="${pagesSmileGroup}">smile-groups</a></li>
-				<li><a href="${pagesUserAccount}">user-accounts</a></li>
+				<li><a href="${pagesSmileGroup}">smile's groups</a></li>
+				<li><a href="${pagesUserAccount}">contacts</a></li>
+				<li><a href="${pagesAttachment}">attachment</a></li>
 			</ul>
 		</div>
 	</nav>

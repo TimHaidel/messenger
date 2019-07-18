@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import by.itacademy.jd2.th.messenger.dao.api.IAttachmentDao;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IAttachment;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IMessage;
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmile;
 import by.itacademy.jd2.th.messenger.dao.api.filter.AttachmentFilter;
 import by.itacademy.jd2.th.messenger.service.IAttachmentService;
 
@@ -28,6 +29,11 @@ public class AttachmentServiceImpl implements IAttachmentService {
 		final IAttachment attachDao = dao.createEntity();
 		attachDao.setId(message.getId());
 		return attachDao;
+	}
+
+	@Override
+	public IAttachment createEntity() {
+		return dao.createEntity();
 	}
 
 	@Override

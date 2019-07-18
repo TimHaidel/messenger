@@ -26,4 +26,6 @@ public interface IAttachmentService {
 
 	void update(final IAttachment entity);
 
+	IAttachment createEntity();
+
 }
