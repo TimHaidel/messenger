@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -109,5 +111,12 @@ public class SmileController extends AbstractController {
 		hashMap.put("formModel", dto);
 
 		return new ModelAndView("smile.edit", hashMap);
+	}
+
+	@RequestMapping(value = "/json", method = RequestMethod.GET)
+	public ResponseEntity<SmileDTO> getSmiles(@RequestParam(name = "id", required = true) final Integer id) {
+		final SmileDTO dto = toDtoConverter.apply(smileService.get(id));
+
+		return new ResponseEntity<SmileDTO>(dto, HttpStatus.OK);
 	}
 }
