@@ -9,6 +9,7 @@
 	scope="request" />
 <c:set var="pagesAttachment" value="${contextPath}/attachment"
 	scope="request" />
+<c:set var="pagesMessage" value="${contextPath}/message" scope="request" />
 
 
 

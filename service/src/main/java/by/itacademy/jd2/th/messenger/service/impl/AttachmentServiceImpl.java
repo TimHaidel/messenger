@@ -40,10 +40,12 @@ public class AttachmentServiceImpl implements IAttachmentService {
 	public void save(final IAttachment entity) {
 		final Date modifedOn = new Date();
 		entity.setUpdated(modifedOn);
-
-		entity.setCreated(modifedOn);
-		dao.insert(entity);
-
+		if (entity.getId() == null) {
+			entity.setCreated(modifedOn);
+			dao.insert(entity);
+		} else {
+			dao.update(entity);
+		}
 	}
 
 	@Override

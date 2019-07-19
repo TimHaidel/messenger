@@ -62,5 +62,15 @@
 			value="/WEB-INF/views/attachment/list.jsp" />
 	</definition>
 
+	<definition name="message.edit" extends="DefaultTemplate">
+		<put-attribute name="body"
+			value="/WEB-INF/views/message/form.jsp" />
+	</definition>
+
+	<definition name="message.list" extends="DefaultTemplate">
+		<put-attribute name="body"
+			value="/WEB-INF/views/message/list.jsp" />
+	</definition>
+
 
 </tiles-definitions>

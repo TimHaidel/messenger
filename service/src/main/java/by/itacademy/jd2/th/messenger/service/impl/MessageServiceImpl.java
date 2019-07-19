@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import by.itacademy.jd2.th.messenger.dao.api.IAttachmentDao;
 import by.itacademy.jd2.th.messenger.dao.api.IMessageDao;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IMessage;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
@@ -16,11 +17,13 @@ import by.itacademy.jd2.th.messenger.service.IMessageService;
 public class MessageServiceImpl implements IMessageService {
 
 	private IMessageDao dao;
+	private IAttachmentDao attachmentDao;
 
 	@Autowired
-	public MessageServiceImpl(IMessageDao dao) {
+	public MessageServiceImpl(IMessageDao dao, IAttachmentDao attachmentDao) {
 		super();
 		this.dao = dao;
+		this.attachmentDao = attachmentDao;
 	}
 
 	@Override
@@ -81,6 +84,7 @@ public class MessageServiceImpl implements IMessageService {
 
 	@Override
 	public void delete(final Integer id) {
+		attachmentDao.delete(id);
 		dao.delete(id);
 	}
 

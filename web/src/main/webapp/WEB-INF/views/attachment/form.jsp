@@ -8,6 +8,13 @@
 		<form:input path="id" type="hidden" />
 		<div class="row">
 			<div class="input-field col s12">
+				<form:input path="id" type="text" disabled="${readonly}" />
+				<form:errors path="id" cssClass="red-text" />
+				<label for="id">message</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
 				<form:input path="content" type="text" disabled="${readonly}" />
 				<form:errors path="content" cssClass="red-text" />
 				<label for="content">Content</label>
