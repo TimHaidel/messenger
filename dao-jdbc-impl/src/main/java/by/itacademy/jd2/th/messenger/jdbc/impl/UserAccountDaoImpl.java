@@ -11,11 +11,13 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import by.itacademy.jd2.th.messenger.dao.api.IUserAccountDao;
+import by.itacademy.jd2.th.messenger.dao.api.entity.enums.Roles;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.filter.UserAccountFilter;
 import by.itacademy.jd2.th.messenger.jdbc.impl.entity.UserAccount;
 import by.itacademy.jd2.th.messenger.jdbc.impl.util.PreparedStatementAction;
 import by.itacademy.jd2.th.messenger.jdbc.impl.util.SQLExecutionException;
+import by.itacademy.jd2.th.messenger.jdbc.impl.util.StatementAction;
 
 @Repository
 public class UserAccountDaoImpl extends AbstractDaoImpl<IUserAccount, Integer> implements IUserAccountDao {
@@ -37,7 +39,7 @@ public class UserAccountDaoImpl extends AbstractDaoImpl<IUserAccount, Integer> i
 				pStmt.setString(3, entity.getLastname());
 				pStmt.setString(4, entity.getPassword());
 				pStmt.setString(5, entity.getEmail());
-				pStmt.setInt(6, entity.getRole());
+				pStmt.setString(6, entity.getRole().name());
 				pStmt.setString(7, entity.getAvatar());
 				pStmt.setInt(8, entity.getId());
 				pStmt.executeUpdate();
@@ -56,7 +58,7 @@ public class UserAccountDaoImpl extends AbstractDaoImpl<IUserAccount, Integer> i
 		entity.setLastname(resultSet.getString("lastname"));
 		entity.setPassword(resultSet.getString("password"));
 		entity.setEmail(resultSet.getString("email"));
-		entity.setRole(resultSet.getInt("role"));
+		entity.setRole(Roles.valueOf(resultSet.getString("role")));
 		entity.setAvatar(resultSet.getString("avatar"));
 		return entity;
 	}
@@ -75,7 +77,7 @@ public class UserAccountDaoImpl extends AbstractDaoImpl<IUserAccount, Integer> i
 				pStmt.setString(4, entity.getLastname());
 				pStmt.setString(5, entity.getPassword());
 				pStmt.setString(6, entity.getEmail());
-				pStmt.setInt(7, entity.getRole());
+				pStmt.setString(7, entity.getRole().name());
 				pStmt.setString(8, entity.getAvatar());
 
 				pStmt.executeUpdate();
@@ -128,7 +130,7 @@ public class UserAccountDaoImpl extends AbstractDaoImpl<IUserAccount, Integer> i
 					pStmt.setString(4, entity.getLastname());
 					pStmt.setString(5, entity.getPassword());
 					pStmt.setString(6, entity.getEmail());
-					pStmt.setInt(7, entity.getRole());
+					pStmt.setString(7, entity.getRole().name());
 					pStmt.setString(8, entity.getAvatar());
 
 					pStmt.executeUpdate();
@@ -152,6 +154,27 @@ public class UserAccountDaoImpl extends AbstractDaoImpl<IUserAccount, Integer> i
 		} catch (final SQLException e) {
 			throw new SQLExecutionException(e);
 		}
+	}
+
+	@Override
+	public IUserAccount findNickname(String email) {
+		StatementAction<IUserAccount> action = (statement) -> {
+			statement.executeQuery(String.format("select * from user_account where email='%s'", email));
+
+			final ResultSet resultSet = statement.getResultSet();
+
+			final boolean hasNext = resultSet.next();
+			IUserAccount result = null;
+			if (hasNext) {
+				result = parseRow(resultSet);
+			}
+
+			resultSet.close();
+			return result;
+		};
+		IUserAccount entityById = executeStatement(action);
+		return entityById;
+
 	}
 
 }

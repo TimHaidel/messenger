@@ -11,7 +11,9 @@ import java.util.Set;
 import org.springframework.stereotype.Repository;
 
 import by.itacademy.jd2.th.messenger.dao.api.IContactDao;
+import by.itacademy.jd2.th.messenger.dao.api.entity.enums.Roles;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IContact;
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.filter.ContactFilter;
 import by.itacademy.jd2.th.messenger.jdbc.impl.entity.Contact;
 import by.itacademy.jd2.th.messenger.jdbc.impl.entity.UserAccount;
@@ -77,7 +79,7 @@ public class ContactDaoImpl extends AbstractDaoImpl<IContact, Integer> implement
 
 		final Integer initiatorId = (Integer) resultSet.getObject("initiator_id");
 		if (initiatorId != null) {
-			final UserAccount initiator = new UserAccount();
+			final IUserAccount initiator = new UserAccount();
 			initiator.setId(initiatorId);
 			if (columns.contains("firstname")) {
 				initiator.setFirstname(resultSet.getString("firstname"));
@@ -95,7 +97,7 @@ public class ContactDaoImpl extends AbstractDaoImpl<IContact, Integer> implement
 				initiator.setAvatar(resultSet.getString("avatar"));
 			}
 			if (columns.contains("role")) {
-				initiator.setRole(resultSet.getInt("role"));
+				initiator.setRole(Roles.valueOf(resultSet.getString("role")));
 			}
 			if (columns.contains("created")) {
 				initiator.setCreated(resultSet.getDate("created"));
@@ -109,7 +111,7 @@ public class ContactDaoImpl extends AbstractDaoImpl<IContact, Integer> implement
 
 		final Integer acceptorId = (Integer) resultSet.getObject("acceptor_id");
 		if (initiatorId != null) {
-			final UserAccount acceptor = new UserAccount();
+			final IUserAccount acceptor = new UserAccount();
 			acceptor.setId(acceptorId);
 			if (columns.contains("firstname")) {
 				acceptor.setFirstname(resultSet.getString("firstname"));
@@ -127,7 +129,7 @@ public class ContactDaoImpl extends AbstractDaoImpl<IContact, Integer> implement
 				acceptor.setAvatar(resultSet.getString("avatar"));
 			}
 			if (columns.contains("role")) {
-				acceptor.setRole(resultSet.getInt("role"));
+				acceptor.setRole(Roles.valueOf(resultSet.getString("role")));
 			}
 			if (columns.contains("created")) {
 				acceptor.setCreated(resultSet.getDate("created"));

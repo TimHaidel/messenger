@@ -1,5 +1,6 @@
 package by.itacademy.jd2.th.messenger.jdbc.impl.entity;
 
+import by.itacademy.jd2.th.messenger.dao.api.entity.enums.Roles;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 
 public class UserAccount extends BaseEntity implements IUserAccount {
@@ -8,7 +9,7 @@ public class UserAccount extends BaseEntity implements IUserAccount {
 	private String password;
 	private String email;
 	private String phone;
-	private Integer role;
+	private Roles role;
 	private String avatar;
 
 	@Override
@@ -61,11 +62,13 @@ public class UserAccount extends BaseEntity implements IUserAccount {
 		this.phone = phone;
 	}
 
-	public Integer getRole() {
+	@Override
+	public Roles getRole() {
 		return role;
 	}
 
-	public void setRole(Integer role) {
+	@Override
+	public void setRole(Roles role) {
 		this.role = role;
 	}
 

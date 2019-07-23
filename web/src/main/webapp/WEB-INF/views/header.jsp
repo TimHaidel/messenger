@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <header>
 	<nav>
 		<div class="nav-wrapper container">
@@ -9,6 +11,10 @@
 				<li><a href="${pagesUserAccount}">contacts</a></li>
 				<li><a href="${pagesAttachment}">attachments</a></li>
 				<li><a href="${pagesMessage}">messages</a></li>
+				<sec:authorize access="!isAnonymous()">
+					<a class="right" href="${contextPath}/execute_logout"
+						title="logout"><i class="material-icons">arrow_forward</i></a>
+				</sec:authorize>
 			</ul>
 		</div>
 	</nav>

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import by.itacademy.jd2.th.messenger.dao.api.entity.enums.Roles;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IAttachment;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IContact;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IMessage;
@@ -92,7 +93,9 @@ public abstract class AbstractTest {
 		entity.setPassword("password-" + getRandomPrefix());
 		entity.setEmail("email-" + getRandomPrefix());
 		entity.setAvatar("avatar-" + getRandomPrefix());
-		entity.setRole(1);
+		final Roles[] allRoles = Roles.values();
+		final int randomIndex = Math.max(0, getRANDOM().nextInt(allRoles.length) - 1);
+		entity.setRole(allRoles[randomIndex]);
 		userAccountService.save(entity);
 		return entity;
 	}
