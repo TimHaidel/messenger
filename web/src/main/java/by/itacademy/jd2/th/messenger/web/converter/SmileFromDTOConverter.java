@@ -27,7 +27,7 @@ public class SmileFromDTOConverter implements Function<SmileDTO, ISmile> {
 		entity.setMarker(dto.getMarker());
 
 		ISmileGroup smileGroup = smileGroupService.createEntity();
-		smileGroup.setId(dto.getSmileGroup());
+		smileGroup.setId(dto.getSmileGroupId());
 		entity.setSmileGroup(smileGroup);
 		return entity;
 	}

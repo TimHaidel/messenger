@@ -22,9 +22,11 @@
 		</div>
 		<div class="row">
 			<div class="input-field col s12">
-				<form:input path="smileGroup" type="text" disabled="${readonly}" />
-				<form:errors path="smileGroup" cssClass="red-text" />
-				<label for="smileGroup">smileGroup</label>
+				<form:select path="smileGroupId" disabled="${readonly}">
+					<form:options items="${smileGroupsChoices}" />
+				</form:select>
+				<form:errors path="smileGroupId" cssClass="red-text" />
+				<label for="smileGroupId">Smile Group</label>
 			</div>
 		</div>
 		<div class="row">

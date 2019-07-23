@@ -19,8 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmile;
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmileGroup;
 import by.itacademy.jd2.th.messenger.dao.api.filter.SmileFilter;
+import by.itacademy.jd2.th.messenger.service.ISmileGroupService;
 import by.itacademy.jd2.th.messenger.service.ISmileService;
+import by.itacademy.jd2.th.messenger.service.impl.SmileGroupServiceImpl;
 import by.itacademy.jd2.th.messenger.web.converter.SmileFromDTOConverter;
 import by.itacademy.jd2.th.messenger.web.converter.SmileToDTOConverter;
 import by.itacademy.jd2.th.messenger.web.dto.SmileDTO;
@@ -33,14 +36,16 @@ public class SmileController extends AbstractController {
 	private ISmileService smileService;
 	private SmileToDTOConverter toDtoConverter;
 	private SmileFromDTOConverter fromDtoConverter;
+	private ISmileGroupService smileGroupService;
 
 	@Autowired
 	public SmileController(ISmileService smileService, SmileToDTOConverter toDtoConverter,
-			SmileFromDTOConverter fromDtoConverter) {
+			SmileFromDTOConverter fromDtoConverter, ISmileGroupService smileGroupService) {
 		super();
 		this.smileService = smileService;
 		this.toDtoConverter = toDtoConverter;
 		this.fromDtoConverter = fromDtoConverter;
+		this.smileGroupService = smileGroupService;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -69,7 +74,7 @@ public class SmileController extends AbstractController {
 		final Map<String, Object> hashMap = new HashMap<>();
 		final ISmile newEntity = smileService.createEntity();
 		hashMap.put("formModel", toDtoConverter.apply(newEntity));
-
+		loadFormSmiles(hashMap);
 		return new ModelAndView("smile.edit", hashMap);
 	}
 
@@ -97,7 +102,7 @@ public class SmileController extends AbstractController {
 		final Map<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
 		hashMap.put("readonly", true);
-
+		loadFormSmiles(hashMap);
 		return new ModelAndView("smile.edit", hashMap);
 	}
 
@@ -107,7 +112,22 @@ public class SmileController extends AbstractController {
 
 		final Map<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
-
+		loadFormSmiles(hashMap);
 		return new ModelAndView("smile.edit", hashMap);
+	}
+
+	private void loadFormSmiles(final Map<String, Object> hashMap) {
+		final List<ISmileGroup> smileGroups = smileGroupService.getAll();
+
+		/*
+		 * final Map<Integer, String> smileGroupsMap = new HashMap<>(); for (final
+		 * ISmileGroup iSmileGroup : smileGroups) { smileGroups.put(iSmileGroup.getId(),
+		 * iSmileGroup.getName()); }
+		 */
+
+		final Map<Integer, String> smileGroupsMap = smileGroups.stream()
+				.collect(Collectors.toMap(ISmileGroup::getId, ISmileGroup::getName));
+		hashMap.put("smileGroupsChoices", smileGroupsMap);
+
 	}
 }

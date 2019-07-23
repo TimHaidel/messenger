@@ -20,7 +20,7 @@ public class SmileToDTOConverter implements Function<ISmile, SmileDTO> {
 
 		ISmileGroup smileGroup = entity.getSmileGroup();
 		if (smileGroup != null) {
-			dto.setSmileGroup(smileGroup.getId());
+			dto.setSmileGroupId(smileGroup.getId());
 		}
 		return dto;
 	}

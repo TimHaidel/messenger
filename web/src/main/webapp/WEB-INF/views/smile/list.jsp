@@ -18,7 +18,7 @@
 				<td><c:out value="${smile.id}" /></td>
 				<td><c:out value="${smile.name}" /></td>
 				<td><c:out value="${smile.marker}" /></td>
-				<td><c:out value="${smile.smileGroup}" /></td>
+				<td><c:out value="${smile.smileGroupId}" /></td>
 
 				<td class="right"><a class="btn-floating"
 					href="${pagesSmile}/${smile.id}"><i class="material-icons">info</i></a>
