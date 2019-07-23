@@ -1,8 +1,7 @@
 package by.itacademy.jd2.th.messenger.web.dto;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmileGroup;
 
 public class SmileDTO {
 
@@ -10,7 +9,8 @@ public class SmileDTO {
 	@Size(min = 2, max = 10)
 	private String name;
 	private String marker;
-	private Integer smileGroup;
+	@NotNull
+	private Integer smileGroupId;
 
 	public Integer getId() {
 		return id;
@@ -36,12 +36,12 @@ public class SmileDTO {
 		this.marker = marker;
 	}
 
-	public Integer getSmileGroup() {
-		return smileGroup;
+	public Integer getSmileGroupId() {
+		return smileGroupId;
 	}
 
-	public void setSmileGroup(Integer smileGroup) {
-		this.smileGroup = smileGroup;
+	public void setSmileGroupId(Integer smileGroupId) {
+		this.smileGroupId = smileGroupId;
 	}
 
 }

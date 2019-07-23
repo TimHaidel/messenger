@@ -17,82 +17,85 @@ import by.itacademy.jd2.th.messenger.jdbc.impl.util.PreparedStatementAction;
 @Repository
 public class AttachmentDaoImpl extends AbstractDaoImpl<IAttachment, Integer> implements IAttachmentDao {
 
-    @Override
-    public IAttachment createEntity() {
-        return new Attachment();
-    }
+	@Override
+	public IAttachment createEntity() {
+		return new Attachment();
+	}
 
-    @Override
-    public void update(final IAttachment entity) {
+	@Override
+	public void update(final IAttachment entity) {
 
-        executeStatement(new PreparedStatementAction<IAttachment>(
-                String.format("update %s set content = ?, content_type = ?, updated = ? where id=?", getTableName())) {
-            @Override
-            public IAttachment doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
-                pStmt.setString(1, entity.getContent());
-                pStmt.setInt(2, entity.getContentType());
-                pStmt.setObject(3, entity.getUpdated(), Types.TIMESTAMP);
-                pStmt.setInt(4, entity.getId());
-                pStmt.executeUpdate();
-                return entity;
-            }
-        });
-    }
+		executeStatement(new PreparedStatementAction<IAttachment>(
+				String.format("update %s set content = ?, content_type = ?, updated = ? where id=?", getTableName())) {
+			@Override
+			public IAttachment doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
+				pStmt.setString(1, entity.getContent());
+				pStmt.setInt(2, entity.getContentType());
+				pStmt.setObject(3, entity.getUpdated(), Types.TIMESTAMP);
+				pStmt.setInt(4, entity.getId());
+				pStmt.executeUpdate();
+				return entity;
+			}
+		});
+	}
 
-    @Override
-    protected IAttachment parseRow(final ResultSet resultSet) throws SQLException {
-        final IAttachment entity = createEntity();
-        entity.setId((Integer) resultSet.getObject("id"));
-        entity.setContent(resultSet.getString("content"));
-        entity.setContentType(resultSet.getInt("content_type"));
-        entity.setCreated(resultSet.getTimestamp("created"));
-        entity.setUpdated(resultSet.getTimestamp("updated"));
+	@Override
+	protected IAttachment parseRow(final ResultSet resultSet) throws SQLException {
+		final IAttachment entity = createEntity();
+		entity.setId((Integer) resultSet.getObject("id"));
+		entity.setContent(resultSet.getString("content"));
+		entity.setContentType(resultSet.getInt("content_type"));
+		entity.setCreated(resultSet.getTimestamp("created"));
+		entity.setUpdated(resultSet.getTimestamp("updated"));
 
-        return entity;
-    }
+		return entity;
+	}
 
-    @Override
-    public void insert(final IAttachment entity) {
+	@Override
+	public void insert(final IAttachment entity) {
 
-        executeStatement(new PreparedStatementAction<IAttachment>(
-                String.format("insert into %s (content, content_type, created, updated, id) values(?,?,?,?, ?)",
-                        getTableName()),
-                true) {
-            @Override
-            public IAttachment doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
-                pStmt.setString(1, entity.getContent());
-                pStmt.setInt(2, entity.getContentType());
-                pStmt.setObject(3, entity.getCreated(), Types.TIMESTAMP);
-                pStmt.setObject(4, entity.getUpdated(), Types.TIMESTAMP);
-                pStmt.setInt(5, entity.getId());
+		executeStatement(new PreparedStatementAction<IAttachment>(
+				String.format("insert into %s (content, content_type, created, updated, id) values(?,?,?,?, ?)",
+						getTableName()),
+				true) {
+			@Override
+			public IAttachment doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
+				pStmt.setString(1, entity.getContent());
+				pStmt.setInt(2, entity.getContentType());
+				pStmt.setObject(3, entity.getCreated(), Types.TIMESTAMP);
+				pStmt.setObject(4, entity.getUpdated(), Types.TIMESTAMP);
+				pStmt.setInt(5, entity.getId());
 
-                pStmt.executeUpdate();
+				pStmt.executeUpdate();
 
-                return entity;
-            }
-        });
+				return entity;
+			}
+		});
 
-    }
+	}
 
-    @Override
-    protected String getTableName() {
-        return "attachment";
-    }
+	@Override
+	protected String getTableName() {
+		return "attachment";
+	}
 
-    @Override
-    public void save(final IAttachment[] entities) {
-        throw new RuntimeException("not implemented");
+	@Override
+	public void save(final IAttachment[] entities) {
+		throw new RuntimeException("not implemented");
 
-    }
+	}
 
-    @Override
-    public List<IAttachment> find(final AttachmentFilter filter) {
-        throw new RuntimeException("not implemented");
-    }
+	@Override
+	public List<IAttachment> find(final AttachmentFilter filter) {
+		final StringBuilder sqlTile = new StringBuilder("");
+		appendSort(filter, sqlTile);
+		appendPaging(filter, sqlTile);
+		return executeFindQuery(sqlTile.toString());
+	}
 
-    @Override
-    public long getCount(final AttachmentFilter filter) {
-        throw new RuntimeException("not implemented");
-    }
+	@Override
+	public long getCount(final AttachmentFilter filter) {
+		return executeCountQuery("");
+	}
 
 }

@@ -3,30 +3,28 @@
 <h4 class="header">Edit smile</h4>
 <div class="row">
 
-	<form:form class="col s12" method="POST" action="${pagesSmile}"
+	<form:form class="col s12" method="POST" action="${pagesMessage}"
 		modelAttribute="formModel">
 		<form:input path="id" type="hidden" />
 		<div class="row">
 			<div class="input-field col s12">
-				<form:input path="name" type="text" disabled="${readonly}" />
-				<form:errors path="name" cssClass="red-text" />
-				<label for="name">name</label>
+				<form:input path="message" type="text" disabled="${readonly}" />
+				<form:errors path="message" cssClass="red-text" />
+				<label for="message">text</label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="input-field col s12">
-				<form:input path="marker" type="text" disabled="${readonly}" />
-				<form:errors path="marker" cssClass="red-text" />
-				<label for="marker">marker</label>
+				<form:input path="user" type="text" disabled="${readonly}" />
+				<form:errors path="user" cssClass="red-text" />
+				<label for="user">user</label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="input-field col s12">
-				<form:select path="smileGroupId" disabled="${readonly}">
-					<form:options items="${smileGroupsChoices}" />
-				</form:select>
-				<form:errors path="smileGroupId" cssClass="red-text" />
-				<label for="smileGroupId">Smile Group</label>
+				<form:input path="userGroup" type="text" disabled="${readonly}" />
+				<form:errors path="userGroup" cssClass="red-text" />
+				<label for="userGroup">group</label>
 			</div>
 		</div>
 		<div class="row">
@@ -37,7 +35,7 @@
 				</c:if>
 			</div>
 			<div class="col s3">
-				<a class="btn waves-effect waves-light right" href="${pagesSmile}">to
+				<a class="btn waves-effect waves-light right" href="${pagesMessage}">to
 					list<i class="material-icons right"></i>
 				</a>
 			</div>

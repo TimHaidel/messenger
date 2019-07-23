@@ -7,7 +7,10 @@
 	scope="request" />
 <c:set var="pagesUserAccount" value="${contextPath}/user-account"
 	scope="request" />
-<!-- <c:set var="pagesContact" value="${contextPath}/contact" scope="request" /> -->
+<c:set var="pagesAttachment" value="${contextPath}/attachment"
+	scope="request" />
+<c:set var="pagesMessage" value="${contextPath}/message" scope="request" />
+
 
 
 
