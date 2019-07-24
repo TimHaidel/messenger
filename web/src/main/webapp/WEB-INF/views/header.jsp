@@ -8,7 +8,7 @@
 				<li><a href="${contextPath}/">home</a></li>
 				<li><a href="${pagesSmile}">smiles</a></li>
 				<li><a href="${pagesSmileGroup}">smile's groups</a></li>
-				<li><a href="${pagesUserAccount}">contacts</a></li>
+				<li><a href="${pagesUserAccount}">user accounts</a></li>
 				<li><a href="${pagesAttachment}">attachments</a></li>
 				<li><a href="${pagesMessage}">messages</a></li>
 				<sec:authorize access="!isAnonymous()">
