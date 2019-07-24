@@ -11,6 +11,9 @@
 	scope="request" />
 <c:set var="pagesMessage" value="${contextPath}/message" scope="request" />
 <c:set var="pagesContact" value="${contextPath}/contact" scope="request" />
+<c:set var="pagesUserGroup" value="${contextPath}/user-group"
+	scope="request" />
+
 
 
 

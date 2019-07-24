@@ -24,15 +24,14 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<IUserGroup, Integer> imple
 
 	@Override
 	public void update(final IUserGroup entity) {
-		executeStatement(new PreparedStatementAction<IUserGroup>(String
-				.format("update %s set name = ?, status = ?, created = ?, updated = ? where id=?", getTableName())) {
+		executeStatement(new PreparedStatementAction<IUserGroup>(
+				String.format("update %s set name = ?, status = ?, updated = ? where id=?", getTableName())) {
 			@Override
 			public IUserGroup doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
 				pStmt.setString(1, entity.getName());
 				pStmt.setInt(2, entity.getStatus());
-				pStmt.setObject(3, entity.getCreated(), Types.TIMESTAMP);
-				pStmt.setObject(4, entity.getUpdated(), Types.TIMESTAMP);
-				pStmt.setInt(5, entity.getId());
+				pStmt.setObject(3, entity.getUpdated(), Types.TIMESTAMP);
+				pStmt.setInt(4, entity.getId());
 				pStmt.executeUpdate();
 				return entity;
 			}
@@ -86,12 +85,15 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<IUserGroup, Integer> imple
 
 	@Override
 	public List<IUserGroup> find(final UserGroupFilter filter) {
-		throw new RuntimeException("not implemented");
+		final StringBuilder sqlTile = new StringBuilder("");
+		appendSort(filter, sqlTile);
+		appendPaging(filter, sqlTile);
+		return executeFindQuery(sqlTile.toString());
 	}
 
 	@Override
 	public long getCount(final UserGroupFilter filter) {
-		throw new RuntimeException("not implemented");
+		return executeCountQuery("");
 	}
 
 	@Override

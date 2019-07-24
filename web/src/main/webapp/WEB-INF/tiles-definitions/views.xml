@@ -83,5 +83,14 @@
 			value="/WEB-INF/views/contact/form.jsp" />
 	</definition>
 
+	<definition name="user-group.list" extends="DefaultTemplate">
+		<put-attribute name="body"
+			value="/WEB-INF/views/user-group/list.jsp" />
+	</definition>
+	<definition name="user-group.edit" extends="DefaultTemplate">
+		<put-attribute name="body"
+			value="/WEB-INF/views/user-group/form.jsp" />
+	</definition>
+
 
 </tiles-definitions>

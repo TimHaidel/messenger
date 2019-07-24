@@ -12,6 +12,7 @@
 				<li><a href="${pagesAttachment}">attachments</a></li>
 				<li><a href="${pagesMessage}">messages</a></li>
 				<li><a href="${pagesContact}">contacts</a></li>
+				<li><a href="${pagesUserGroup}">user groups</a></li>
 				<sec:authorize access="!isAnonymous()">
 					<a class="right" href="${contextPath}/execute_logout"
 						title="logout"><i class="material-icons">arrow_forward</i></a>
