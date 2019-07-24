@@ -12,6 +12,7 @@ import java.util.Set;
 import org.springframework.stereotype.Repository;
 
 import by.itacademy.jd2.th.messenger.dao.api.IMessageDao;
+import by.itacademy.jd2.th.messenger.dao.api.entity.enums.Roles;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IMessage;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.filter.MessageFilter;
@@ -43,18 +44,20 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 
 	@Override
 	public void insertPinMessage(IMessage message, IUserAccount user) {
-//		executeStatement(
-//				new PreparedStatementAction<IMessage>("insert into pinned_message (message_id, user_id) values(?,?)") {
-//					@Override
-//					public IMessage doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
-//						pStmt.setInt(1, message.getId());
-//						pStmt.setInt(2, user.getId());
-//
-//						pStmt.executeUpdate();
-//
-//						return message;
-//					}
-//				});
+		// executeStatement(
+		// new PreparedStatementAction<IMessage>("insert into pinned_message
+		// (message_id, user_id) values(?,?)") {
+		// @Override
+		// public IMessage doWithPreparedStatement(final PreparedStatement pStmt) throws
+		// SQLException {
+		// pStmt.setInt(1, message.getId());
+		// pStmt.setInt(2, user.getId());
+		//
+		// pStmt.executeUpdate();
+		//
+		// return message;
+		// }
+		// });
 		try (Connection c = getConnection()) {
 
 			PreparedStatement stmt = c.prepareStatement("insert into pinned_message (message_id, user_id) values(?,?)");
@@ -70,14 +73,16 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 	@Override
 	public void deletePinnedMessage(IMessage message) {
 
-//		executeStatement(new PreparedStatementAction<IMessage>("delete from pinned_message where messege_id=?") {
-//			@Override
-//			public IMessage doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
-//				pStmt.setInt(1, message.getId());
-//				pStmt.executeUpdate();
-//				return message;
-//			}
-//		});
+		// executeStatement(new PreparedStatementAction<IMessage>("delete from
+		// pinned_message where messege_id=?") {
+		// @Override
+		// public IMessage doWithPreparedStatement(final PreparedStatement pStmt) throws
+		// SQLException {
+		// pStmt.setInt(1, message.getId());
+		// pStmt.executeUpdate();
+		// return message;
+		// }
+		// });
 		try (Connection c = getConnection()) {
 			final PreparedStatement deleteStmt = c.prepareStatement("delete from pinned_message where messege_id=?");
 			deleteStmt.setInt(1, message.getId());
@@ -191,7 +196,7 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 
 		final Integer userId = (Integer) resultSet.getObject("user_id");
 		if (userId != null) {
-			final UserAccount user = new UserAccount();
+			final IUserAccount user = new UserAccount();
 			user.setId(userId);
 			if (columns.contains("firstname")) {
 				user.setFirstname(resultSet.getString("firstname"));
@@ -209,7 +214,7 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 				user.setAvatar(resultSet.getString("avatar"));
 			}
 			if (columns.contains("role")) {
-				user.setRole(resultSet.getInt("role"));
+				user.setRole(Roles.valueOf(resultSet.getString("role")));
 			}
 			if (columns.contains("created")) {
 				user.setCreated(resultSet.getDate("created"));

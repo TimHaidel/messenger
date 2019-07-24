@@ -1,5 +1,6 @@
 package by.itacademy.jd2.th.messenger.dao.api;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
@@ -12,5 +13,7 @@ public interface IUserAccountDao extends IDao<IUserAccount, Integer> {
     long getCount(UserAccountFilter filter);
 
     void save(IUserAccount... entities);
+
+	IUserAccount findNickname(String username) ;
 
 }

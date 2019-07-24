@@ -5,6 +5,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 
+import by.itacademy.jd2.th.messenger.dao.api.entity.enums.Roles;
+
 public class UserAccountDTO {
 	private Integer id;
 	@Size(min = 2, max = 10)
@@ -15,7 +17,7 @@ public class UserAccountDTO {
 	private String email;
 	@Pattern(regexp = "(^$|[0-9]{10})")
 	private String phone;
-	private Integer role;
+	private Roles role;
 	private String avatar;
 	private String password;
 
@@ -67,11 +69,11 @@ public class UserAccountDTO {
 		this.phone = phone;
 	}
 
-	public Integer getRole() {
+	public Roles getRole() {
 		return role;
 	}
 
-	public void setRole(Integer role) {
+	public void setRole(Roles role) {
 		this.role = role;
 	}
 

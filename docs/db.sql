@@ -5,7 +5,7 @@ CREATE TABLE "user_account" (
 	"password" character varying(100) NOT NULL,
 	"email" character varying(50) NOT NULL UNIQUE,
 	"phone" character varying(100) UNIQUE,
-	"role" integer NOT NULL,
+	"role" character varying NOT NULL,
 	"avatar" character varying NOT NULL,
 	"created" timestamp with time zone NOT NULL DEFAULT 'now()',
 	"updated" timestamp with time zone NOT NULL DEFAULT 'now()',
@@ -133,3 +133,4 @@ ALTER TABLE "smile" ADD CONSTRAINT "smile_fk0" FOREIGN KEY ("smile_group_id") RE
 
 
 ALTER TABLE "attachment" ADD CONSTRAINT "attachment_fk0" FOREIGN KEY ("id") REFERENCES "message"("id");
+

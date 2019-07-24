@@ -1,14 +1,12 @@
 package by.itacademy.jd2.th.messenger.dao.api.entity.table;
 
+import by.itacademy.jd2.th.messenger.dao.api.entity.enums.Roles;
+
 public interface IUserAccount extends IBaseEntity {
 
 	void setAvatar(String avatar);
 
 	String getAvatar();
-
-	void setRole(Integer role);
-
-	Integer getRole();
 
 	void setPhone(String phone);
 
@@ -29,5 +27,9 @@ public interface IUserAccount extends IBaseEntity {
 	void setFirstname(String firstname);
 
 	String getFirstname();
+
+	void setRole(Roles role);
+
+	Roles getRole();
 
 }

@@ -1,5 +1,6 @@
 package by.itacademy.jd2.th.messenger.service.impl;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,12 @@ public class UserAccountServiceImpl implements IUserAccountService {
 	public UserAccountServiceImpl(IUserAccountDao dao) {
 		super();
 		this.dao = dao;
+	}
+
+	@Override
+	public IUserAccount getByEmail(String email) {
+		IUserAccount entity = dao.findNickname(email);
+		return entity;
 	}
 
 	@Override

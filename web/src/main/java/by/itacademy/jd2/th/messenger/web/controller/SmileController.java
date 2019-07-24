@@ -23,7 +23,6 @@ import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmileGroup;
 import by.itacademy.jd2.th.messenger.dao.api.filter.SmileFilter;
 import by.itacademy.jd2.th.messenger.service.ISmileGroupService;
 import by.itacademy.jd2.th.messenger.service.ISmileService;
-import by.itacademy.jd2.th.messenger.service.impl.SmileGroupServiceImpl;
 import by.itacademy.jd2.th.messenger.web.converter.SmileFromDTOConverter;
 import by.itacademy.jd2.th.messenger.web.converter.SmileToDTOConverter;
 import by.itacademy.jd2.th.messenger.web.dto.SmileDTO;
