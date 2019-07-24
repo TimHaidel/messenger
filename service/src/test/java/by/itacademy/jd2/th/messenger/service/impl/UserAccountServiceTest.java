@@ -40,7 +40,7 @@ public class UserAccountServiceTest extends AbstractTest {
 		entity1.setPassword("password-" + getRandomPrefix());
 		entity1.setEmail("email-" + getRandomPrefix());
 		entity1.setAvatar("avatar-" + getRandomPrefix());
-		entity1.setRole(Roles.amdin);
+		entity1.setRole(Roles.admin);
 
 		try {
 			final IUserAccount entity2 = userAccountService.createEntity();

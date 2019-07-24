@@ -16,7 +16,7 @@
 		<c:forEach var="contact" items="${gridItems}" varStatus="loopCounter">
 			<tr>
 				<td><c:out value="${contact.id}" /></td>
-				<td><c:out value="${contact.accetptorId}" /></td>
+				<td><c:out value="${contact.acceptorId}" /></td>
 				<td><c:out value="${contact.created}" /></td>
 
 				<td class="right"><a class="btn-floating"

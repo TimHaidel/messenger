@@ -36,7 +36,10 @@
 		</div>
 		<div class="row">
 			<div class="input-field col s12">
-				<form:input path="role" type="text" disabled="${readonly}" />
+				<form:select path="role" type="text" disabled="${readonly}">
+					<option value="" disabled>выберите роль</option>
+					<form:options items="${roles}" />
+				</form:select>
 				<form:errors path="role" cssClass="red-text" />
 				<label for="name">role</label>
 			</div>

@@ -151,12 +151,15 @@ public class ContactDaoImpl extends AbstractDaoImpl<IContact, Integer> implement
 
 	@Override
 	public List<IContact> find(final ContactFilter filter) {
-		throw new RuntimeException("not implemented");
+		final StringBuilder sqlTile = new StringBuilder("");
+		appendSort(filter, sqlTile);
+		appendPaging(filter, sqlTile);
+		return executeFindQuery(sqlTile.toString());
 	}
 
 	@Override
 	public long getCount(final ContactFilter filter) {
-		throw new RuntimeException("not implemented");
+		return executeCountQuery("");
 	}
 
 	@Override

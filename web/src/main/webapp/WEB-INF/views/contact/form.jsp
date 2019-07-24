@@ -15,18 +15,19 @@
 		</div>
 		<div class="row">
 			<div class="input-field col s12">
-				<form:input path="marker" type="text" disabled="${readonly}" />
-				<form:errors path="marker" cssClass="red-text" />
-				<label for="marker">marker</label>
+				<form:input path="initiatorId" type="text" disabled="${readonly}" />
+				<form:errors path="initiatorId" cssClass="red-text" />
+				<label for="name">initiator</label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="input-field col s12">
-				<form:input path="smileGroup" type="text" disabled="${readonly}" />
-				<form:errors path="smileGroup" cssClass="red-text" />
-				<label for="smileGroup">smileGroup</label>
+				<form:input path="status" type="text" disabled="${readonly}" />
+				<form:errors path="status" cssClass="red-text" />
+				<label for="name">status</label>
 			</div>
 		</div>
+
 		<div class="row">
 			<div class="col s6"></div>
 			<div class="col s3">

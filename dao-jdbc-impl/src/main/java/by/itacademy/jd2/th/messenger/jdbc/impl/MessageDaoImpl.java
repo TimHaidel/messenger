@@ -21,7 +21,6 @@ import by.itacademy.jd2.th.messenger.jdbc.impl.entity.UserAccount;
 import by.itacademy.jd2.th.messenger.jdbc.impl.entity.UserGroup;
 import by.itacademy.jd2.th.messenger.jdbc.impl.util.PreparedStatementAction;
 import by.itacademy.jd2.th.messenger.jdbc.impl.util.SQLExecutionException;
-import by.itacademy.jd2.th.messenger.jdbc.impl.util.StatementAction;
 
 @Repository
 public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implements IMessageDao {
