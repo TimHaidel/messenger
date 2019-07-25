@@ -13,6 +13,7 @@
 <c:set var="pagesContact" value="${contextPath}/contact" scope="request" />
 <c:set var="pagesUserGroup" value="${contextPath}/user-group"
 	scope="request" />
+<c:set var="pagesChat" value="${contextPath}/chat" scope="request" />
 
 
 

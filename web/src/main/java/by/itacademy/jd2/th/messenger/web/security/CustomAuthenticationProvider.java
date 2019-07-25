@@ -19,8 +19,6 @@ import by.itacademy.jd2.th.messenger.service.IUserAccountService;
 @Component("customAuthenticationProvider")
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-	// TODO inject UserService
-
 	IUserAccountService userAccountService;
 
 	@Autowired

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.IContact;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.filter.UserAccountFilter;
 import by.itacademy.jd2.th.messenger.service.IUserAccountService;
@@ -56,8 +57,14 @@ public class DefaultController extends AbstractController {
 
 		final Map<String, Object> models = new HashMap<>();
 		models.put("gridItems", dtos);
-		
+
 		return new ModelAndView("home", models);
+	}
+
+	@RequestMapping(value = "/chat", method = RequestMethod.GET)
+	public String showForm() {
+
+		return "chat";
 	}
 
 }
