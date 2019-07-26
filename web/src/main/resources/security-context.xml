@@ -18,8 +18,7 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 		<intercept-url pattern="/chat**" access="!isAnonymous()" />
 		<intercept-url pattern="/smile**"
 			access="hasRole('admin')" />
-		<intercept-url pattern="/user-account**"
-			access="hasRole('admin')" />
+		<intercept-url pattern="/user-account**" access="hasRole('admin')" />
 		<intercept-url pattern="/attachment**"
 			access="hasRole('admin')" />
 		<intercept-url pattern="/message**"

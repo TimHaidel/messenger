@@ -21,12 +21,14 @@ public class ContactToDTOConverter implements Function<IContact, ContactDTO> {
 		IUserAccount initiator = entity.getInitiator();
 		if (initiator != null) {
 			dto.setInitiatorId(initiator.getId());
+			dto.setAvatar(initiator.getAvatar());
 		}
 		IUserAccount acceptor = entity.getAcceptor();
 		if (acceptor != null) {
 			dto.setAcceptorId(acceptor.getId());
 			dto.setAcceptorFirstname(acceptor.getFirstname());
 			dto.setAcceptorLastname(acceptor.getLastname());
+			dto.setAvatar(acceptor.getAvatar());
 		}
 
 		return dto;

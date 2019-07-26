@@ -8,10 +8,11 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import by.itacademy.jd2.th.messenger.dao.api.IContactDao;
-import by.itacademy.jd2.th.messenger.dao.api.entity.enums.Roles;
+import by.itacademy.jd2.th.messenger.dao.api.IUserAccountDao;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IContact;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.filter.ContactFilter;
@@ -22,6 +23,9 @@ import by.itacademy.jd2.th.messenger.jdbc.impl.util.SQLExecutionException;
 
 @Repository
 public class ContactDaoImpl extends AbstractDaoImpl<IContact, Integer> implements IContactDao {
+
+	@Autowired
+	IUserAccountDao userAccountDao;
 
 	@Override
 	public IContact createEntity() {
@@ -79,68 +83,52 @@ public class ContactDaoImpl extends AbstractDaoImpl<IContact, Integer> implement
 		entity.setStatus(resultSet.getInt("status"));
 
 		final Integer initiatorId = (Integer) resultSet.getObject("initiator_id");
-		if (initiatorId != null) {
-			final IUserAccount initiator = new UserAccount();
-			initiator.setId(initiatorId);
-			if (columns.contains("firstname")) {
-				initiator.setFirstname(resultSet.getString("firstname"));
-			}
-			if (columns.contains("lastname")) {
-				initiator.setLastname(resultSet.getString("lastname"));
-			}
-			if (columns.contains("password")) {
-				initiator.setPassword(resultSet.getString("password"));
-			}
-			if (columns.contains("email")) {
-				initiator.setEmail(resultSet.getString("email"));
-			}
-			if (columns.contains("avatar")) {
-				initiator.setAvatar(resultSet.getString("avatar"));
-			}
-			if (columns.contains("role")) {
-				initiator.setRole(Roles.valueOf(resultSet.getString("role")));
-			}
-			if (columns.contains("created")) {
-				initiator.setCreated(resultSet.getDate("created"));
-			}
-			if (columns.contains("updated")) {
-				initiator.setUpdated(resultSet.getDate("updated"));
-			}
-			entity.setInitiator(initiator);
 
-		}
+		final IUserAccount initiator = new UserAccount();
+		initiator.setId(initiatorId);
+		/*
+		 * if (columns.contains("firstname")) {
+		 * initiator.setFirstname(resultSet.getString("firstname")); } if
+		 * (columns.contains("lastname")) {
+		 * initiator.setLastname(resultSet.getString("lastname")); } if
+		 * (columns.contains("password")) {
+		 * initiator.setPassword(resultSet.getString("password")); } if
+		 * (columns.contains("email")) {
+		 * initiator.setEmail(resultSet.getString("email")); } if
+		 * (columns.contains("avatar")) {
+		 * initiator.setAvatar(resultSet.getString("avatar")); } if
+		 * (columns.contains("role")) {
+		 * initiator.setRole(Roles.valueOf(resultSet.getString("role"))); } if
+		 * (columns.contains("created")) {
+		 * initiator.setCreated(resultSet.getDate("created")); } if
+		 * (columns.contains("updated")) {
+		 * initiator.setUpdated(resultSet.getDate("updated")); }
+		 */
+		entity.setInitiator(initiator);
 
 		final Integer acceptorId = (Integer) resultSet.getObject("acceptor_id");
-		if (initiatorId != null) {
-			final IUserAccount acceptor = new UserAccount();
-			acceptor.setId(acceptorId);
-			if (columns.contains("firstname")) {
-				acceptor.setFirstname(resultSet.getString("firstname"));
-			}
-			if (columns.contains("lastname")) {
-				acceptor.setLastname(resultSet.getString("lastname"));
-			}
-			if (columns.contains("password")) {
-				acceptor.setPassword(resultSet.getString("password"));
-			}
-			if (columns.contains("email")) {
-				acceptor.setEmail(resultSet.getString("email"));
-			}
-			if (columns.contains("avatar")) {
-				acceptor.setAvatar(resultSet.getString("avatar"));
-			}
-			if (columns.contains("role")) {
-				acceptor.setRole(Roles.valueOf(resultSet.getString("role")));
-			}
-			if (columns.contains("created")) {
-				acceptor.setCreated(resultSet.getDate("created"));
-			}
-			if (columns.contains("updated")) {
-				acceptor.setUpdated(resultSet.getDate("updated"));
-			}
+		final IUserAccount acceptor = new UserAccount();
+		acceptor.setId(acceptorId);
+		/*
+		 * if (columns.contains("firstname")) {
+		 * acceptor.setFirstname(resultSet.getString("firstname")); } if
+		 * (columns.contains("lastname")) {
+		 * acceptor.setLastname(resultSet.getString("lastname")); } if
+		 * (columns.contains("password")) {
+		 * acceptor.setPassword(resultSet.getString("password")); } if
+		 * (columns.contains("email")) {
+		 * acceptor.setEmail(resultSet.getString("email")); } if
+		 * (columns.contains("avatar")) {
+		 * acceptor.setAvatar(resultSet.getString("avatar")); } if
+		 * (columns.contains("role")) {
+		 * acceptor.setRole(Roles.valueOf(resultSet.getString("role"))); } if
+		 * (columns.contains("created")) {
+		 * acceptor.setCreated(resultSet.getDate("created")); } if
+		 * (columns.contains("updated")) {
+		 * acceptor.setUpdated(resultSet.getDate("updated")); }
+		 */
 
-			entity.setAcceptor(acceptor);
-		}
+		entity.setAcceptor(acceptor);
 
 		return entity;
 	}
@@ -155,7 +143,14 @@ public class ContactDaoImpl extends AbstractDaoImpl<IContact, Integer> implement
 		final StringBuilder sqlTile = new StringBuilder("");
 		appendSort(filter, sqlTile);
 		appendPaging(filter, sqlTile);
-		return executeFindQuery(sqlTile.toString());
+		List<IContact> contacts = executeFindQuery(sqlTile.toString());
+
+		for (IContact iContact : contacts) {
+
+			iContact.setInitiator(userAccountDao.get(iContact.getInitiator().getId()));
+			iContact.setAcceptor(userAccountDao.get(iContact.getAcceptor().getId()));
+		}
+		return contacts;
 	}
 
 	@Override
