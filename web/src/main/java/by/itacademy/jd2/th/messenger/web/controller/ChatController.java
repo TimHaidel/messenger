@@ -14,24 +14,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
-import by.itacademy.jd2.th.messenger.dao.api.filter.UserAccountFilter;
-import by.itacademy.jd2.th.messenger.service.IUserAccountService;
-import by.itacademy.jd2.th.messenger.web.converter.UserAccountToDTOConverter;
-import by.itacademy.jd2.th.messenger.web.dto.UserAccountDTO;
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.IContact;
+import by.itacademy.jd2.th.messenger.dao.api.filter.ContactFilter;
+import by.itacademy.jd2.th.messenger.service.IContactService;
+import by.itacademy.jd2.th.messenger.web.converter.ContactToDTOConverter;
+import by.itacademy.jd2.th.messenger.web.dto.ContactDTO;
 import by.itacademy.jd2.th.messenger.web.dto.grid.GridStateDTO;
+import by.itacademy.jd2.th.messenger.web.security.AuthHelper;
 
 @Controller
 @RequestMapping(value = "/chat")
 public class ChatController extends AbstractController {
 
-	private IUserAccountService userAccountService;
-	private UserAccountToDTOConverter toDtoConverter;
+	private IContactService contactService;
+	private ContactToDTOConverter toDtoConverter;
 
 	@Autowired
-	public ChatController(IUserAccountService userAccountService, UserAccountToDTOConverter toDtoConverter) {
+	public ChatController(IContactService contactService, ContactToDTOConverter toDtoConverter) {
 		super();
-		this.userAccountService = userAccountService;
+		this.contactService = contactService;
 		this.toDtoConverter = toDtoConverter;
 	}
 
@@ -44,16 +45,18 @@ public class ChatController extends AbstractController {
 		gridState.setPage(pageNumber);
 		gridState.setSort(sortColumn, "id");
 
-		final UserAccountFilter filter = new UserAccountFilter();
+		final ContactFilter filter = new ContactFilter();
+		filter.setInitiatorId(AuthHelper.getLoggedUserId());
 		prepareFilter(gridState, filter);
 
-		final List<IUserAccount> entities = userAccountService.find(filter);
-		List<UserAccountDTO> dtos = entities.stream().map(toDtoConverter).collect(Collectors.toList());
-		gridState.setTotalCount(userAccountService.getCount(filter));
+		final List<IContact> entities = contactService.find(filter);
+		List<ContactDTO> dtos = entities.stream().map(toDtoConverter).collect(Collectors.toList());
+		gridState.setTotalCount(contactService.getCount(filter));
 
 		final Map<String, Object> models = new HashMap<>();
 		models.put("gridItems", dtos);
 
 		return new ModelAndView("chat", models);
 	}
+
 }

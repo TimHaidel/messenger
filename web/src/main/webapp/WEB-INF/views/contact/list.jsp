@@ -9,15 +9,15 @@
 		<tr>
 			<th><mytaglib:sort-link pageUrl="${pagesContact}" column="id">id</mytaglib:sort-link></th>
 			<th><mytaglib:sort-link pageUrl="${pagesContact}"
-					column="acceptorId">contact</mytaglib:sort-link></th>
+					column="acceptorId">acceptor</mytaglib:sort-link></th>
 			<th><mytaglib:sort-link pageUrl="${pagesContact}"
-					column="created">created</mytaglib:sort-link></th>
+					column="initiatorId">initiator</mytaglib:sort-link></th>
 		</tr>
 		<c:forEach var="contact" items="${gridItems}" varStatus="loopCounter">
 			<tr>
 				<td><c:out value="${contact.id}" /></td>
 				<td><c:out value="${contact.acceptorId}" /></td>
-				<td><c:out value="${contact.created}" /></td>
+				<td><c:out value="${contact.initiatorId}" /></td>
 
 				<td class="right"><a class="btn-floating"
 					href="${pagesContact}/${contact.id}"><i class="material-icons">info</i></a>

@@ -10,7 +10,7 @@
 			<div class="input-field col s12">
 				<form:input path="acceptorId" type="text" disabled="${readonly}" />
 				<form:errors path="acceptorId" cssClass="red-text" />
-				<label for="name">contact</label>
+				<label for="name">acceptor</label>
 			</div>
 		</div>
 		<div class="row">
@@ -36,7 +36,7 @@
 				</c:if>
 			</div>
 			<div class="col s3">
-				<a class="btn waves-effect waves-light right" href="${pagesSmile}">к
+				<a class="btn waves-effect waves-light right" href="${pagesContact}">к
 					списку<i class="material-icons right"></i>
 				</a>
 			</div>

@@ -15,15 +15,14 @@
 							<!--<img src="${contact.avatar}" alt="" class="circle">-->
 					</i> <span class="badge">1</span>
 						<p>
-							<c:out value="${contact.firstname}" />
+							<c:out value="${contact.acceptorFirstname}" />
 
-							<c:out value="${contact.lastname}" />
+							<c:out value="${contact.acceptorLastname}" />
 						</p> </a><a href="#!" class="secondary-content"><i
 						class="material-icons">grade</i></a></li>
 
-
-
 			</ul>
+
 		</c:forEach>
 	</div>
 	<div class="col s8">

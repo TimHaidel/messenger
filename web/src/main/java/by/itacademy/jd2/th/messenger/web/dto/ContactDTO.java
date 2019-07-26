@@ -4,12 +4,30 @@ import java.util.Date;
 
 public class ContactDTO {
 
-	Integer id;
-	Integer initiatorId;
-	Integer acceptorId;
-	Integer status;
-	String avatar;
-	Date created;
+	private Integer id;
+	private Integer initiatorId;
+	private Integer acceptorId;
+	private String acceptorFirstname;
+	private String acceptorLastname;
+	private Integer status;
+	private String avatar;
+	private Date created;
+
+	public String getAcceptorFirstname() {
+		return acceptorFirstname;
+	}
+
+	public void setAcceptorFirstname(String acceptorFirstname) {
+		this.acceptorFirstname = acceptorFirstname;
+	}
+
+	public String getAcceptorLastname() {
+		return acceptorLastname;
+	}
+
+	public void setAcceptorLastname(String acceptorLastname) {
+		this.acceptorLastname = acceptorLastname;
+	}
 
 	public String getAvatar() {
 		return avatar;

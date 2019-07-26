@@ -54,8 +54,9 @@ public class ContactDaoImpl extends AbstractDaoImpl<IContact, Integer> implement
 			public IContact doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
 				pStmt.setInt(1, entity.getInitiator().getId());
 				pStmt.setInt(2, entity.getAcceptor().getId());
-				pStmt.setInt(3, entity.getStatus());
-
+				if (entity.getStatus() != null) {
+					pStmt.setInt(3, entity.getStatus());
+				}
 				pStmt.executeUpdate();
 
 				final ResultSet rs = pStmt.getGeneratedKeys();

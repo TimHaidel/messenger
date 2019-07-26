@@ -29,7 +29,7 @@ public class ContactFromDTOConverter implements Function<ContactDTO, IContact> {
 		IUserAccount initiator = userAccountService.createEntity();
 		initiator.setId(dto.getInitiatorId());
 		IUserAccount acceptor = userAccountService.createEntity();
-		acceptor.setId(dto.getInitiatorId());
+		acceptor.setId(dto.getAcceptorId());
 
 		entity.setInitiator(initiator);
 		entity.setAcceptor(acceptor);

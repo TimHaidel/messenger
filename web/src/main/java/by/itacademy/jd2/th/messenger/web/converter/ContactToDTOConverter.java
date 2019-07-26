@@ -25,6 +25,8 @@ public class ContactToDTOConverter implements Function<IContact, ContactDTO> {
 		IUserAccount acceptor = entity.getAcceptor();
 		if (acceptor != null) {
 			dto.setAcceptorId(acceptor.getId());
+			dto.setAcceptorFirstname(acceptor.getFirstname());
+			dto.setAcceptorLastname(acceptor.getLastname());
 		}
 
 		return dto;

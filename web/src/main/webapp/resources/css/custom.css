@@ -24,7 +24,7 @@ main {
 }
 
 .switch label input[type=checkbox]:checked ~.lever:after {
-	background-color: #26a69a;
+	background-color: #00fce5;
 }
 
 .switch label input[type=checkbox]:checked ~.lever:before, .switch label input[type=checkbox]:checked
