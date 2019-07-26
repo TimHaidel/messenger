@@ -3,20 +3,22 @@
 <%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
-<h4 class="header">Edit smile</h4>
+<h4 class="header">chats</h4>
 <div class="row">
 
 	<div class="col s4">
 		<c:forEach var="contact" items="${gridItems}" varStatus="loopCounter">
 			<ul class="collection">
-				<li class="collection-item avatar"><i
-					class="material-icons prefix">accessibility <!--<img src="${contact.avatar}" alt="" class="circle">-->
-				</i> <span class="title">Title</span>
-					<p>
-						<c:out value="${contact.firstname}" />
-						<br>
-						<c:out value="${contact.lastname}" />
-					</p> <a href="#!" class="secondary-content"><i
+
+				<li class="collection-item avatar"><a href="#!"
+					class="collection-item"><i class="material-icons prefix">${contact.avatar}
+							<!--<img src="${contact.avatar}" alt="" class="circle">-->
+					</i> <span class="badge">1</span>
+						<p>
+							<c:out value="${contact.firstname}" />
+
+							<c:out value="${contact.lastname}" />
+						</p> </a><a href="#!" class="secondary-content"><i
 						class="material-icons">grade</i></a></li>
 
 

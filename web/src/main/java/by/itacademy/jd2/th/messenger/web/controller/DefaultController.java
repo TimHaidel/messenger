@@ -25,46 +25,9 @@ import by.itacademy.jd2.th.messenger.web.dto.grid.GridStateDTO;
 @RequestMapping(value = "/")
 public class DefaultController extends AbstractController {
 
-	private IUserAccountService userAccountService;
-	private UserAccountToDTOConverter toDtoConverter;
-
-	public DefaultController(IUserAccountService userAccountService, UserAccountToDTOConverter toDtoConverter) {
-		super();
-		this.userAccountService = userAccountService;
-		this.toDtoConverter = toDtoConverter;
-	}
-
-//	@RequestMapping(method = RequestMethod.GET)
-//	public String index() {
-//		return "home";
-//	}
-
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView index(final HttpServletRequest req,
-			@RequestParam(name = "page", required = false) final Integer pageNumber,
-			@RequestParam(name = "sort", required = false) final String sortColumn) {
-
-		final GridStateDTO gridState = getListDTO(req);
-		gridState.setPage(pageNumber);
-		gridState.setSort(sortColumn, "id");
-
-		final UserAccountFilter filter = new UserAccountFilter();
-		prepareFilter(gridState, filter);
-
-		final List<IUserAccount> entities = userAccountService.find(filter);
-		List<UserAccountDTO> dtos = entities.stream().map(toDtoConverter).collect(Collectors.toList());
-		gridState.setTotalCount(userAccountService.getCount(filter));
-
-		final Map<String, Object> models = new HashMap<>();
-		models.put("gridItems", dtos);
-
-		return new ModelAndView("home", models);
-	}
-
-	@RequestMapping(value = "/chat", method = RequestMethod.GET)
-	public String showForm() {
-
-		return "chat";
+	public String index() {
+		return "home";
 	}
 
 }

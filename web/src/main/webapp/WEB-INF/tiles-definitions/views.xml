@@ -92,5 +92,10 @@
 			value="/WEB-INF/views/user-group/form.jsp" />
 	</definition>
 
+	<definition name="chat" extends="DefaultTemplate">
+		<put-attribute name="body"
+			value="/WEB-INF/views/chat/chat.jsp" />
+	</definition>
+
 
 </tiles-definitions>
