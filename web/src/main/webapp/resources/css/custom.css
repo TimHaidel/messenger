@@ -31,3 +31,26 @@ main {
     ~.lever:after {
 	left: 18px;
 }
+
+.messages {
+	background-color: #2196f3;
+	width: 500px;
+	padding: 20px;
+}
+
+.messages .msg {
+	background-color: #e3f2fd;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	overflow: hidden;
+}
+
+.messages .msg .from {
+	background-color: #90caf9;
+	line-height: 30px;
+	text-align: center;
+}
+
+.messages .text {
+	padding: 0 10px 10px 10px;
+}
