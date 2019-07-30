@@ -67,7 +67,8 @@
 			</div>
 			<div class="col s3">
 				<a class="btn waves-effect waves-light right"
-					href="${pagesUserAccount}">list<i class="material-icons right"></i>
+					href="${pagesUserAccount}">list<i
+					class="material-icons right"></i>
 				</a>
 			</div>
 		</div>

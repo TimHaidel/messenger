@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.itacademy.jd2.th.messenger</groupId>
+	<groupId>by.itacademy.jd2.th.messenger</groupId>
 	<artifactId>parent-project</artifactId>
 	<version>1.0.0</version>
 
@@ -23,7 +24,7 @@
 
 	<modules>
 		<module>dao-api</module>
-		<module>dao-jdbc-impl</module>
+		<module>dao-orm-impl</module>
 		<module>service</module>
 		<module>web</module>
 	</modules>
@@ -32,25 +33,31 @@
 		<dependencies>
 			<!-- Project modules -->
 			<dependency>
-				<groupId>com.itacademy.jd2.th.messenger</groupId>
+				<groupId>by.itacademy.jd2.th.messenger</groupId>
 				<artifactId>dao-api</artifactId>
 				<version>1.0.0</version>
 			</dependency>
 
 			<dependency>
-				<groupId>com.itacademy.jd2.th.messenger</groupId>
+				<groupId>by.itacademy.jd2.th.messenger</groupId>
+				<artifactId>dao-orm-impl</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>by.itacademy.jd2.th.messenger</groupId>
 				<artifactId>dao-jdbc-impl</artifactId>
 				<version>1.0.0</version>
 			</dependency>
 
 			<dependency>
-				<groupId>com.itacademy.jd2.th.messenger</groupId>
+				<groupId>by.itacademy.jd2.th.messenger</groupId>
 				<artifactId>service</artifactId>
 				<version>1.0.0</version>
 			</dependency>
 
 			<dependency>
-				<groupId>com.itacademy.jd2.th.messenger</groupId>
+				<groupId>by.itacademy.jd2.th.messenger</groupId>
 				<artifactId>web</artifactId>
 				<version>1.0.0</version>
 			</dependency>
@@ -259,6 +266,31 @@
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-databind</artifactId>
 				<version>2.9.4</version>
+			</dependency>
+
+			<!-- Hibernate -->
+			<dependency>
+				<groupId>org.hibernate.javax.persistence</groupId>
+				<artifactId>hibernate-jpa-2.1-api</artifactId>
+				<version>1.0.0.Final</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>4.3.8.Final</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-jpamodelgen</artifactId>
+				<version>4.3.4.Final</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-dbcp</groupId>
+				<artifactId>commons-dbcp</artifactId>
+				<version>1.4</version>
 			</dependency>
 
 		</dependencies>

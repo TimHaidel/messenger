@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="ROOT">
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+	<wb-module deploy-name="messenger">
+		<wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+		<wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <dependent-module archiveName="service-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/service/service">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="dao-jdbc-impl-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/dao-jdbc-impl/dao-jdbc-impl">
+        <dependent-module archiveName="dao-orm-impl-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/dao-orm-impl/dao-orm-impl">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="dao-api-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/dao-api/dao-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <property name="context-root" value="ROOT"/>
-        <property name="java-output-path" value="/web/target/classes"/>
-    </wb-module>
+		<property name="java-output-path" value="/web/target/classes"/>
+		<property name="context-root" value="messenger"/>
+	</wb-module>
 </project-modules>
