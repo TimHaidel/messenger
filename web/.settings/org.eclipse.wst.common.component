@@ -11,7 +11,7 @@
         <dependent-module archiveName="dao-api-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/dao-api/dao-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-		<property name="java-output-path" value="/web/target/classes"/>
 		<property name="context-root" value="messenger"/>
+        <property name="java-output-path" value="/web/target/classes"/>
 	</wb-module>
 </project-modules>

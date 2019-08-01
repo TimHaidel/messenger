@@ -1,13 +1,19 @@
-package by.itacademy.jd2.th.messenger.jdbc.impl.entity;
+package by.itacademy.jd2.th.messenger.dao.orm.impl.entity;
 
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IContact;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 
+@Entity
 public class Contact extends BaseEntity implements IContact {
+	@Transient
 	private IUserAccount initiator;
+	@Transient
 	private IUserAccount acceptor;
+	@Column
 	private Integer status;
 
 	@Override
@@ -38,6 +44,11 @@ public class Contact extends BaseEntity implements IContact {
 	@Override
 	public void setStatus(final Integer status) {
 		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "Contact [initiator=" + initiator + ", acceptor=" + acceptor + ", status=" + status + "]";
 	}
 
 }
