@@ -7,18 +7,18 @@ import org.springframework.stereotype.Repository;
 import by.itacademy.jd2.th.messenger.dao.api.IUserToUserGroupDao;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserToUserGroup;
 import by.itacademy.jd2.th.messenger.dao.api.filter.UserToUserGroupFilter;
-import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.UserToUserGroup;
+import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.UserToGroup;
 
 @Repository
 public class UserToUserGroupDaoImpl extends AbstractDaoImpl<IUserToUserGroup, Integer> implements IUserToUserGroupDao {
 
 	protected UserToUserGroupDaoImpl() {
-		super(UserToUserGroup.class);
+		super(UserToGroup.class);
 	}
 
 	@Override
 	public IUserToUserGroup createEntity() {
-		IUserToUserGroup userToUserGroup = new UserToUserGroup();
+		IUserToUserGroup userToUserGroup = new UserToGroup();
 		return userToUserGroup;
 	}
 

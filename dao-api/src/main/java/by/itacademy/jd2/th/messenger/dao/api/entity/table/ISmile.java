@@ -14,8 +14,9 @@ public interface ISmile {
 
     String getName();
 
-    void setId(Integer id);
+	void setId(Integer id);
 
-    Integer getId();
+	Integer getId();
 
+  
 }

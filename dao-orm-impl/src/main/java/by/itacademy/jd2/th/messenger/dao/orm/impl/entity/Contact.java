@@ -2,16 +2,17 @@ package by.itacademy.jd2.th.messenger.dao.orm.impl.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Transient;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IContact;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 
 @Entity
 public class Contact extends BaseEntity implements IContact {
-	@Transient
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity = UserAccount.class)
 	private IUserAccount initiator;
-	@Transient
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity = UserAccount.class)
 	private IUserAccount acceptor;
 	@Column
 	private Integer status;

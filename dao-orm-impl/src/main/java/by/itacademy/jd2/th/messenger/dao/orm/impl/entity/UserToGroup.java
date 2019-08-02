@@ -1,6 +1,9 @@
 package by.itacademy.jd2.th.messenger.dao.orm.impl.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
@@ -8,22 +11,23 @@ import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserToUserGroup;
 
 @Entity
-public class UserToUserGroup extends BaseEntity implements IUserToUserGroup {
+@Table(name = "user_2_group")
+public class UserToGroup extends BaseEntity implements IUserToUserGroup {
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity = UserGroup.class)
+	private IUserGroup group;
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity = UserAccount.class)
+	private IUserAccount user;
 	@Transient
-	IUserGroup userGroup;
-	@Transient
-	IUserAccount user;
-	@Transient
-	Integer userGroupRole;
+	private Integer userGroupRole;
 
 	@Override
-	public IUserGroup getUserGroup() {
-		return userGroup;
+	public IUserGroup getGroup() {
+		return group;
 	}
 
 	@Override
-	public void setUserGroup(final IUserGroup userGroup) {
-		this.userGroup = userGroup;
+	public void setGroup(IUserGroup group) {
+		this.group = group;
 	}
 
 	@Override

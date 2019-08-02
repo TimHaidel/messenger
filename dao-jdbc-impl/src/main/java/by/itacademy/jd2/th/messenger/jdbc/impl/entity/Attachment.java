@@ -32,4 +32,16 @@ public class Attachment extends BaseEntity implements IAttachment {
         return "Attachment [content=" + content + ", contentType=" + contentType + "]";
     }
 
+	@Override
+	public void setId(Integer id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Integer getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -10,12 +10,13 @@ public interface IUserToUserGroup {
 
     IUserAccount getUser();
 
-    void setUserGroup(final IUserGroup userGroup);
-
-    IUserGroup getUserGroup();
 
     void setId(final Integer id);
 
     Integer getId();
+
+	void setGroup(IUserGroup group);
+
+	IUserGroup getGroup();
 
 }

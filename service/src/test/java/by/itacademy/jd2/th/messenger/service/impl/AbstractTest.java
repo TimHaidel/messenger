@@ -1,5 +1,8 @@
 package by.itacademy.jd2.th.messenger.service.impl;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 import java.util.Random;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -8,6 +11,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.enums.Roles;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IAttachment;
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.IBaseEntity;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IContact;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IMessage;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmile;
@@ -50,7 +54,7 @@ public abstract class AbstractTest {
 		// clean DB recursive
 		userToUserGroupService.deleteAll();
 		attachmentService.deleteAll();
-		messageService.deleteAllPinned();
+		// messageService.deleteAllPinned();
 		messageService.deleteAll();
 		userGroupService.deleteAll();
 		contactService.deleteAll();
@@ -130,7 +134,7 @@ public abstract class AbstractTest {
 	protected IUserToUserGroup saveNewUserToUserGroup() {
 		final IUserToUserGroup entity = userToUserGroupService.createEntity();
 		entity.setUser(saveNewUserAccount());
-		entity.setUserGroup(saveNewUserGroup());
+		entity.setGroup(saveNewUserGroup());
 		entity.setUserGroupRole(getRandomObjectsCount());
 
 		userToUserGroupService.save(entity);
@@ -152,4 +156,6 @@ public abstract class AbstractTest {
 		smileService.save(entity);
 		return entity;
 	}
+
+	
 }

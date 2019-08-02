@@ -18,4 +18,8 @@ public interface IMessage extends IBaseEntity {
 
     IMessage getParrentMessage();
 
+	void setAttachment(IAttachment attachment);
+
+	IAttachment getAttachment();
+
 }

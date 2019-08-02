@@ -6,8 +6,9 @@ public interface ISmileGroup {
 
     String getName();
 
-    void setId(final Integer id);
 
-    Integer getId();
+	void setId(Integer id);
+
+	Integer getId();
 
 }

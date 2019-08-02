@@ -23,9 +23,6 @@ public class AttachmentServiceTest extends AbstractTest {
 		assertEquals(entity.getContent(), entityFromDb.getContent());
 		assertEquals(entity.getContentType(), entityFromDb.getContentType());
 		assertNotNull(entityFromDb.getId());
-		assertNotNull(entityFromDb.getCreated());
-		assertNotNull(entityFromDb.getUpdated());
-		assertTrue(entityFromDb.getCreated().equals(entityFromDb.getUpdated()));
 	}
 
 	@Test

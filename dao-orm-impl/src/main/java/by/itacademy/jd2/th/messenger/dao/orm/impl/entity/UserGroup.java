@@ -10,7 +10,7 @@ public class UserGroup extends BaseEntity implements IUserGroup {
 	@Column
 	private String name;
 	@Column
-	private int status;
+	private Integer status;
 
 	@Override
 	public String getName() {

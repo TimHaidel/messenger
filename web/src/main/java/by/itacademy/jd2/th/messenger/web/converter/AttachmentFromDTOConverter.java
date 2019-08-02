@@ -21,7 +21,7 @@ public class AttachmentFromDTOConverter implements Function<AttachmentDTO, IAtta
 		entity.setId(dto.getId());
 		entity.setContent(dto.getContent());
 		entity.setContentType(dto.getContentType());
-		entity.setCreated(dto.getCreated());
+		//		entity.setCreated(dto.getCreated());
 		return entity;
 	}
 

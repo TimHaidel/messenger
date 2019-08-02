@@ -2,6 +2,8 @@ package by.itacademy.jd2.th.messenger.dao.orm.impl.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.enums.Roles;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
@@ -18,7 +20,7 @@ public class UserAccount extends BaseEntity implements IUserAccount {
 	private String email;
 	@Column
 	private String phone;
-	@Column
+	@Enumerated(EnumType.STRING)
 	private Roles role;
 	@Column
 	private String avatar;

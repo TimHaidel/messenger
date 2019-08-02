@@ -31,8 +31,8 @@ public class AttachmentDaoImpl extends AbstractDaoImpl<IAttachment, Integer> imp
 			public IAttachment doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
 				pStmt.setString(1, entity.getContent());
 				pStmt.setInt(2, entity.getContentType());
-				pStmt.setObject(3, entity.getUpdated(), Types.TIMESTAMP);
-				pStmt.setInt(4, entity.getId());
+//				pStmt.setObject(3, entity.getUpdated(), Types.TIMESTAMP);
+//				pStmt.setInt(4, entity.getId());
 				pStmt.executeUpdate();
 				return entity;
 			}
@@ -42,11 +42,10 @@ public class AttachmentDaoImpl extends AbstractDaoImpl<IAttachment, Integer> imp
 	@Override
 	protected IAttachment parseRow(final ResultSet resultSet) throws SQLException {
 		final IAttachment entity = createEntity();
-		entity.setId((Integer) resultSet.getObject("id"));
+//		entity.setId((Integer) resultSet.getObject("id"));
 		entity.setContent(resultSet.getString("content"));
 		entity.setContentType(resultSet.getInt("content_type"));
-		entity.setCreated(resultSet.getTimestamp("created"));
-		entity.setUpdated(resultSet.getTimestamp("updated"));
+		//etity.setUpdated(resultSet.getTimestamp("updated"));
 
 		return entity;
 	}
@@ -62,9 +61,9 @@ public class AttachmentDaoImpl extends AbstractDaoImpl<IAttachment, Integer> imp
 			public IAttachment doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
 				pStmt.setString(1, entity.getContent());
 				pStmt.setInt(2, entity.getContentType());
-				pStmt.setObject(3, entity.getCreated(), Types.TIMESTAMP);
-				pStmt.setObject(4, entity.getUpdated(), Types.TIMESTAMP);
-				pStmt.setInt(5, entity.getId());
+				// pStmt.setObject(3, entity.getCreated(), Types.TIMESTAMP);
+				// pStmt.setObject(4, entity.getUpdated(), Types.TIMESTAMP);
+				// pStmt.setInt(5, entity.getId());
 
 				pStmt.executeUpdate();
 

@@ -1,9 +1,18 @@
 package by.itacademy.jd2.th.messenger.dao.orm.impl.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Transient;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.IAttachment;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IMessage;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
@@ -11,13 +20,31 @@ import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
 @Entity
 public class Message extends BaseEntity implements IMessage {
 	@Column
-	String message;
-	@Transient
-	IMessage parrentMessage;
-	@Transient
-	IUserAccount user;
-	@Transient
-	IUserGroup userGroup;
+	private String message;
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Message.class)
+	private IMessage parrentMessage;
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity = UserAccount.class)
+	private IUserAccount user;
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity = UserGroup.class)
+	private IUserGroup userGroup;
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "message", targetEntity = Attachment.class)
+	private IAttachment attachment;
+
+	@JoinTable(name = "pinned_message", joinColumns = { @JoinColumn(name = "message_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "user_id") })
+	@ManyToMany(targetEntity = UserAccount.class, fetch = FetchType.LAZY)
+	private Set<IUserAccount> userAccounts = new HashSet<>();
+
+	@Override
+	public IAttachment getAttachment() {
+		return attachment;
+	}
+
+	@Override
+	public void setAttachment(IAttachment attachment) {
+		this.attachment = attachment;
+	}
 
 	@Override
 	public String getMessage() {
