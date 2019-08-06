@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.itacademy.jd2.th.messenger</groupId>
+		<groupId>by.itacademy.jd2.th.messenger</groupId>
 		<artifactId>parent-project</artifactId>
 		<version>1.0.0</version>
 	</parent>
@@ -15,7 +15,7 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>com.itacademy.jd2.th.messenger</groupId>
+			<groupId>by.itacademy.jd2.th.messenger</groupId>
 			<artifactId>service</artifactId>
 		</dependency>
 
@@ -124,8 +124,8 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
 		</dependency>
-		
-		
+
+
 
 
 	</dependencies>

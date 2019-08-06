@@ -24,7 +24,7 @@ public class MessageToDTOConverter implements Function<IMessage, MessageDTO> {
 			dto.setUser(user.getId());
 		}
 
-		IMessage parentMessage = entity.getParrentMessage();
+		IMessage parentMessage = entity.getParentMessage();
 		if (parentMessage != null) {
 			dto.setParentMessage(parentMessage.getId());
 		}

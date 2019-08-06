@@ -1,5 +1,6 @@
 package by.itacademy.jd2.th.messenger.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,10 @@ public class UserToUserGroupServiceImpl implements IUserToUserGroupService {
 
 	@Override
 	public void save(final IUserToUserGroup entity) {
+		final Date modifedOn = new Date();
+		entity.setUpdated(modifedOn);
 		if (entity.getId() == null) {
+			entity.setCreated(modifedOn);
 			dao.insert(entity);
 		} else {
 			dao.update(entity);
@@ -37,6 +41,13 @@ public class UserToUserGroupServiceImpl implements IUserToUserGroupService {
 
 	@Override
 	public void save(final IUserToUserGroup... entities) {
+		final Date modified = new Date();
+		for (final IUserToUserGroup iUserToUserGroup : entities) {
+
+			iUserToUserGroup.setUpdated(modified);
+			iUserToUserGroup.setCreated(modified);
+
+		}
 		dao.save(entities);
 	}
 

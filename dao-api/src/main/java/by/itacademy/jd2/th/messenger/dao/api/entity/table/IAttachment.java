@@ -1,13 +1,27 @@
 package by.itacademy.jd2.th.messenger.dao.api.entity.table;
 
+import java.util.Date;
+
 public interface IAttachment extends IBaseEntity {
 
-    void setContentType(final Integer contentType);
+	void setContentType(final Integer contentType);
 
-    Integer getContentType();
+	Integer getContentType();
 
-    void setContent(final String content);
+	void setContent(final String content);
 
-    String getContent();
+	String getContent();
+
+	void setUpdated(Date updated);
+
+	Date getUpdated();
+
+	void setCreated(Date created);
+
+	Date getCreated();
+
+	void setId(Integer id);
+
+	Integer getId();
 
 }

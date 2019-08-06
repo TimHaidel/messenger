@@ -259,7 +259,7 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 					pStmt.setString(1, entity.getMessage());
 					pStmt.setObject(2, entity.getUpdated(), Types.TIMESTAMP);
 					pStmt.setObject(3, entity.getUpdated(), Types.TIMESTAMP);
-					pStmt.setInt(4, entity.getParrentMessage().getId());
+					pStmt.setInt(4, entity.getParentMessage().getId());
 					pStmt.setInt(5, entity.getUser().getId());
 					pStmt.setInt(6, entity.getUserGroup().getId());
 

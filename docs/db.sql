@@ -19,7 +19,7 @@ CREATE TABLE "user_account" (
 CREATE TABLE "user_group" (
 	"id" serial NOT NULL,
 	"name" character varying NOT NULL UNIQUE,
-	"status" integer NOT NULL,
+	"status" integer,
 	"created" timestamp with time zone NOT NULL DEFAULT 'now()',
 	"updated" timestamp with time zone NOT NULL DEFAULT 'now()',
 	CONSTRAINT "user_group_pk" PRIMARY KEY ("id")
@@ -34,6 +34,8 @@ CREATE TABLE "user_2_group" (
 	"group_id" integer NOT NULL,
 	"user_id" integer NOT NULL,
 	"group_role" integer NOT NULL,
+	"created" timestamp with time zone NOT NULL DEFAULT 'now()',
+	"updated" timestamp with time zone NOT NULL DEFAULT 'now()',
 	CONSTRAINT "user_2_group_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -84,6 +86,8 @@ CREATE TABLE "smile" (
 	"name" character varying NOT NULL UNIQUE,
 	"marker" character varying NOT NULL UNIQUE DEFAULT '50',
 	"smile_group_id" integer NOT NULL,
+	"created" timestamp with time zone NOT NULL DEFAULT 'now()',
+	"updated" timestamp with time zone NOT NULL DEFAULT 'now()',
 	CONSTRAINT "smile_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -94,6 +98,8 @@ CREATE TABLE "smile" (
 CREATE TABLE "smile_group" (
 	"id" serial NOT NULL,
 	"name" character varying NOT NULL UNIQUE DEFAULT '125',
+	"created" timestamp with time zone NOT NULL DEFAULT 'now()',
+	"updated" timestamp with time zone NOT NULL DEFAULT 'now()',
 	CONSTRAINT "smile_group_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -133,4 +139,3 @@ ALTER TABLE "smile" ADD CONSTRAINT "smile_fk0" FOREIGN KEY ("smile_group_id") RE
 
 
 ALTER TABLE "attachment" ADD CONSTRAINT "attachment_fk0" FOREIGN KEY ("id") REFERENCES "message"("id");
-

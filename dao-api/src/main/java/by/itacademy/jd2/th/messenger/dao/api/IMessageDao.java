@@ -1,7 +1,5 @@
 package by.itacademy.jd2.th.messenger.dao.api;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IMessage;

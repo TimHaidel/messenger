@@ -1,5 +1,6 @@
 package by.itacademy.jd2.th.messenger.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,10 @@ public class ContactServiceImpl implements IContactService {
 
 	@Override
 	public void save(final IContact entity) {
+		final Date modifedOn = new Date();
+		entity.setUpdated(modifedOn);
 		if (entity.getId() == null) {
+			entity.setCreated(modifedOn);
 			dao.insert(entity);
 		} else {
 			dao.update(entity);
@@ -43,6 +47,14 @@ public class ContactServiceImpl implements IContactService {
 
 	@Override
 	public void save(final IContact... entities) {
+		final Date modified = new Date();
+		for (final IContact iContact : entities) {
+
+			iContact.setUpdated(modified);
+			iContact.setCreated(modified);
+
+		}
+
 
 		dao.save(entities);
 	}

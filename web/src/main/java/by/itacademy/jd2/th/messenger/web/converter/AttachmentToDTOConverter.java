@@ -16,7 +16,7 @@ public class AttachmentToDTOConverter implements Function<IAttachment, Attachmen
 		dto.setId(entity.getId());
 		dto.setContent(entity.getContent());
 		dto.setContentType(entity.getContentType());
-		dto.setCreated(entity.getCreated());
+		// dto.setCreated(entity.getCreated());
 		return dto;
 	}
 

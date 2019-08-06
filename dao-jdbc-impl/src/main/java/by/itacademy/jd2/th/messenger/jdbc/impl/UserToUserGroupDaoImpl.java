@@ -21,7 +21,7 @@ import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserToUserGroup;
 import by.itacademy.jd2.th.messenger.dao.api.filter.UserToUserGroupFilter;
 import by.itacademy.jd2.th.messenger.jdbc.impl.entity.UserAccount;
 import by.itacademy.jd2.th.messenger.jdbc.impl.entity.UserGroup;
-import by.itacademy.jd2.th.messenger.jdbc.impl.entity.UserToUserGroup;
+import by.itacademy.jd2.th.messenger.jdbc.impl.entity.User2Group;
 import by.itacademy.jd2.th.messenger.jdbc.impl.util.PreparedStatementAction;
 import by.itacademy.jd2.th.messenger.jdbc.impl.util.SQLExecutionException;
 
@@ -40,7 +40,7 @@ public class UserToUserGroupDaoImpl extends AbstractDaoImpl<IUserToUserGroup, In
 
 	@Override
 	public IUserToUserGroup createEntity() {
-		return new UserToUserGroup();
+		return new User2Group();
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class UserToUserGroupDaoImpl extends AbstractDaoImpl<IUserToUserGroup, In
 						.format("update %s set group_id = ?, user_id = ?, group_role = ? where id=?", getTableName())) {
 					@Override
 					public IUserToUserGroup doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
-						pStmt.setInt(1, entity.getUserGroup().getId());
+						pStmt.setInt(1, entity.getGroup().getId());
 						pStmt.setInt(2, entity.getUser().getId());
 						pStmt.setInt(3, entity.getUserGroupRole());
 						pStmt.setInt(4, entity.getId());
@@ -95,7 +95,7 @@ public class UserToUserGroupDaoImpl extends AbstractDaoImpl<IUserToUserGroup, In
 			if (columns.contains("updated")) {
 				userGroup.setUpdated(resultSet.getDate("updated"));
 			}
-			entity.setUserGroup(userGroup);
+			entity.setGroup(userGroup);
 
 		}
 
@@ -141,7 +141,7 @@ public class UserToUserGroupDaoImpl extends AbstractDaoImpl<IUserToUserGroup, In
 				String.format("insert into %s (group_id, user_id, group_role) values(?,?,?)", getTableName()), true) {
 			@Override
 			public IUserToUserGroup doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
-				pStmt.setInt(1, entity.getUserGroup().getId());
+				pStmt.setInt(1, entity.getGroup().getId());
 				pStmt.setInt(2, entity.getUser().getId());
 				pStmt.setInt(3, entity.getUserGroupRole());
 
@@ -186,7 +186,7 @@ public class UserToUserGroupDaoImpl extends AbstractDaoImpl<IUserToUserGroup, In
 							.format("insert into %s (group_id, user_id, group_role) values(?,?,?)", getTableName()),
 							Statement.RETURN_GENERATED_KEYS);
 
-					pStmt.setInt(1, entity.getUserGroup().getId());
+					pStmt.setInt(1, entity.getGroup().getId());
 					pStmt.setInt(2, entity.getUser().getId());
 					pStmt.setInt(3, entity.getUserGroupRole());
 

@@ -1,6 +1,5 @@
 package by.itacademy.jd2.th.messenger.service.impl;
 
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 

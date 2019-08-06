@@ -1,21 +1,31 @@
 package by.itacademy.jd2.th.messenger.dao.api.entity.table;
 
+import java.util.Set;
+
 public interface IMessage extends IBaseEntity {
 
-    void setUserGroup(final IUserGroup bunch);
+	void setUserGroup(final IUserGroup bunch);
 
-    IUserGroup getUserGroup();
+	IUserGroup getUserGroup();
 
-    void setUser(final IUserAccount user);
+	void setUser(final IUserAccount user);
 
-    IUserAccount getUser();
+	IUserAccount getUser();
 
-    void setMessage(final String message);
+	void setMessage(final String message);
 
-    String getMessage();
+	String getMessage();
 
-    void setParentMessage(IMessage parrentMessage);
+	void setAttachment(IAttachment attachment);
 
-    IMessage getParrentMessage();
+	IAttachment getAttachment();
+
+	void setUserAccounts(Set<IUserAccount> userAccounts);
+
+	Set<IUserAccount> getUserAccounts();
+
+	void setParentMessage(IMessage parentMessage);
+
+	IMessage getParentMessage();
 
 }
