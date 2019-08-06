@@ -7,10 +7,12 @@ import by.itacademy.jd2.th.messenger.dao.api.filter.SmileFilter;
 
 public interface ISmileDao extends IDao<ISmile, Integer> {
 
-    List<ISmile> find(SmileFilter filter);
+	List<ISmile> find(SmileFilter filter);
 
-    long getCount(SmileFilter filter);
+	long getCount(SmileFilter filter);
 
-    void save(ISmile[] entities);
+	void save(ISmile[] entities);
+
+	ISmile getFullInfo(Integer id);
 
 }

@@ -44,13 +44,13 @@ public class SmileServiceTest extends AbstractTest {
 		Thread.sleep(2000);
 		smileService.save(entity);
 
-		final ISmile entityFromDb = smileService.get(entity.getId());
+		final ISmile entityFromDb = smileService.getFullInfo(entity.getId());
 
 		assertNotNull(entityFromDb);
 		assertNotNull(entityFromDb.getId());
 		assertEquals(entity.getName(), entityFromDb.getName());
 		assertEquals(entity.getMarker(), entityFromDb.getMarker());
-		assertEquals(entity.getSmileGroup().getId(), entityFromDb.getSmileGroup().getId());
+		assertEquals(entity.getSmileGroup().getId().intValue(), entityFromDb.getSmileGroup().getId().intValue());
 
 	}
 

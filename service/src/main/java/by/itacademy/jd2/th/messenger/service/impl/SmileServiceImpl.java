@@ -71,4 +71,9 @@ public class SmileServiceImpl implements ISmileService {
 		return dao.getCount(filter);
 	}
 
+	@Override
+	public ISmile getFullInfo(Integer id) {
+		return dao.getFullInfo(id);
+	}
+
 }

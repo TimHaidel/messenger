@@ -15,6 +15,7 @@ import by.itacademy.jd2.th.messenger.dao.api.ISmileGroupDao;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmileGroup;
 import by.itacademy.jd2.th.messenger.dao.api.filter.SmileGroupFilter;
 import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.SmileGroup;
+import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.SmileGroup_;
 
 @Repository
 public class SmileGroupDaoImpl extends AbstractDaoImpl<ISmileGroup, Integer> implements ISmileGroupDao {
@@ -56,16 +57,17 @@ public class SmileGroupDaoImpl extends AbstractDaoImpl<ISmileGroup, Integer> imp
 		return q.getSingleResult(); // execute query
 	}
 
-//	private SingularAttribute<? super SmileGroup, ?> toMetamodelFormat(final String sortColumn) {
-//		switch (sortColumn) {
-//		case "id":
-//			return SmileGroup_.id;
-//		case "name":
-//			return SmileGroup_.name;
-//		default:
-//			throw new UnsupportedOperationException("sorting is not supported by column:" + sortColumn);
-//		}
-//	}
+	private SingularAttribute<? super SmileGroup, ?> toMetamodelFormat(final String sortColumn) {
+		switch (sortColumn) {
+		case "id":
+			return SmileGroup_.id;
+		case "name":
+			return SmileGroup_.name;
+		case "created":
+		default:
+			throw new UnsupportedOperationException("sorting is not supported by column:" + sortColumn);
+		}
+	}
 
 	@Override
 	public void save(final ISmileGroup... entities) {

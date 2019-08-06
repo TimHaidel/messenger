@@ -1,6 +1,5 @@
 package by.itacademy.jd2.th.messenger.service.impl;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -96,28 +95,12 @@ public class SmileGroupServiceTest extends AbstractTest {
 
 		filter.setSortColumn("id");
 		filter.setSortOrder(true);
-		List<ISmileGroup> ascBrands = smileGroupService.find(filter);
-		verifyOrderById(ascBrands, true);
+		List<ISmileGroup> ascEntities = smileGroupService.find(filter);
+		verifyOrderById(ascEntities, true);
 
 		filter.setSortOrder(false);
-		List<ISmileGroup> descBrands = smileGroupService.find(filter);
-		verifyOrderById(descBrands, false);
-	}
-	
-	protected void verifyOrderById(List<ISmileGroup> ascBrands, boolean ascending) {
-		ISmileGroup previousEntity = null;
-		for (ISmileGroup entity : ascBrands) {
-			if (previousEntity == null) {
-				previousEntity = entity;
-				continue;
-			}
-			if (ascending) {
-				assertTrue(previousEntity.getId().intValue() < entity.getId().intValue());
-			} else {
-				assertTrue(previousEntity.getId().intValue() > entity.getId().intValue());
-			}
-			previousEntity = entity;
-		}
+		List<ISmileGroup> descEntities = smileGroupService.find(filter);
+		verifyOrderById(descEntities, false);
 	}
 
 }

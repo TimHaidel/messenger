@@ -1,5 +1,6 @@
 package by.itacademy.jd2.th.messenger.dao.orm.impl.entity;
 
+import java.util.Date;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
@@ -8,9 +9,11 @@ import javax.persistence.metamodel.StaticMetamodel;
 @StaticMetamodel(Attachment.class)
 public abstract class Attachment_ {
 
+	public static volatile SingularAttribute<Attachment, Date> created;
 	public static volatile SingularAttribute<Attachment, Integer> id;
 	public static volatile SingularAttribute<Attachment, Message> message;
 	public static volatile SingularAttribute<Attachment, Integer> contentType;
+	public static volatile SingularAttribute<Attachment, Date> updated;
 	public static volatile SingularAttribute<Attachment, String> content;
 
 }

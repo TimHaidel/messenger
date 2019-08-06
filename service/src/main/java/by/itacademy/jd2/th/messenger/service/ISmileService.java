@@ -28,4 +28,6 @@ public interface ISmileService {
 
 	ISmile createEntity();
 
+	ISmile getFullInfo(Integer id);
+
 }

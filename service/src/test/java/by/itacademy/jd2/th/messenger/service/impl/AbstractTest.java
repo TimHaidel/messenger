@@ -1,6 +1,6 @@
 package by.itacademy.jd2.th.messenger.service.impl;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.Random;
@@ -157,5 +157,21 @@ public abstract class AbstractTest {
 		return entity;
 	}
 
-	
+	protected IBaseEntity verifyOrderById(List<? extends IBaseEntity> ascEntities, boolean ascending) {
+		IBaseEntity previousEntity = null;
+		for (IBaseEntity entity : ascEntities) {
+			if (previousEntity == null) {
+				previousEntity = entity;
+				continue;
+			}
+			if (ascending) {
+				assertTrue(previousEntity.getId().intValue() < entity.getId().intValue());
+			} else {
+				assertTrue(previousEntity.getId().intValue() > entity.getId().intValue());
+			}
+			previousEntity = entity;
+		}
+		return previousEntity;
+	}
+
 }
