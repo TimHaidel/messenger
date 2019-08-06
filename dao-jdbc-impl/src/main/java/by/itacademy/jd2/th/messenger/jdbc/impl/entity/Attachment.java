@@ -1,5 +1,7 @@
 package by.itacademy.jd2.th.messenger.jdbc.impl.entity;
 
+import java.util.Date;
+
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IAttachment;
 
 public class Attachment extends BaseEntity implements IAttachment {
@@ -40,6 +42,30 @@ public class Attachment extends BaseEntity implements IAttachment {
 
 	@Override
 	public Integer getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setUpdated(Date updated) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Date getUpdated() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setCreated(Date created) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Date getCreated() {
 		// TODO Auto-generated method stub
 		return null;
 	}

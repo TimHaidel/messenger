@@ -50,4 +50,9 @@ public class UserToGroup extends BaseEntity implements IUserToUserGroup {
 		this.userGroupRole = userGroupRole;
 	}
 
+	@Override
+	public String toString() {
+		return "UserToGroup [group=" + group + ", user=" + user + ", userGroupRole=" + userGroupRole + "]";
+	}
+
 }

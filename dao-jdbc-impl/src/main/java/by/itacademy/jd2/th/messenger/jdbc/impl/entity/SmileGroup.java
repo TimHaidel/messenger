@@ -2,20 +2,9 @@ package by.itacademy.jd2.th.messenger.jdbc.impl.entity;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmileGroup;
 
-public class SmileGroup implements ISmileGroup {
+public class SmileGroup extends BaseEntity implements ISmileGroup {
 
-	Integer id;
 	String name;
-
-	@Override
-	public Integer getId() {
-		return id;
-	}
-
-	@Override
-	public void setId(final Integer id) {
-		this.id = id;
-	}
 
 	@Override
 	public String getName() {
@@ -29,7 +18,7 @@ public class SmileGroup implements ISmileGroup {
 
 	@Override
 	public String toString() {
-		return "SmileGroup [id=" + id + ", name=" + name + "]";
+		return "SmileGroup [name=" + name + "]";
 	}
 
 }

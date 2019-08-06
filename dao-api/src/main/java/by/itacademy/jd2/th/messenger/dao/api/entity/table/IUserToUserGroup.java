@@ -1,19 +1,14 @@
 package by.itacademy.jd2.th.messenger.dao.api.entity.table;
 
-public interface IUserToUserGroup {
+public interface IUserToUserGroup extends IBaseEntity {
 
-    void setUserGroupRole(final Integer userGroupRole);
+	void setUserGroupRole(final Integer userGroupRole);
 
-    Integer getUserGroupRole();
+	Integer getUserGroupRole();
 
-    void setUser(final IUserAccount user);
+	void setUser(final IUserAccount user);
 
-    IUserAccount getUser();
-
-
-    void setId(final Integer id);
-
-    Integer getId();
+	IUserAccount getUser();
 
 	void setGroup(IUserGroup group);
 

@@ -4,21 +4,10 @@ import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserToUserGroup;
 
-public class User2Group implements IUserToUserGroup {
-	Integer id;
+public class User2Group extends BaseEntity implements IUserToUserGroup {
 	IUserGroup group;
 	IUserAccount user;
 	Integer userGroupRole;
-
-	@Override
-	public Integer getId() {
-		return id;
-	}
-
-	@Override
-	public void setId(final Integer id) {
-		this.id = id;
-	}
 
 	@Override
 	public IUserGroup getGroup() {

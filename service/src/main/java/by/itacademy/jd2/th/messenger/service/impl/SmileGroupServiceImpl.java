@@ -1,5 +1,6 @@
 package by.itacademy.jd2.th.messenger.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,10 @@ public class SmileGroupServiceImpl implements ISmileGroupService {
 
 	@Override
 	public void save(final ISmileGroup entity) {
+		final Date modifedOn = new Date();
+		entity.setUpdated(modifedOn);
 		if (entity.getId() == null) {
+			entity.setCreated(modifedOn);
 			dao.insert(entity);
 		} else {
 			dao.update(entity);
@@ -69,6 +73,13 @@ public class SmileGroupServiceImpl implements ISmileGroupService {
 
 	@Override
 	public void save(final ISmileGroup... entities) {
+		final Date modified = new Date();
+		for (final ISmileGroup iSmileGroup : entities) {
+
+			iSmileGroup.setUpdated(modified);
+			iSmileGroup.setCreated(modified);
+
+		}
 
 		dao.save(entities);
 

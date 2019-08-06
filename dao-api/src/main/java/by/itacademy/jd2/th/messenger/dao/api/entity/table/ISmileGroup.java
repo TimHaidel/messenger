@@ -1,14 +1,9 @@
 package by.itacademy.jd2.th.messenger.dao.api.entity.table;
 
-public interface ISmileGroup {
+public interface ISmileGroup extends IBaseEntity {
 
-    void setName(final String name);
+	void setName(final String name);
 
-    String getName();
-
-
-	void setId(Integer id);
-
-	Integer getId();
+	String getName();
 
 }

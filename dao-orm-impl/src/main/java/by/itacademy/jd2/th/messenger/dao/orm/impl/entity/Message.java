@@ -22,7 +22,7 @@ public class Message extends BaseEntity implements IMessage {
 	@Column
 	private String message;
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Message.class)
-	private IMessage parrentMessage;
+	private IMessage parentMessage;
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = UserAccount.class)
 	private IUserAccount user;
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = UserGroup.class)
@@ -57,13 +57,23 @@ public class Message extends BaseEntity implements IMessage {
 	}
 
 	@Override
-	public IMessage getParrentMessage() {
-		return parrentMessage;
+	public IMessage getParentMessage() {
+		return parentMessage;
 	}
 
 	@Override
-	public void setParentMessage(final IMessage parrentMessage) {
-		this.parrentMessage = parrentMessage;
+	public void setParentMessage(IMessage parentMessage) {
+		this.parentMessage = parentMessage;
+	}
+
+	@Override
+	public Set<IUserAccount> getUserAccounts() {
+		return userAccounts;
+	}
+
+	@Override
+	public void setUserAccounts(Set<IUserAccount> userAccounts) {
+		this.userAccounts = userAccounts;
 	}
 
 	@Override
@@ -84,6 +94,12 @@ public class Message extends BaseEntity implements IMessage {
 	@Override
 	public void setUserGroup(final IUserGroup group) {
 		this.userGroup = group;
+	}
+
+	@Override
+	public String toString() {
+		return "Message [message=" + message + ", parentMessage=" + parentMessage + ", user=" + user + ", userGroup="
+				+ userGroup + ", attachment=" + attachment + ", userAccounts=" + userAccounts + "]";
 	}
 
 }
