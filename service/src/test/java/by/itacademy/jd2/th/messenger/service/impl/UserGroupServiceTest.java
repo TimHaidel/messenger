@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
+import by.itacademy.jd2.th.messenger.dao.api.filter.UserGroupFilter;
 
 public class UserGroupServiceTest extends AbstractTest {
 
@@ -103,5 +104,35 @@ public class UserGroupServiceTest extends AbstractTest {
 		saveNewUserGroup();
 		userGroupService.deleteAll();
 		assertEquals(0, userGroupService.getAll().size());
+	}
+
+	@Test
+	public void testFind() {
+		for (int i = 0; i < 6; i++) {
+			saveNewUserGroup();
+		}
+
+		UserGroupFilter filter = new UserGroupFilter();
+
+		assertEquals(6, userGroupService.getCount(filter));
+		assertEquals(6, userGroupService.find(filter).size());
+
+		filter.setLimit(5);
+		assertEquals(5, userGroupService.find(filter).size());
+
+		filter.setOffset(5);
+		assertEquals(1, userGroupService.find(filter).size());
+
+		filter = new UserGroupFilter();
+
+		filter.setSortColumn("id");
+		filter.setSortOrder(true);
+		List<IUserGroup> ascEntities = userGroupService.find(filter);
+		verifyOrderById(ascEntities, true);
+
+		filter.setSortOrder(false);
+		List<IUserGroup> descEntitties = userGroupService.find(filter);
+		verifyOrderById(descEntitties, false);
+
 	}
 }

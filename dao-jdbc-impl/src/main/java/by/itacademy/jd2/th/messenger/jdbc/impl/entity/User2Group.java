@@ -2,12 +2,12 @@ package by.itacademy.jd2.th.messenger.jdbc.impl.entity;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
-import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserToUserGroup;
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserToGroup;
 
-public class User2Group extends BaseEntity implements IUserToUserGroup {
+public class User2Group extends BaseEntity implements IUserToGroup {
 	IUserGroup group;
 	IUserAccount user;
-	Integer userGroupRole;
+	Integer groupRole;
 
 	@Override
 	public IUserGroup getGroup() {
@@ -30,13 +30,18 @@ public class User2Group extends BaseEntity implements IUserToUserGroup {
 	}
 
 	@Override
-	public Integer getUserGroupRole() {
-		return userGroupRole;
+	public Integer getGroupRole() {
+		return groupRole;
 	}
 
 	@Override
-	public void setUserGroupRole(final Integer userGroupRole) {
-		this.userGroupRole = userGroupRole;
+	public void setGroupRole(Integer groupRole) {
+		this.groupRole = groupRole;
+	}
+
+	@Override
+	public String toString() {
+		return "User2Group [group=" + group + ", user=" + user + ", groupRole=" + groupRole + "]";
 	}
 
 }

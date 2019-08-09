@@ -36,7 +36,7 @@ public class SmileGroupDaoImpl extends AbstractDaoImpl<ISmileGroup, Integer> imp
 
 		final CriteriaQuery<ISmileGroup> cq = cb.createQuery(ISmileGroup.class);
 
-		final Root<SmileGroup> from = cq.from(SmileGroup.class);// select from brand
+		final Root<SmileGroup> from = cq.from(SmileGroup.class);// select from smile group
 		cq.select(from); // select what? select *
 
 		final TypedQuery<ISmileGroup> q = em.createQuery(cq);
@@ -64,6 +64,9 @@ public class SmileGroupDaoImpl extends AbstractDaoImpl<ISmileGroup, Integer> imp
 		case "name":
 			return SmileGroup_.name;
 		case "created":
+			return SmileGroup_.created;
+		case "updated":
+			return SmileGroup_.updated;
 		default:
 			throw new UnsupportedOperationException("sorting is not supported by column:" + sortColumn);
 		}

@@ -13,48 +13,48 @@ import org.springframework.stereotype.Repository;
 
 import by.itacademy.jd2.th.messenger.dao.api.IUserAccountDao;
 import by.itacademy.jd2.th.messenger.dao.api.IUserGroupDao;
-import by.itacademy.jd2.th.messenger.dao.api.IUserToUserGroupDao;
+import by.itacademy.jd2.th.messenger.dao.api.IUserToGroupDao;
 import by.itacademy.jd2.th.messenger.dao.api.entity.enums.Roles;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
-import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserToUserGroup;
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserToGroup;
 import by.itacademy.jd2.th.messenger.dao.api.filter.UserToUserGroupFilter;
+import by.itacademy.jd2.th.messenger.jdbc.impl.entity.User2Group;
 import by.itacademy.jd2.th.messenger.jdbc.impl.entity.UserAccount;
 import by.itacademy.jd2.th.messenger.jdbc.impl.entity.UserGroup;
-import by.itacademy.jd2.th.messenger.jdbc.impl.entity.User2Group;
 import by.itacademy.jd2.th.messenger.jdbc.impl.util.PreparedStatementAction;
 import by.itacademy.jd2.th.messenger.jdbc.impl.util.SQLExecutionException;
 
 @Repository
-public class UserToUserGroupDaoImpl extends AbstractDaoImpl<IUserToUserGroup, Integer> implements IUserToUserGroupDao {
+public class UserToGroupDaoImpl extends AbstractDaoImpl<IUserToGroup, Integer> implements IUserToGroupDao {
 
 	private final IUserAccountDao userAccountDao;
 	private final IUserGroupDao userGroupDao;
 
 	@Autowired
-	public UserToUserGroupDaoImpl(final IUserAccountDao userAccountDao, final IUserGroupDao userGroupDao) {
+	public UserToGroupDaoImpl(final IUserAccountDao userAccountDao, final IUserGroupDao userGroupDao) {
 		super();
 		this.userAccountDao = userAccountDao;
 		this.userGroupDao = userGroupDao;
 	}
 
 	@Override
-	public IUserToUserGroup createEntity() {
+	public IUserToGroup createEntity() {
 		return new User2Group();
 	}
 
 	@Override
-	public void update(final IUserToUserGroup entity) {
+	public void update(final IUserToGroup entity) {
 		try (Connection c = getConnection()) {
 			c.setAutoCommit(false);
 			try {
-				executeStatement(new PreparedStatementAction<IUserToUserGroup>(String
+				executeStatement(new PreparedStatementAction<IUserToGroup>(String
 						.format("update %s set group_id = ?, user_id = ?, group_role = ? where id=?", getTableName())) {
 					@Override
-					public IUserToUserGroup doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
+					public IUserToGroup doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
 						pStmt.setInt(1, entity.getGroup().getId());
 						pStmt.setInt(2, entity.getUser().getId());
-						pStmt.setInt(3, entity.getUserGroupRole());
+						pStmt.setInt(3, entity.getGroupRole());
 						pStmt.setInt(4, entity.getId());
 						pStmt.executeUpdate();
 						return entity;
@@ -74,10 +74,10 @@ public class UserToUserGroupDaoImpl extends AbstractDaoImpl<IUserToUserGroup, In
 	}
 
 	@Override
-	protected IUserToUserGroup parseRow(final ResultSet resultSet, final Set<String> columns) throws SQLException {
-		final IUserToUserGroup entity = createEntity();
+	protected IUserToGroup parseRow(final ResultSet resultSet, final Set<String> columns) throws SQLException {
+		final IUserToGroup entity = createEntity();
 		entity.setId((Integer) resultSet.getObject("id"));
-		entity.setUserGroupRole(resultSet.getInt("group_role"));
+		entity.setGroupRole(resultSet.getInt("group_role"));
 
 		final Integer userGroupId = (Integer) resultSet.getObject("group_id");
 		if (userGroupId != null) {
@@ -135,15 +135,15 @@ public class UserToUserGroupDaoImpl extends AbstractDaoImpl<IUserToUserGroup, In
 	}
 
 	@Override
-	public void insert(final IUserToUserGroup entity) {
+	public void insert(final IUserToGroup entity) {
 
-		executeStatement(new PreparedStatementAction<IUserToUserGroup>(
+		executeStatement(new PreparedStatementAction<IUserToGroup>(
 				String.format("insert into %s (group_id, user_id, group_role) values(?,?,?)", getTableName()), true) {
 			@Override
-			public IUserToUserGroup doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
+			public IUserToGroup doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
 				pStmt.setInt(1, entity.getGroup().getId());
 				pStmt.setInt(2, entity.getUser().getId());
-				pStmt.setInt(3, entity.getUserGroupRole());
+				pStmt.setInt(3, entity.getGroupRole());
 
 				pStmt.executeUpdate();
 
@@ -166,7 +166,7 @@ public class UserToUserGroupDaoImpl extends AbstractDaoImpl<IUserToUserGroup, In
 	}
 
 	@Override
-	public List<IUserToUserGroup> find(final UserToUserGroupFilter filter) {
+	public List<IUserToGroup> find(final UserToUserGroupFilter filter) {
 		throw new RuntimeException("not implemented");
 	}
 
@@ -176,19 +176,19 @@ public class UserToUserGroupDaoImpl extends AbstractDaoImpl<IUserToUserGroup, In
 	}
 
 	@Override
-	public void save(final IUserToUserGroup... entities) {
+	public void save(final IUserToGroup... entities) {
 		try (Connection c = getConnection()) {
 			c.setAutoCommit(false);
 			try {
 
-				for (final IUserToUserGroup entity : entities) {
+				for (final IUserToGroup entity : entities) {
 					final PreparedStatement pStmt = c.prepareStatement(String
 							.format("insert into %s (group_id, user_id, group_role) values(?,?,?)", getTableName()),
 							Statement.RETURN_GENERATED_KEYS);
 
 					pStmt.setInt(1, entity.getGroup().getId());
 					pStmt.setInt(2, entity.getUser().getId());
-					pStmt.setInt(3, entity.getUserGroupRole());
+					pStmt.setInt(3, entity.getGroupRole());
 
 					pStmt.executeUpdate();
 
@@ -211,6 +211,11 @@ public class UserToUserGroupDaoImpl extends AbstractDaoImpl<IUserToUserGroup, In
 			throw new SQLExecutionException(e);
 		}
 
+	}
+
+	@Override
+	public IUserToGroup getFullInfo(Integer id) {
+		throw new RuntimeException("not implemented");
 	}
 
 }

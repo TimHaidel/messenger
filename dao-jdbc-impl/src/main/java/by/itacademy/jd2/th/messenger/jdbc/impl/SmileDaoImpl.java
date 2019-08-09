@@ -114,4 +114,9 @@ public class SmileDaoImpl extends AbstractDaoImpl<ISmile, Integer> implements IS
 
 	}
 
+	@Override
+	public ISmile getFullInfo(Integer id) {
+		throw new RuntimeException("not implemented");
+	}
+
 }

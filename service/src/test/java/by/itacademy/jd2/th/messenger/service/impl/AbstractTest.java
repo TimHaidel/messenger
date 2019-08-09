@@ -18,7 +18,7 @@ import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmile;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmileGroup;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
-import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserToUserGroup;
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserToGroup;
 import by.itacademy.jd2.th.messenger.service.IAttachmentService;
 import by.itacademy.jd2.th.messenger.service.IContactService;
 import by.itacademy.jd2.th.messenger.service.IMessageService;
@@ -26,7 +26,7 @@ import by.itacademy.jd2.th.messenger.service.ISmileGroupService;
 import by.itacademy.jd2.th.messenger.service.ISmileService;
 import by.itacademy.jd2.th.messenger.service.IUserAccountService;
 import by.itacademy.jd2.th.messenger.service.IUserGroupService;
-import by.itacademy.jd2.th.messenger.service.IUserToUserGroupService;
+import by.itacademy.jd2.th.messenger.service.IUserToGroupService;
 
 @SpringJUnitConfig(locations = "classpath:service-context-test.xml")
 public abstract class AbstractTest {
@@ -39,7 +39,7 @@ public abstract class AbstractTest {
 	@Autowired
 	protected IContactService contactService;
 	@Autowired
-	protected IUserToUserGroupService userToUserGroupService;
+	protected IUserToGroupService userToUserGroupService;
 	@Autowired
 	protected IAttachmentService attachmentService;
 	@Autowired
@@ -131,11 +131,11 @@ public abstract class AbstractTest {
 		return entity;
 	}
 
-	protected IUserToUserGroup saveNewUserToUserGroup() {
-		final IUserToUserGroup entity = userToUserGroupService.createEntity();
+	protected IUserToGroup saveNewUserToUserGroup() {
+		final IUserToGroup entity = userToUserGroupService.createEntity();
 		entity.setUser(saveNewUserAccount());
 		entity.setGroup(saveNewUserGroup());
-		entity.setUserGroupRole(getRandomObjectsCount());
+		entity.setGroupRole(getRandomObjectsCount());
 
 		userToUserGroupService.save(entity);
 		return entity;

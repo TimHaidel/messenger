@@ -40,12 +40,6 @@ public class SmileServiceImpl implements ISmileService {
 	}
 
 	@Override
-	public ISmile get(final Integer id) {
-		final ISmile entity = dao.get(id);
-		return entity;
-	}
-
-	@Override
 	public void delete(final Integer id) {
 		dao.delete(id);
 	}
@@ -74,6 +68,11 @@ public class SmileServiceImpl implements ISmileService {
 	@Override
 	public ISmile getFullInfo(Integer id) {
 		return dao.getFullInfo(id);
+	}
+
+	@Override
+	public Object get(Integer id) {
+		return dao.get(id);
 	}
 
 }

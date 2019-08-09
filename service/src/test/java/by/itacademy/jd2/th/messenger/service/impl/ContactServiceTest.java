@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IContact;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
+import by.itacademy.jd2.th.messenger.dao.api.filter.ContactFilter;
 
 public class ContactServiceTest extends AbstractTest {
 
@@ -17,10 +18,10 @@ public class ContactServiceTest extends AbstractTest {
 	public void testCreate() {
 		final IContact entity = saveNewContact();
 
-		final IContact entityFromDb = contactService.get(entity.getId());
+		final IContact entityFromDb = contactService.getFullInfo(entity.getId());
 
 		assertNotNull(entityFromDb);
-		assertEquals(entity.getInitiator().getId(), entityFromDb.getInitiator().getId());
+		assertEquals(entity.getInitiator().getId().intValue(), entityFromDb.getInitiator().getId().intValue());
 		assertEquals(entity.getAcceptor().getId(), entityFromDb.getAcceptor().getId());
 		assertEquals(entity.getStatus(), entityFromDb.getStatus());
 		assertNotNull(entityFromDb.getId());
@@ -42,7 +43,7 @@ public class ContactServiceTest extends AbstractTest {
 		Thread.sleep(2000);
 		contactService.save(entity);
 
-		final IContact entityFromDb = contactService.get(entity.getId());
+		final IContact entityFromDb = contactService.getFullInfo(entity.getId());
 
 		assertNotNull(entityFromDb);
 		assertNotNull(entityFromDb.getId());
@@ -65,8 +66,8 @@ public class ContactServiceTest extends AbstractTest {
 
 		for (final IContact entityFromDb : allEntities) {
 			assertNotNull(entityFromDb.getId());
-			assertNotNull(entityFromDb.getInitiator().getId());
-			assertNotNull(entityFromDb.getAcceptor().getId());
+			assertNotNull(entityFromDb.getInitiator().getId().intValue());
+			assertNotNull(entityFromDb.getAcceptor().getId().intValue());
 			assertNotNull(entityFromDb.getStatus());
 		}
 
@@ -85,6 +86,35 @@ public class ContactServiceTest extends AbstractTest {
 		saveNewContact();
 		contactService.deleteAll();
 		assertEquals(0, contactService.getAll().size());
+	}
+
+	@Test
+	public void testFind() {
+		for (int i = 0; i < 6; i++) {
+			saveNewContact();
+		}
+
+		ContactFilter filter = new ContactFilter();
+
+		assertEquals(6, contactService.getCount(filter));
+		assertEquals(6, contactService.find(filter).size());
+
+		filter.setLimit(5);
+		assertEquals(5, contactService.find(filter).size());
+
+		filter.setOffset(5);
+		assertEquals(1, contactService.find(filter).size());
+
+		filter = new ContactFilter();
+
+		filter.setSortColumn("id");
+		filter.setSortOrder(true);
+		List<IContact> ascEntities = contactService.find(filter);
+		verifyOrderById(ascEntities, true);
+
+		filter.setSortOrder(false);
+		List<IContact> descEntities = contactService.find(filter);
+		verifyOrderById(descEntities, false);
 	}
 
 }

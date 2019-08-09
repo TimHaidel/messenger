@@ -43,4 +43,6 @@ public interface IMessageService {
 	@Transactional
 	void deleteAllPinned();
 
+	IMessage getFullInfo(Integer id);
+
 }

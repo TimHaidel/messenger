@@ -20,4 +20,6 @@ public interface IMessageDao extends IDao<IMessage, Integer> {
 	IMessage getPinnedMessage(Integer id);
 
 	void deleteAllPinnedMessages();
+
+	IMessage getFullInfo(Integer id);
 }

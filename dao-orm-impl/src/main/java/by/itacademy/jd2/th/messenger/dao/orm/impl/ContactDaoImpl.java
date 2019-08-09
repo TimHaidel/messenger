@@ -2,12 +2,20 @@ package by.itacademy.jd2.th.messenger.dao.orm.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Root;
+
 import org.springframework.stereotype.Repository;
 
 import by.itacademy.jd2.th.messenger.dao.api.IContactDao;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IContact;
 import by.itacademy.jd2.th.messenger.dao.api.filter.ContactFilter;
 import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.Contact;
+import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.Contact_;
 
 @Repository
 public class ContactDaoImpl extends AbstractDaoImpl<IContact, Integer> implements IContactDao {
@@ -24,18 +32,58 @@ public class ContactDaoImpl extends AbstractDaoImpl<IContact, Integer> implement
 
 	@Override
 	public List<IContact> find(ContactFilter filter) {
-		throw new RuntimeException("Not implemented");
+		final EntityManager em = getEntityManager();
+		final CriteriaBuilder cb = em.getCriteriaBuilder();
+
+		final CriteriaQuery<IContact> cq = cb.createQuery(IContact.class);
+
+		final Root<Contact> from = cq.from(Contact.class);// select from
+		cq.select(from); // select what? select *
+
+		from.fetch(Contact_.initiator, JoinType.LEFT);
+		from.fetch(Contact_.acceptor, JoinType.LEFT);
+
+		final TypedQuery<IContact> q = em.createQuery(cq);
+		setPaging(filter, q);
+
+		return q.getResultList();
 	}
 
 	@Override
 	public long getCount(ContactFilter filter) {
-		throw new RuntimeException("Not implemented");
+		final EntityManager em = getEntityManager();
+		final CriteriaBuilder cb = em.getCriteriaBuilder();
+
+		final CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+		final Root<Contact> from = cq.from(Contact.class); // select from
+		cq.select(cb.count(from)); // select what? select count(*)
+		final TypedQuery<Long> q = em.createQuery(cq);
+		return q.getSingleResult(); // execute query
 	}
 
 	@Override
 	public void save(IContact... entities) {
 		throw new RuntimeException("Not implemented");
 
+	}
+
+	@Override
+	public IContact getFullInfo(Integer id) {
+		final EntityManager em = getEntityManager();
+		final CriteriaBuilder cb = em.getCriteriaBuilder();
+
+		final CriteriaQuery<IContact> cq = cb.createQuery(IContact.class);
+		final Root<Contact> from = cq.from(Contact.class);
+
+		cq.select(from); // define what need to be selected
+		from.fetch(Contact_.initiator, JoinType.LEFT);
+		from.fetch(Contact_.acceptor, JoinType.LEFT);
+
+		cq.where(cb.equal(from.get(Contact_.id), id));
+
+		final TypedQuery<IContact> q = em.createQuery(cq);
+
+		return getSingleResult(q);
 	}
 
 }

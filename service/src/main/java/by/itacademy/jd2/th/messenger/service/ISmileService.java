@@ -21,13 +21,13 @@ public interface ISmileService {
 	@Transactional
 	void delete(final Integer id);
 
-	ISmile get(final Integer id);
-
 	@Transactional
 	void save(final ISmile entity);
 
 	ISmile createEntity();
 
 	ISmile getFullInfo(Integer id);
+
+	Object get(Integer id);
 
 }

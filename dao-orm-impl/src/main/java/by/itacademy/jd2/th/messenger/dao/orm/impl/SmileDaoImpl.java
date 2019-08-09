@@ -32,12 +32,32 @@ public class SmileDaoImpl extends AbstractDaoImpl<ISmile, Integer> implements IS
 
 	@Override
 	public List<ISmile> find(SmileFilter filter) {
-		throw new RuntimeException("Not implemented");
+		final EntityManager em = getEntityManager();
+		final CriteriaBuilder cb = em.getCriteriaBuilder();
+
+		final CriteriaQuery<ISmile> cq = cb.createQuery(ISmile.class);
+
+		final Root<Smile> from = cq.from(Smile.class);// select from smile
+		cq.select(from); // select what? select *
+
+		from.fetch(Smile_.smileGroup, JoinType.LEFT);
+
+		final TypedQuery<ISmile> q = em.createQuery(cq);
+		setPaging(filter, q);
+
+		return q.getResultList();
 	}
 
 	@Override
 	public long getCount(SmileFilter filter) {
-		throw new RuntimeException("Not implemented");
+		final EntityManager em = getEntityManager();
+		final CriteriaBuilder cb = em.getCriteriaBuilder();
+
+		final CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+		final Root<Smile> from = cq.from(Smile.class); // select from
+		cq.select(cb.count(from)); // select what? select count(*)
+		final TypedQuery<Long> q = em.createQuery(cq);
+		return q.getSingleResult(); // execute query
 	}
 
 	@Override

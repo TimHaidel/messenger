@@ -196,4 +196,9 @@ public class ContactDaoImpl extends AbstractDaoImpl<IContact, Integer> implement
 		}
 	}
 
+	@Override
+	public IContact getFullInfo(Integer id) {
+		throw new RuntimeException("Not implemented");
+	}
+
 }

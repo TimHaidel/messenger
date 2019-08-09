@@ -31,4 +31,6 @@ public interface IContactService {
 	@Transactional
 	void save(final IContact... entities);
 
+	IContact getFullInfo(Integer id);
+
 }

@@ -43,20 +43,6 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 
 	@Override
 	public void insertPinMessage(IMessage message, IUserAccount user) {
-		// executeStatement(
-		// new PreparedStatementAction<IMessage>("insert into pinned_message
-		// (message_id, user_id) values(?,?)") {
-		// @Override
-		// public IMessage doWithPreparedStatement(final PreparedStatement pStmt) throws
-		// SQLException {
-		// pStmt.setInt(1, message.getId());
-		// pStmt.setInt(2, user.getId());
-		//
-		// pStmt.executeUpdate();
-		//
-		// return message;
-		// }
-		// });
 		try (Connection c = getConnection()) {
 
 			PreparedStatement stmt = c.prepareStatement("insert into pinned_message (message_id, user_id) values(?,?)");
@@ -71,17 +57,6 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 
 	@Override
 	public void deletePinnedMessage(IMessage message) {
-
-		// executeStatement(new PreparedStatementAction<IMessage>("delete from
-		// pinned_message where messege_id=?") {
-		// @Override
-		// public IMessage doWithPreparedStatement(final PreparedStatement pStmt) throws
-		// SQLException {
-		// pStmt.setInt(1, message.getId());
-		// pStmt.executeUpdate();
-		// return message;
-		// }
-		// });
 		try (Connection c = getConnection()) {
 			final PreparedStatement deleteStmt = c.prepareStatement("delete from pinned_message where messege_id=?");
 			deleteStmt.setInt(1, message.getId());
@@ -284,6 +259,11 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 		} catch (final SQLException e) {
 			throw new SQLExecutionException(e);
 		}
+	}
+
+	@Override
+	public IMessage getFullInfo(Integer id) {
+		throw new RuntimeException("Not implemented");
 	}
 
 }

@@ -55,7 +55,6 @@ public class ContactServiceImpl implements IContactService {
 
 		}
 
-
 		dao.save(entities);
 	}
 
@@ -83,6 +82,11 @@ public class ContactServiceImpl implements IContactService {
 	@Override
 	public long getCount(final ContactFilter filter) {
 		return dao.getCount(filter);
+	}
+
+	@Override
+	public IContact getFullInfo(Integer id) {
+		return dao.getFullInfo(id);
 	}
 
 }

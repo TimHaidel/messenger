@@ -12,8 +12,11 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IMessage;
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmile;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
+import by.itacademy.jd2.th.messenger.dao.api.filter.MessageFilter;
+import by.itacademy.jd2.th.messenger.dao.api.filter.SmileFilter;
 
 public class MessageServiceTest extends AbstractTest {
 
@@ -31,7 +34,7 @@ public class MessageServiceTest extends AbstractTest {
 	public void testCreate() {
 		final IMessage entity = saveNewMessage();
 
-		final IMessage entityFromDb = messageService.get(entity.getId());
+		final IMessage entityFromDb = messageService.getFullInfo(entity.getId());
 
 		assertNotNull(entityFromDb);
 		assertEquals(entity.getMessage(), entityFromDb.getMessage());
@@ -78,7 +81,7 @@ public class MessageServiceTest extends AbstractTest {
 
 		messageService.save(entity);
 
-		final IMessage entityFromDb = messageService.get(entity.getId());
+		final IMessage entityFromDb = messageService.getFullInfo(entity.getId());
 
 		assertNotNull(entityFromDb);
 		assertEquals(entity.getUser().getId(), entityFromDb.getUser().getId());
@@ -120,6 +123,35 @@ public class MessageServiceTest extends AbstractTest {
 		saveNewMessage();
 		messageService.deleteAll();
 		assertEquals(0, messageService.getAll().size());
+	}
+
+	@Test
+	public void testFind() {
+		for (int i = 0; i < 6; i++) {
+			saveNewMessage();
+		}
+
+		MessageFilter filter = new MessageFilter();
+
+		assertEquals(6, messageService.getCount(filter));
+		assertEquals(6, messageService.find(filter).size());
+
+		filter.setLimit(5);
+		assertEquals(5, messageService.find(filter).size());
+
+		filter.setOffset(5);
+		assertEquals(1, messageService.find(filter).size());
+
+		filter = new MessageFilter();
+
+		filter.setSortColumn("id");
+		filter.setSortOrder(true);
+		List<IMessage> ascEntities = messageService.find(filter);
+		verifyOrderById(ascEntities, true);
+
+		filter.setSortOrder(false);
+		List<IMessage> descEntities = messageService.find(filter);
+		verifyOrderById(descEntities, false);
 	}
 
 }

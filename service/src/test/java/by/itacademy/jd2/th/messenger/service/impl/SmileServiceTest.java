@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmile;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmileGroup;
+import by.itacademy.jd2.th.messenger.dao.api.filter.SmileFilter;
 
 public class SmileServiceTest extends AbstractTest {
 
@@ -17,13 +18,12 @@ public class SmileServiceTest extends AbstractTest {
 	public void testCreate() {
 		final ISmile entity = saveNewSmile();
 
-		final ISmile entityFromDb = smileService.get(entity.getId());
+		final ISmile entityFromDb = smileService.getFullInfo(entity.getId());
 
 		assertNotNull(entityFromDb);
 		assertEquals(entity.getName(), entityFromDb.getName());
 		assertEquals(entity.getMarker(), entityFromDb.getMarker());
-		// assertEquals(entity.getSmileGroup().getId(),
-		// entityFromDb.getSmileGroup().getId());
+		assertEquals(entity.getSmileGroup().getId(), entityFromDb.getSmileGroup().getId());
 		assertNotNull(entityFromDb.getId());
 	}
 
@@ -87,6 +87,35 @@ public class SmileServiceTest extends AbstractTest {
 		saveNewSmile();
 		smileService.deleteAll();
 		assertEquals(0, smileService.getAll().size());
+	}
+
+	@Test
+	public void testFind() {
+		for (int i = 0; i < 6; i++) {
+			saveNewSmile();
+		}
+
+		SmileFilter filter = new SmileFilter();
+
+		assertEquals(6, smileService.getCount(filter));
+		assertEquals(6, smileService.find(filter).size());
+
+		filter.setLimit(5);
+		assertEquals(5, smileService.find(filter).size());
+
+		filter.setOffset(5);
+		assertEquals(1, smileService.find(filter).size());
+
+		filter = new SmileFilter();
+
+		filter.setSortColumn("id");
+		filter.setSortOrder(true);
+		List<ISmile> ascEntities = smileService.find(filter);
+		verifyOrderById(ascEntities, true);
+
+		filter.setSortOrder(false);
+		List<ISmile> descEntities = smileService.find(filter);
+		verifyOrderById(descEntities, false);
 	}
 
 }

@@ -1,24 +1,24 @@
 package by.itacademy.jd2.th.messenger.dao.orm.impl.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
-import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserToUserGroup;
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserToGroup;
 
 @Entity
 @Table(name = "user_2_group")
-public class UserToGroup extends BaseEntity implements IUserToUserGroup {
+public class UserToGroup extends BaseEntity implements IUserToGroup {
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = UserGroup.class)
 	private IUserGroup group;
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = UserAccount.class)
 	private IUserAccount user;
-	@Transient
-	private Integer userGroupRole;
+	@Column
+	private Integer groupRole;
 
 	@Override
 	public IUserGroup getGroup() {
@@ -41,18 +41,19 @@ public class UserToGroup extends BaseEntity implements IUserToUserGroup {
 	}
 
 	@Override
-	public Integer getUserGroupRole() {
-		return userGroupRole;
+	public Integer getGroupRole() {
+		return groupRole;
 	}
 
 	@Override
-	public void setUserGroupRole(final Integer userGroupRole) {
-		this.userGroupRole = userGroupRole;
+	public void setGroupRole(Integer groupRole) {
+		this.groupRole = groupRole;
 	}
 
 	@Override
 	public String toString() {
-		return "UserToGroup [group=" + group + ", user=" + user + ", userGroupRole=" + userGroupRole + "]";
+		return "UserToGroup [group=" + group + ", user=" + user + ", groupRole=" + groupRole + "]";
 	}
+
 
 }

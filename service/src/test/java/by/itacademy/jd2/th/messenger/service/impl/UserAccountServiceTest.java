@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.enums.Roles;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
+import by.itacademy.jd2.th.messenger.dao.api.filter.UserAccountFilter;
 
 public class UserAccountServiceTest extends AbstractTest {
 
@@ -120,6 +121,35 @@ public class UserAccountServiceTest extends AbstractTest {
 		saveNewUserAccount();
 		userAccountService.deleteAll();
 		assertEquals(0, userAccountService.getAll().size());
+	}
+
+	@Test
+	public void testFind() {
+		for (int i = 0; i < 6; i++) {
+			saveNewUserAccount();
+		}
+
+		UserAccountFilter filter = new UserAccountFilter();
+
+		assertEquals(6, userAccountService.getCount(filter));
+		assertEquals(6, userAccountService.find(filter).size());
+
+		filter.setLimit(5);
+		assertEquals(5, userAccountService.find(filter).size());
+
+		filter.setOffset(5);
+		assertEquals(1, userAccountService.find(filter).size());
+
+		filter = new UserAccountFilter();
+
+		filter.setSortColumn("id");
+		filter.setSortOrder(true);
+		List<IUserAccount> ascEntities = userAccountService.find(filter);
+		verifyOrderById(ascEntities, true);
+
+		filter.setSortOrder(false);
+		List<IUserAccount> descEntities = userAccountService.find(filter);
+		verifyOrderById(descEntities, false);
 	}
 
 }

@@ -114,4 +114,9 @@ public class MessageServiceImpl implements IMessageService {
 	public long getCount(final MessageFilter filter) {
 		return dao.getCount(filter);
 	}
+
+	@Override
+	public IMessage getFullInfo(Integer id) {
+		return dao.getFullInfo(id);
+	}
 }

@@ -96,7 +96,7 @@ public class SmileController extends AbstractController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ModelAndView viewDetails(@PathVariable(name = "id", required = true) final Integer id) {
-		final ISmile dbModel = smileService.get(id);
+		final ISmile dbModel = smileService.getFullInfo(id);
 		final SmileDTO dto = toDtoConverter.apply(dbModel);
 		final Map<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
@@ -107,7 +107,7 @@ public class SmileController extends AbstractController {
 
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@PathVariable(name = "id", required = true) final Integer id) {
-		final SmileDTO dto = toDtoConverter.apply(smileService.get(id));
+		final SmileDTO dto = toDtoConverter.apply(smileService.getFullInfo(id));
 
 		final Map<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
