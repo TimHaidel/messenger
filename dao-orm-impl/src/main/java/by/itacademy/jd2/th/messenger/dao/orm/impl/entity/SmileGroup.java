@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmileGroup;
 
 @Entity
+
 public class SmileGroup extends BaseEntity implements ISmileGroup {
 
 	@Column

@@ -27,8 +27,6 @@ public interface IAttachmentService {
 	@Transactional
 	void save(final IAttachment entity);
 
-	IAttachment attachMessage(final IMessage message);
-
 	@Transactional
 	void update(final IAttachment entity);
 

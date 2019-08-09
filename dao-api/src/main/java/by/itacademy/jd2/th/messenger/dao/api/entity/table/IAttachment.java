@@ -24,4 +24,8 @@ public interface IAttachment extends IBaseEntity {
 
 	Integer getId();
 
+	void setMessage(IMessage message);
+
+	IMessage getMessage();
+
 }

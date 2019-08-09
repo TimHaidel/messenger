@@ -10,6 +10,7 @@ public abstract class UserToGroup_ extends by.itacademy.jd2.th.messenger.dao.orm
 
 	public static volatile SingularAttribute<UserToGroup, UserAccount> user;
 	public static volatile SingularAttribute<UserToGroup, UserGroup> group;
+	public static volatile SingularAttribute<UserToGroup, Integer> groupRole;
 
 }
 

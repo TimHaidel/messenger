@@ -3,11 +3,13 @@ package by.itacademy.jd2.th.messenger.service.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.IBaseEntity;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmile;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmileGroup;
 import by.itacademy.jd2.th.messenger.dao.api.filter.SmileFilter;
@@ -23,7 +25,7 @@ public class SmileServiceTest extends AbstractTest {
 		assertNotNull(entityFromDb);
 		assertEquals(entity.getName(), entityFromDb.getName());
 		assertEquals(entity.getMarker(), entityFromDb.getMarker());
-		assertEquals(entity.getSmileGroup().getId(), entityFromDb.getSmileGroup().getId());
+		assertEquals(entity.getSmileGroup().getId().intValue(), entityFromDb.getSmileGroup().getId().intValue());
 		assertNotNull(entityFromDb.getId());
 	}
 
@@ -116,6 +118,28 @@ public class SmileServiceTest extends AbstractTest {
 		filter.setSortOrder(false);
 		List<ISmile> descEntities = smileService.find(filter);
 		verifyOrderById(descEntities, false);
+	}
+
+	@Test
+	public void testSearch() {
+
+		List<ISmile> result = smileService.search("test");
+		assertTrue(result.isEmpty());
+
+		ISmile savedSmile = saveNewSmile();
+		savedSmile.setMarker("some test data");
+		smileService.save(savedSmile);
+
+		List<ISmile> foundSmile = smileService.search("some test data");
+		assertEquals(1, foundSmile.size());
+		assertTrue(foundSmile.get(0).getId().equals((savedSmile).getId()));
+
+		ISmile validSmile = saveNewSmile();
+		validSmile.setMarker("the best smile in the world");
+		smileService.save(validSmile);
+		result = smileService.search("world smile best");
+		assertEquals(1, result.size());
+		assertEquals(validSmile.getId().intValue(), result.get(0).getId().intValue());
 	}
 
 }

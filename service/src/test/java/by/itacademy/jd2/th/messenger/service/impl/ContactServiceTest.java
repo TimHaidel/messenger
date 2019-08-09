@@ -22,8 +22,8 @@ public class ContactServiceTest extends AbstractTest {
 
 		assertNotNull(entityFromDb);
 		assertEquals(entity.getInitiator().getId().intValue(), entityFromDb.getInitiator().getId().intValue());
-		assertEquals(entity.getAcceptor().getId(), entityFromDb.getAcceptor().getId());
-		assertEquals(entity.getStatus(), entityFromDb.getStatus());
+		assertEquals(entity.getAcceptor().getId().intValue(), entityFromDb.getAcceptor().getId().intValue());
+		assertEquals(entity.getStatus().intValue(), entityFromDb.getStatus().intValue());
 		assertNotNull(entityFromDb.getId());
 	}
 
@@ -47,9 +47,9 @@ public class ContactServiceTest extends AbstractTest {
 
 		assertNotNull(entityFromDb);
 		assertNotNull(entityFromDb.getId());
-		assertEquals(entity.getInitiator().getId(), entityFromDb.getInitiator().getId());
-		assertEquals(entity.getAcceptor().getId(), entityFromDb.getAcceptor().getId());
-		assertEquals(entity.getStatus(), entityFromDb.getStatus());
+		assertEquals(entity.getInitiator().getId().intValue(), entityFromDb.getInitiator().getId().intValue());
+		assertEquals(entity.getAcceptor().getId().intValue(), entityFromDb.getAcceptor().getId().intValue());
+		assertEquals(entity.getStatus().intValue(), entityFromDb.getStatus().intValue());
 
 	}
 

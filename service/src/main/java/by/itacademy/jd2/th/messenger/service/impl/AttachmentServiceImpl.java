@@ -23,12 +23,6 @@ public class AttachmentServiceImpl implements IAttachmentService {
 		this.dao = dao;
 	}
 
-	@Override
-	public IAttachment attachMessage(final IMessage message) {
-		final IAttachment attachDao = dao.createEntity();
-		attachDao.setId(message.getId());
-		return attachDao;
-	}
 
 	@Override
 	public IAttachment createEntity() {

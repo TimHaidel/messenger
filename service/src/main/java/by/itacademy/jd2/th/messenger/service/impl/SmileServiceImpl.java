@@ -75,4 +75,9 @@ public class SmileServiceImpl implements ISmileService {
 		return dao.get(id);
 	}
 
+	@Override
+	public List<ISmile> search(String text) {
+		return dao.search(text);
+	}
+
 }

@@ -30,4 +30,7 @@ public interface ISmileService {
 
 	Object get(Integer id);
 
+	@Transactional
+	List<ISmile> search(String string);
+
 }

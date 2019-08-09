@@ -5,15 +5,23 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
+
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmile;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmileGroup;
 
 @Entity
+@Indexed
 public class Smile extends BaseEntity implements ISmile {
 
 	@Column
 	private String name;
 	@Column
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
 	private String marker;
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = SmileGroup.class)
 	private ISmileGroup smileGroup;

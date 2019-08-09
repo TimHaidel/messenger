@@ -293,6 +293,12 @@
 				<version>1.4</version>
 			</dependency>
 
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-search-orm</artifactId>
+				<version>5.0.1.Final</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 

@@ -40,8 +40,8 @@ public class MessageServiceTest extends AbstractTest {
 		assertEquals(entity.getMessage(), entityFromDb.getMessage());
 		// assertEquals(entity.getParrentMessage().getId(),
 		// entityFromDb.getParrentMessage().getId());
-		assertEquals(entity.getUser().getId(), entityFromDb.getUser().getId());
-		assertEquals(entity.getUserGroup().getId(), entityFromDb.getUserGroup().getId());
+		assertEquals(entity.getUser().getId().intValue(), entityFromDb.getUser().getId().intValue());
+		assertEquals(entity.getUserGroup().getId().intValue(), entityFromDb.getUserGroup().getId().intValue());
 		assertNotNull(entityFromDb.getId());
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
@@ -84,8 +84,8 @@ public class MessageServiceTest extends AbstractTest {
 		final IMessage entityFromDb = messageService.getFullInfo(entity.getId());
 
 		assertNotNull(entityFromDb);
-		assertEquals(entity.getUser().getId(), entityFromDb.getUser().getId());
-		assertEquals(entity.getUserGroup().getId(), entityFromDb.getUserGroup().getId());
+		assertEquals(entity.getUser().getId().intValue(), entityFromDb.getUser().getId().intValue());
+		assertEquals(entity.getUserGroup().getId().intValue(), entityFromDb.getUserGroup().getId().intValue());
 		assertEquals(entity.getMessage(), entityFromDb.getMessage());
 		assertNotNull(entityFromDb.getId());
 	}

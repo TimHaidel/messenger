@@ -11,6 +11,7 @@ import by.itacademy.jd2.th.messenger.dao.api.IDao;
 import by.itacademy.jd2.th.messenger.dao.api.filter.AbstractFilter;
 
 public abstract class AbstractDaoImpl<T, ID> implements IDao<T, ID> {
+
 	@PersistenceContext
 	private EntityManager entityManager;
 

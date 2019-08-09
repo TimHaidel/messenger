@@ -3,6 +3,7 @@ package by.itacademy.jd2.th.messenger.jdbc.impl.entity;
 import java.util.Date;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IAttachment;
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.IMessage;
 
 public class Attachment extends BaseEntity implements IAttachment {
 
@@ -66,6 +67,18 @@ public class Attachment extends BaseEntity implements IAttachment {
 
 	@Override
 	public Date getCreated() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setMessage(IMessage message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public IMessage getMessage() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -83,11 +83,14 @@ public abstract class AbstractTest {
 	}
 
 	protected IAttachment attachNewMessage() {
-		final IAttachment entity = attachmentService.attachMessage(saveNewMessage());
-		entity.setContent("content-" + getRandomPrefix());
-		entity.setContentType(getRandomObjectsCount());
-		attachmentService.save(entity);
-		return entity;
+		IMessage newMessage = saveNewMessage();
+		final IAttachment attachment = attachmentService.createEntity();
+		attachment.setId(newMessage.getId());
+		attachment.setMessage(newMessage);
+		attachment.setContent("content-" + getRandomPrefix());
+		attachment.setContentType(getRandomObjectsCount());
+		attachmentService.save(attachment);
+		return attachment;
 	}
 
 	protected IUserAccount saveNewUserAccount() {
@@ -165,9 +168,9 @@ public abstract class AbstractTest {
 				continue;
 			}
 			if (ascending) {
-				assertTrue(previousEntity.getId().intValue() < entity.getId().intValue());
+				assertTrue(previousEntity.getId() < entity.getId());
 			} else {
-				assertTrue(previousEntity.getId().intValue() > entity.getId().intValue());
+				assertTrue(previousEntity.getId() > entity.getId());
 			}
 			previousEntity = entity;
 		}

@@ -9,6 +9,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.stereotype.Repository;
 
 import by.itacademy.jd2.th.messenger.dao.api.ISmileDao;
@@ -82,6 +84,27 @@ public class SmileDaoImpl extends AbstractDaoImpl<ISmile, Integer> implements IS
 		final TypedQuery<ISmile> q = em.createQuery(cq);
 
 		return getSingleResult(q);
+	}
+	
+	@Override
+	public List<ISmile> search(String text) {
+
+	EntityManager em = getEntityManager();
+	FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(em);
+
+	// create native Lucene query unsing the query DSL
+	// alternatively you can write the Lucene query using the Lucene query
+	// parser
+	// or the Lucene programmatic API. The Hibernate Search DSL is
+	// recommended though
+	QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Smile.class).get();
+	org.apache.lucene.search.Query luceneQuery = qb.keyword().onFields("marker").matching(text).createQuery();
+
+	// wrap Lucene query in a javax.persistence.Query
+	javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, Smile.class);
+
+	return jpaQuery.getResultList();
+
 	}
 
 }

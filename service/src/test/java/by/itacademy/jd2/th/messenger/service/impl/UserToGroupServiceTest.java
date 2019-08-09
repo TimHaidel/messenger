@@ -24,9 +24,9 @@ public class UserToGroupServiceTest extends AbstractTest {
 
 		assertNotNull(entityFromDb);
 		assertNotNull(entityFromDb.getId());
-		assertEquals(entity.getGroupRole(), entityFromDb.getGroupRole());
-		assertEquals(entity.getGroup().getId(), entityFromDb.getGroup().getId());
-		assertEquals(entity.getUser().getId(), entityFromDb.getUser().getId());
+		assertEquals(entity.getGroupRole().intValue(), entityFromDb.getGroupRole().intValue());
+		assertEquals(entity.getGroup().getId().intValue(), entityFromDb.getGroup().getId().intValue());
+		assertEquals(entity.getUser().getId().intValue(), entityFromDb.getUser().getId().intValue());
 
 	}
 
@@ -65,9 +65,9 @@ public class UserToGroupServiceTest extends AbstractTest {
 		final IUserToGroup entityFromDb = userToUserGroupService.getFullInfo(entity.getId());
 
 		assertNotNull(entityFromDb);
-		assertEquals(entity.getUser().getId(), entityFromDb.getUser().getId());
-		assertEquals(entity.getGroup().getId(), entityFromDb.getGroup().getId());
-		assertEquals(entity.getGroupRole(), entityFromDb.getGroupRole());
+		assertEquals(entity.getUser().getId().intValue(), entityFromDb.getUser().getId().intValue());
+		assertEquals(entity.getGroup().getId().intValue(), entityFromDb.getGroup().getId().intValue());
+		assertEquals(entity.getGroupRole().intValue(), entityFromDb.getGroupRole().intValue());
 		assertNotNull(entityFromDb.getId());
 	}
 

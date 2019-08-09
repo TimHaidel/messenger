@@ -21,7 +21,7 @@ public class AttachmentServiceTest extends AbstractTest {
 
 		assertNotNull(entityFromDb);
 		assertEquals(entity.getContent(), entityFromDb.getContent());
-		assertEquals(entity.getContentType(), entityFromDb.getContentType());
+		assertEquals(entity.getContentType().intValue(), entityFromDb.getContentType().intValue());
 		assertNotNull(entityFromDb.getId());
 	}
 
@@ -44,7 +44,7 @@ public class AttachmentServiceTest extends AbstractTest {
 		assertNotNull(entityFromDb);
 		assertNotNull(entityFromDb.getId());
 		assertEquals(entity.getContent(), entityFromDb.getContent());
-		assertEquals(entity.getContentType(), entityFromDb.getContentType());
+		assertEquals(entity.getContentType().intValue(), entityFromDb.getContentType().intValue());
 
 	}
 

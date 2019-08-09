@@ -15,4 +15,6 @@ public interface ISmileDao extends IDao<ISmile, Integer> {
 
 	ISmile getFullInfo(Integer id);
 
+	List<ISmile> search(String text);
+
 }

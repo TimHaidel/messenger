@@ -119,4 +119,9 @@ public class SmileDaoImpl extends AbstractDaoImpl<ISmile, Integer> implements IS
 		throw new RuntimeException("not implemented");
 	}
 
+	@Override
+	public List<ISmile> search(String text) {
+		throw new RuntimeException("not implemented");
+	}
+
 }

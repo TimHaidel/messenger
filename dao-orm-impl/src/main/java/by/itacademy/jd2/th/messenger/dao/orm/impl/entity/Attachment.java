@@ -29,10 +29,12 @@ public class Attachment implements IAttachment {
 	@Column
 	private Date updated;
 
+	@Override
 	public IMessage getMessage() {
 		return message;
 	}
 
+	@Override
 	public void setMessage(IMessage message) {
 		this.message = message;
 	}
