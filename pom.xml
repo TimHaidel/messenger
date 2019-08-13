@@ -268,6 +268,7 @@
 				<version>2.9.4</version>
 			</dependency>
 
+<<<<<<< HEAD
 			<!-- Hibernate -->
 			<dependency>
 				<groupId>org.hibernate.javax.persistence</groupId>
@@ -298,6 +299,23 @@
 				<artifactId>hibernate-search-orm</artifactId>
 				<version>5.0.1.Final</version>
 			</dependency>
+=======
+			<!-- https://mvnrepository.com/artifact/javax.websocket/javax.websocket-api -->
+			<dependency>
+				<groupId>javax.websocket</groupId>
+				<artifactId>javax.websocket-api</artifactId>
+				<version>1.1</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>2.3.1</version>
+			</dependency>
+
+>>>>>>> feature/websocket
 
 		</dependencies>
 	</dependencyManagement>
@@ -345,6 +363,7 @@
 					<artifactId>maven-war-plugin</artifactId>
 					<version>2.6</version>
 					<configuration>
+						<warSourceDirectory>src/main/webapp</warSourceDirectory>
 						<failOnMissingWebXml>false</failOnMissingWebXml>
 					</configuration>
 				</plugin>
