@@ -1,8 +1,10 @@
 package by.itacademy.jd2.th.messenger.web.socket;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;

@@ -126,8 +126,6 @@
 			<artifactId>spring-security-taglibs</artifactId>
 		</dependency>
 
-<<<<<<< HEAD
-=======
 		<!-- https://mvnrepository.com/artifact/javax.websocket/javax.websocket-api -->
 		<dependency>
 			<groupId>javax.websocket</groupId>
@@ -142,8 +140,6 @@
 			<artifactId>gson</artifactId>
 			<version>2.3.1</version>
 		</dependency>
-
->>>>>>> feature/websocket
 
 
 
