@@ -27,13 +27,23 @@
 	</div>
 	<div class="col s8">
 		<div class="row">
-			<div class="messages col s12">
+			<div class="messages col s9">
 				<div class="msg">
 					<div class="from">Iva</div>
 					<div class="text">Hello!</div>
 				</div>
 			</div>
 		</div>
+		<div class="row">
+			<div class=" col s3"></div>
+			<div class="messages col s9">
+				<div class="msg">
+					<div class="from">I</div>
+					<div class="text">Hello!</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="row ">
 			<form class="col s12">
 

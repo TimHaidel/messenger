@@ -33,20 +33,20 @@ main {
 }
 
 .messages {
-	background-color: #2196f3;
+	background-color: #64ffda;
 	width: 500px;
 	padding: 20px;
 }
 
 .messages .msg {
-	background-color: #e3f2fd;
+	background-color: #a7ffeb;
 	border-radius: 10px;
 	margin-bottom: 10px;
 	overflow: hidden;
 }
 
 .messages .msg .from {
-	background-color: #90caf9;
+	background-color: #64ffda;
 	line-height: 30px;
 	text-align: center;
 }
