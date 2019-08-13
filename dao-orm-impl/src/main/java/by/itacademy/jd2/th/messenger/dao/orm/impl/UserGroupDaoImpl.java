@@ -6,14 +6,18 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.SingularAttribute;
 
+import org.hibernate.jpa.criteria.OrderImpl;
 import org.springframework.stereotype.Repository;
 
 import by.itacademy.jd2.th.messenger.dao.api.IUserGroupDao;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
 import by.itacademy.jd2.th.messenger.dao.api.filter.UserGroupFilter;
 import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.UserGroup;
+import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.UserGroup_;
 
 @Repository
 public class UserGroupDaoImpl extends AbstractDaoImpl<IUserGroup, Integer> implements IUserGroupDao {
@@ -38,10 +42,34 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<IUserGroup, Integer> imple
 		final Root<UserGroup> from = cq.from(UserGroup.class);// select from
 		cq.select(from); // select what? select *
 
+		if (filter.getSortColumn() != null) {
+			final SingularAttribute<? super UserGroup, ?> sortProperty = toMetamodelFormat(filter.getSortColumn());
+
+			final Path<?> expression = from.get(sortProperty);
+			cq.orderBy(new OrderImpl(expression, filter.getSortOrder()));
+		}
+
 		final TypedQuery<IUserGroup> q = em.createQuery(cq);
 		setPaging(filter, q);
 
 		return q.getResultList();
+	}
+
+	private SingularAttribute<? super UserGroup, ?> toMetamodelFormat(final String sortColumn) {
+		switch (sortColumn) {
+		case "created":
+			return UserGroup_.created;
+		case "updated":
+			return UserGroup_.updated;
+		case "id":
+			return UserGroup_.id;
+		case "name":
+			return UserGroup_.name;
+		case "status":
+			return UserGroup_.status;
+		default:
+			throw new UnsupportedOperationException("sorting is not supported by column:" + sortColumn);
+		}
 	}
 
 	@Override

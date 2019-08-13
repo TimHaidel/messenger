@@ -7,8 +7,11 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.SingularAttribute;
 
+import org.hibernate.jpa.criteria.OrderImpl;
 import org.springframework.stereotype.Repository;
 
 import by.itacademy.jd2.th.messenger.dao.api.IMessageDao;
@@ -17,6 +20,7 @@ import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.filter.MessageFilter;
 import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.Message;
 import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.Message_;
+import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.Smile;
 
 @Repository
 public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implements IMessageDao {
@@ -41,10 +45,40 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 		final Root<Message> from = cq.from(Message.class);// select from smile
 		cq.select(from); // select what? select *
 
+		if (filter.getSortColumn() != null) {
+			final SingularAttribute<? super Message, ?> sortProperty = toMetamodelFormat(filter.getSortColumn());
+
+			final Path<?> expression = from.get(sortProperty);
+			cq.orderBy(new OrderImpl(expression, filter.getSortOrder()));
+		}
+
 		final TypedQuery<IMessage> q = em.createQuery(cq);
 		setPaging(filter, q);
 
 		return q.getResultList();
+	}
+
+	private SingularAttribute<? super Message, ?> toMetamodelFormat(final String sortColumn) {
+		switch (sortColumn) {
+		case "created":
+			return Message_.created;
+		case "updated":
+			return Message_.updated;
+		case "id":
+			return Message_.id;
+		case "attachment":
+			return Message_.attachment;
+		case "message":
+			return Message_.message;
+		case "parentMessage":
+			return Message_.parentMessage;
+		case "user":
+			return Message_.user;
+		case "userGroup":
+			return Message_.userGroup;
+		default:
+			throw new UnsupportedOperationException("sorting is not supported by column:" + sortColumn);
+		}
 	}
 
 	@Override

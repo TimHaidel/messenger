@@ -7,8 +7,11 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.SingularAttribute;
 
+import org.hibernate.jpa.criteria.OrderImpl;
 import org.springframework.stereotype.Repository;
 
 import by.itacademy.jd2.th.messenger.dao.api.IUserToGroupDao;
@@ -41,10 +44,36 @@ public class UserToGroupDaoImpl extends AbstractDaoImpl<IUserToGroup, Integer> i
 		final Root<UserToGroup> from = cq.from(UserToGroup.class);// select from
 		cq.select(from); // select what? select *
 
+		if (filter.getSortColumn() != null) {
+			final SingularAttribute<? super UserToGroup, ?> sortProperty = toMetamodelFormat(filter.getSortColumn());
+
+			final Path<?> expression = from.get(sortProperty);
+			cq.orderBy(new OrderImpl(expression, filter.getSortOrder()));
+		}
+
 		final TypedQuery<IUserToGroup> q = em.createQuery(cq);
 		setPaging(filter, q);
 
 		return q.getResultList();
+	}
+
+	private SingularAttribute<? super UserToGroup, ?> toMetamodelFormat(final String sortColumn) {
+		switch (sortColumn) {
+		case "created":
+			return UserToGroup_.created;
+		case "updated":
+			return UserToGroup_.updated;
+		case "id":
+			return UserToGroup_.id;
+		case "user":
+			return UserToGroup_.user;
+		case "group":
+			return UserToGroup_.group;
+		case "groupRole":
+			return UserToGroup_.groupRole;
+		default:
+			throw new UnsupportedOperationException("sorting is not supported by column:" + sortColumn);
+		}
 	}
 
 	@Override

@@ -7,8 +7,11 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.SingularAttribute;
 
+import org.hibernate.jpa.criteria.OrderImpl;
 import org.springframework.stereotype.Repository;
 
 import by.itacademy.jd2.th.messenger.dao.api.IContactDao;
@@ -43,10 +46,36 @@ public class ContactDaoImpl extends AbstractDaoImpl<IContact, Integer> implement
 		from.fetch(Contact_.initiator, JoinType.LEFT);
 		from.fetch(Contact_.acceptor, JoinType.LEFT);
 
+		if (filter.getSortColumn() != null) {
+			final SingularAttribute<? super Contact, ?> sortProperty = toMetamodelFormat(filter.getSortColumn());
+
+			final Path<?> expression = from.get(sortProperty);
+			cq.orderBy(new OrderImpl(expression, filter.getSortOrder()));
+		}
+
 		final TypedQuery<IContact> q = em.createQuery(cq);
 		setPaging(filter, q);
 
 		return q.getResultList();
+	}
+
+	private SingularAttribute<? super Contact, ?> toMetamodelFormat(final String sortColumn) {
+		switch (sortColumn) {
+		case "created":
+			return Contact_.created;
+		case "updated":
+			return Contact_.updated;
+		case "id":
+			return Contact_.id;
+		case "initiator":
+			return Contact_.initiator;
+		case "acceptor":
+			return Contact_.acceptor;
+		case "status":
+			return Contact_.status;
+		default:
+			throw new UnsupportedOperationException("sorting is not supported by column:" + sortColumn);
+		}
 	}
 
 	@Override
@@ -75,7 +104,7 @@ public class ContactDaoImpl extends AbstractDaoImpl<IContact, Integer> implement
 		final CriteriaQuery<IContact> cq = cb.createQuery(IContact.class);
 		final Root<Contact> from = cq.from(Contact.class);
 
-		cq.select(from); // define what need to be selected
+		cq.select(from);
 		from.fetch(Contact_.initiator, JoinType.LEFT);
 		from.fetch(Contact_.acceptor, JoinType.LEFT);
 

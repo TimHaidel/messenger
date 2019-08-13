@@ -6,9 +6,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.SingularAttribute;
 
+import org.hibernate.jpa.criteria.OrderImpl;
 import org.springframework.stereotype.Repository;
 
 import by.itacademy.jd2.th.messenger.dao.api.ISmileGroupDao;
@@ -38,6 +40,13 @@ public class SmileGroupDaoImpl extends AbstractDaoImpl<ISmileGroup, Integer> imp
 
 		final Root<SmileGroup> from = cq.from(SmileGroup.class);// select from smile group
 		cq.select(from); // select what? select *
+
+		if (filter.getSortColumn() != null) {
+			final SingularAttribute<? super SmileGroup, ?> sortProperty = toMetamodelFormat(filter.getSortColumn());
+
+			final Path<?> expression = from.get(sortProperty);
+			cq.orderBy(new OrderImpl(expression, filter.getSortOrder()));
+		}
 
 		final TypedQuery<ISmileGroup> q = em.createQuery(cq);
 		setPaging(filter, q);
