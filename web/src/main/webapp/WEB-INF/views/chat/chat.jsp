@@ -27,6 +27,14 @@
 	</div>
 	<div class="col s8">
 		<div class="row">
+			<div class="messages col s12">
+				<div class="msg">
+					<div class="from">Iva</div>
+					<div class="text">Hello!</div>
+				</div>
+			</div>
+		</div>
+		<div class="row ">
 			<form class="col s12">
 
 				<div class="row">

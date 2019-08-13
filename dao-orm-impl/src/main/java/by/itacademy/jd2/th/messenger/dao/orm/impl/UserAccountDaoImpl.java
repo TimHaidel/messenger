@@ -6,14 +6,18 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.SingularAttribute;
 
+import org.hibernate.jpa.criteria.OrderImpl;
 import org.springframework.stereotype.Repository;
 
 import by.itacademy.jd2.th.messenger.dao.api.IUserAccountDao;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.filter.UserAccountFilter;
 import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.UserAccount;
+import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.UserAccount_;
 
 @Repository
 public class UserAccountDaoImpl extends AbstractDaoImpl<IUserAccount, Integer> implements IUserAccountDao {
@@ -38,10 +42,45 @@ public class UserAccountDaoImpl extends AbstractDaoImpl<IUserAccount, Integer> i
 		final Root<UserAccount> from = cq.from(UserAccount.class);// select from
 		cq.select(from); // select what? select *
 
+		if (filter.getSortColumn() != null) {
+			final SingularAttribute<? super UserAccount, ?> sortProperty = toMetamodelFormat(filter.getSortColumn());
+
+			final Path<?> expression = from.get(sortProperty);
+			cq.orderBy(new OrderImpl(expression, filter.getSortOrder()));
+		}
+
 		final TypedQuery<IUserAccount> q = em.createQuery(cq);
 		setPaging(filter, q);
 
 		return q.getResultList();
+	}
+
+	private SingularAttribute<? super UserAccount, ?> toMetamodelFormat(final String sortColumn) {
+		switch (sortColumn) {
+		case "created":
+			return UserAccount_.created;
+		case "updated":
+			return UserAccount_.updated;
+		case "id":
+			return UserAccount_.id;
+		case "avatar":
+			return UserAccount_.avatar;
+		case "email":
+			return UserAccount_.email;
+		case "firstname":
+			return UserAccount_.firstname;
+		case "lastname":
+			return UserAccount_.lastname;
+		case "password":
+			return UserAccount_.password;
+		case "phone":
+			return UserAccount_.phone;
+		case "role":
+			return UserAccount_.role;
+
+		default:
+			throw new UnsupportedOperationException("sorting is not supported by column:" + sortColumn);
+		}
 	}
 
 	@Override
