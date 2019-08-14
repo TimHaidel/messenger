@@ -20,7 +20,7 @@ import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.filter.MessageFilter;
 import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.Message;
 import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.Message_;
-import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.Smile;
+import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.Smile_;
 
 @Repository
 public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implements IMessageDao {
@@ -42,8 +42,13 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 
 		final CriteriaQuery<IMessage> cq = cb.createQuery(IMessage.class);
 
-		final Root<Message> from = cq.from(Message.class);// select from smile
-		cq.select(from); // select what? select *
+		final Root<Message> from = cq.from(Message.class);
+		cq.select(from);
+
+		from.fetch(Message_.user, JoinType.LEFT);
+		from.fetch(Message_.attachment, JoinType.LEFT);
+		from.fetch(Message_.parentMessage, JoinType.LEFT);
+		from.fetch(Message_.userGroup, JoinType.LEFT);
 
 		if (filter.getSortColumn() != null) {
 			final SingularAttribute<? super Message, ?> sortProperty = toMetamodelFormat(filter.getSortColumn());
@@ -87,10 +92,10 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 		final CriteriaBuilder cb = em.getCriteriaBuilder();
 
 		final CriteriaQuery<Long> cq = cb.createQuery(Long.class);
-		final Root<Message> from = cq.from(Message.class); // select from
-		cq.select(cb.count(from)); // select what? select count(*)
+		final Root<Message> from = cq.from(Message.class);
+		cq.select(cb.count(from));
 		final TypedQuery<Long> q = em.createQuery(cq);
-		return q.getSingleResult(); // execute query
+		return q.getSingleResult();
 	}
 
 	@Override
@@ -101,7 +106,7 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 		final CriteriaQuery<IMessage> cq = cb.createQuery(IMessage.class);
 		final Root<Message> from = cq.from(Message.class);
 
-		cq.select(from); // define what need to be selected
+		cq.select(from);
 		from.fetch(Message_.attachment, JoinType.LEFT);
 		from.fetch(Message_.parentMessage, JoinType.LEFT);
 		from.fetch(Message_.user, JoinType.LEFT);

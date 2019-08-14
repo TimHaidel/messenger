@@ -23,7 +23,7 @@ public class UserGroup extends BaseEntity implements IUserGroup {
 	}
 
 	@Override
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
