@@ -20,4 +20,8 @@
 
 	<context:component-scan base-package="by.itacademy.jd2.th.messenger.service.impl" />
 
+	<!-- <import resource="spring-aop.xml" /> -->
+
+
+
 </beans>
