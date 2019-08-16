@@ -10,6 +10,7 @@ import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
+import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IMessage;
@@ -24,6 +25,7 @@ public class ChatEndpoint {
 
 	@OnOpen
 	public void onOpen(Session session) {
+		System.out.println("OPEN SOCKET");
 		this.session = session;
 		sessionList.add(session);
 	}
@@ -39,7 +41,7 @@ public class ChatEndpoint {
 	}
 
 	@OnMessage
-	public void onMessage(Session session, IMessage message) {
+	public void onMessage(Session session, IMessage message, @PathParam("acceptoId") Integer acceptorId) {
 		sessionList.forEach(s -> {
 			if (s == this.session) {
 				return;

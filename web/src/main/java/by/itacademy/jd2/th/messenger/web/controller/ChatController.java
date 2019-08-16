@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,26 +17,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IContact;
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.IMessage;
 import by.itacademy.jd2.th.messenger.dao.api.filter.ContactFilter;
+import by.itacademy.jd2.th.messenger.dao.api.filter.MessageFilter;
 import by.itacademy.jd2.th.messenger.service.IContactService;
+import by.itacademy.jd2.th.messenger.service.IMessageService;
 import by.itacademy.jd2.th.messenger.web.converter.ContactToDTOConverter;
+import by.itacademy.jd2.th.messenger.web.converter.MessageToDTOConverter;
 import by.itacademy.jd2.th.messenger.web.dto.ContactDTO;
+import by.itacademy.jd2.th.messenger.web.dto.MessageDTO;
 import by.itacademy.jd2.th.messenger.web.dto.grid.GridStateDTO;
 import by.itacademy.jd2.th.messenger.web.security.AuthHelper;
 
 @Controller
 @RequestMapping(value = "/chat")
 public class ChatController extends AbstractController {
-
-	private IContactService contactService;
-	private ContactToDTOConverter toDtoConverter;
-
 	@Autowired
-	public ChatController(IContactService contactService, ContactToDTOConverter toDtoConverter) {
-		super();
-		this.contactService = contactService;
-		this.toDtoConverter = toDtoConverter;
-	}
+	private IContactService contactService;
+	@Autowired
+	private ContactToDTOConverter contactToDtoConverter;
+	@Autowired
+	private IMessageService messageService;
+	@Autowired
+	private MessageToDTOConverter messageToDtoConverter;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView index(final HttpServletRequest req,
@@ -50,13 +55,37 @@ public class ChatController extends AbstractController {
 		prepareFilter(gridState, filter);
 
 		final List<IContact> entities = contactService.find(filter);
-		List<ContactDTO> dtos = entities.stream().map(toDtoConverter).collect(Collectors.toList());
+		List<ContactDTO> dtos = entities.stream().map(contactToDtoConverter).collect(Collectors.toList());
 		gridState.setTotalCount(contactService.getCount(filter));
 
 		final Map<String, Object> models = new HashMap<>();
 		models.put("gridItems", dtos);
 
 		return new ModelAndView("chat", models);
+	}
+
+	@RequestMapping(value = "/messages", method = RequestMethod.GET)
+	public ResponseEntity<List<MessageDTO>> getGroupMessages()
+//			@RequestParam(name = "acceptorId", required = true) final Integer acceptorId)
+	{
+
+		MessageFilter filter = new MessageFilter();
+//		filter.setUserGroupId(acceptorId);
+
+		final List<IMessage> entities = messageService.find(filter);
+		List<MessageDTO> dtos = entities.stream().map(messageToDtoConverter).collect(Collectors.toList());
+
+		return new ResponseEntity<List<MessageDTO>>(dtos, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/send", method = RequestMethod.GET)
+	public ResponseEntity<MessageDTO> saveMessage(IMessage message) {
+
+		messageService.save(message);
+
+		MessageDTO dto = messageToDtoConverter.apply(message);
+
+		return new ResponseEntity<MessageDTO>(dto, HttpStatus.OK);
 	}
 
 }

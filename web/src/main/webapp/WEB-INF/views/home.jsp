@@ -5,10 +5,22 @@
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
-<h4 class="header">Home</h4>
+<html>
+<head>
+<script src="${contextPath}/resources/js/json.js"></script>
+</head>
+<body>
+	<h4 class="header">Home</h4>
 
-<div>
-	<spring:message code="page.home.title" />
-</div>
+	<div>
+		<spring:message code="page.home.title" />
+	</div>
 
-<div>${welcomeMessage}</div>
+	<div>${welcomeMessage}</div>
+
+	<div>
+		<div id="content"></div>
+		<button onClick="sendRequest()">send</button>
+	</div>
+</body>
+</html>
