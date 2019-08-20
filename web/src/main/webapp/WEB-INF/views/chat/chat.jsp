@@ -3,32 +3,32 @@
 <%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
-<h4 class="header">chats</h4>
+
 <div class="row">
 
-	<div class="col s4">
-		<ul class="collection">
+	<div class="col s3">
+		<h4 class="header">Contacts:</h4>
+		<ul class="collapsible">
 			<c:forEach var="contact" items="${gridItems}" varStatus="loopCounter">
+				<li>
+					<div class="collapsible-header">
+						<i class="material-icons">${contact.avatar}</i>
+						<c:out value="${contact.acceptorFirstname}" />
+						<c:out value="${contact.acceptorLastname}" />
+						<span class="new badge">4</span>
+					</div>
+					<div class="collapsible-body">
+						<a class="btn-floating" href="${pagesUserAccount}/${contact.id}"><i
+							class="material-icons">info</i></a> <a class="btn-floating"
+							onclick=""><i class="material-icons">message</i></a>
+					</div>
 
-
-				<li class="collection-item avatar"><a href=""
-					class="collection-item"
-					onclick="getMessages('${pageContext.request.contextPath}', '${contact.acceptorId}')"><i
-						class="material-icons prefix">${contact.avatar} <!--<img src="${contact.avatar}" alt="" class="circle">-->
-					</i> <span class="badge">1</span>
-						<p>
-							<c:out value="${contact.acceptorFirstname}" />
-
-							<c:out value="${contact.acceptorLastname}" />
-						</p> </a></li>
-
-
-
+				</li>
 			</c:forEach>
 		</ul>
 	</div>
 	<div class="chatbox">
-		<div class="col s8">
+		<div class="col s9">
 			<div class="row">
 				<div class="messages col s9">
 					<div id="msgAcceptor" class="msg">
