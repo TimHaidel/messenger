@@ -24,7 +24,9 @@ public class SmileGroupServiceImpl implements ISmileGroupService {
 
 	@Override
 	public ISmileGroup createEntity() {
-		return dao.createEntity();
+		ISmileGroup smileGroup = dao.createEntity();
+		smileGroup.setVersion(0);
+		return smileGroup;
 	}
 
 	@Override
