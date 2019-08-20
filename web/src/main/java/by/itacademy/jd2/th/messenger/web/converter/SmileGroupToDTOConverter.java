@@ -15,6 +15,7 @@ public class SmileGroupToDTOConverter implements Function<ISmileGroup, SmileGrou
 		SmileGroupDTO dto = new SmileGroupDTO();
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
+		dto.setVersion(entity.getVersion());
 		return dto;
 	}
 

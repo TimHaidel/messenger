@@ -6,4 +6,8 @@ public interface ISmileGroup extends IBaseEntity {
 
 	String getName();
 
+	void setVersion(Integer version);
+
+	Integer getVersion();
+
 }

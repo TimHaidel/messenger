@@ -20,6 +20,7 @@ public class SmileGroupFromDTOConverter implements Function<SmileGroupDTO, ISmil
 		ISmileGroup entity = smileGroupService.createEntity();
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
+		entity.setVersion(dto.getVersion());
 		return entity;
 	}
 

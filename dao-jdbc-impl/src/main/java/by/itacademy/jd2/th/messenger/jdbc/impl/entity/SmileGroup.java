@@ -21,4 +21,16 @@ public class SmileGroup extends BaseEntity implements ISmileGroup {
 		return "SmileGroup [name=" + name + "]";
 	}
 
+	@Override
+	public void setVersion(Integer version) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Integer getVersion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

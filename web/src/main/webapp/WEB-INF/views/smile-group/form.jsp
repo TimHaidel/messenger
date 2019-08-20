@@ -6,6 +6,7 @@
 	<form:form class="col s12" method="POST" action="${pagesSmileGroup}"
 		modelAttribute="formModel">
 		<form:input path="id" type="hidden" />
+		<form:input path="version" type="hidden" />
 		<div class="row">
 			<div class="input-field col s12">
 				<form:input path="name" type="text" disabled="${readonly}" />
@@ -37,7 +38,7 @@
 
 	<script src="${contextPath}/resources/js/sample-alert-with-params.js"></script>
 	<script>
-		showMessage('${contextPath}'); // execute function defined somewhere above
-	</script>
+        showMessage('${contextPath}'); // execute function defined somewhere above
+    </script>
 
 </c:if>
