@@ -87,7 +87,7 @@ public class UserToGroupDaoImpl extends AbstractDaoImpl<IUserToGroup, Integer> i
 				userGroup.setName(resultSet.getString("name"));
 			}
 			if (columns.contains("status")) {
-				userGroup.setStatus(resultSet.getInt("status"));
+				userGroup.setUsersCount(resultSet.getInt("users_count"));
 			}
 			if (columns.contains("created")) {
 				userGroup.setCreated(resultSet.getDate("created"));

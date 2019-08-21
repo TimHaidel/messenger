@@ -4,7 +4,7 @@ import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
 
 public class UserGroup extends BaseEntity implements IUserGroup {
 	private String name;
-	private int status;
+	private Integer usersCount;
 
 	@Override
 	public String getName() {
@@ -17,18 +17,13 @@ public class UserGroup extends BaseEntity implements IUserGroup {
 	}
 
 	@Override
-	public Integer getStatus() {
-		return status;
+	public Integer getUsersCount() {
+		return usersCount;
 	}
 
 	@Override
-	public void setStatus(final int status) {
-		this.status = status;
-	}
-
-	@Override
-	public String toString() {
-		return "UserGroup [name=" + name + ", status=" + status + "]";
+	public void setUsersCount(Integer usersCount) {
+		this.usersCount = usersCount;
 	}
 
 }

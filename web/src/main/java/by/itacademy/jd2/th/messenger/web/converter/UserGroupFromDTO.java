@@ -21,7 +21,7 @@ public class UserGroupFromDTO implements Function<UserGroupDTO, IUserGroup> {
 		entity.setCreated(dto.getCreated());
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
-		entity.setStatus(dto.getStatus());
+		entity.setUsersCount(dto.getStatus());
 		entity.setUpdated(dto.getUpdated());
 		return entity;
 	}

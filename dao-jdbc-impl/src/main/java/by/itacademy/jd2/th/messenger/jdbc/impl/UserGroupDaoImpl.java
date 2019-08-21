@@ -29,7 +29,7 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<IUserGroup, Integer> imple
 			@Override
 			public IUserGroup doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
 				pStmt.setString(1, entity.getName());
-				pStmt.setInt(2, entity.getStatus());
+				pStmt.setInt(2, entity.getUsersCount());
 				pStmt.setObject(3, entity.getUpdated(), Types.TIMESTAMP);
 				pStmt.setInt(4, entity.getId());
 				pStmt.executeUpdate();
@@ -45,7 +45,7 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<IUserGroup, Integer> imple
 		entity.setName(resultSet.getString("name"));
 		entity.setCreated(resultSet.getTimestamp("created"));
 		entity.setUpdated(resultSet.getTimestamp("updated"));
-		entity.setStatus(resultSet.getInt("status"));
+		entity.setUsersCount(resultSet.getInt("users_count"));
 
 		return entity;
 	}
@@ -59,7 +59,7 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<IUserGroup, Integer> imple
 			@Override
 			public IUserGroup doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
 				pStmt.setString(1, entity.getName());
-				pStmt.setInt(2, entity.getStatus());
+				pStmt.setInt(2, entity.getUsersCount());
 				pStmt.setObject(3, entity.getCreated(), Types.TIMESTAMP);
 				pStmt.setObject(4, entity.getUpdated(), Types.TIMESTAMP);
 

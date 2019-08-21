@@ -156,7 +156,7 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 				group.setName(resultSet.getString("name"));
 			}
 			if (columns.contains("status")) {
-				group.setStatus(resultSet.getInt("status"));
+				group.setUsersCount(resultSet.getInt("users_count"));
 			}
 			if (columns.contains("created")) {
 				group.setCreated(resultSet.getDate("created"));

@@ -22,7 +22,7 @@ public class UserGroupServiceTest extends AbstractTest {
 
 		assertNotNull(entityFromDb);
 		assertEquals(entity.getName(), entityFromDb.getName());
-		assertEquals(entity.getStatus(), entityFromDb.getStatus());
+		assertEquals(entity.getUsersCount(), entityFromDb.getUsersCount());
 		assertNotNull(entityFromDb.getId());
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
@@ -35,7 +35,7 @@ public class UserGroupServiceTest extends AbstractTest {
 
 		final IUserGroup entity1 = userGroupService.createEntity();
 		entity1.setName("Name-" + getRandomPrefix());
-		entity1.setStatus(3);
+		entity1.setUsersCount(2);
 
 		try {
 			final IUserGroup entity2 = userGroupService.createEntity();
@@ -54,8 +54,8 @@ public class UserGroupServiceTest extends AbstractTest {
 		final String newName = entity.getName() + "_updated";
 		entity.setName(newName);
 		Thread.sleep(2000);
-		final int newStatus = entity.getStatus();
-		entity.setStatus(newStatus);
+		final int newStatus = entity.getUsersCount();
+		entity.setUsersCount(newStatus);
 		Thread.sleep(2000);
 
 		userGroupService.save(entity);
@@ -64,7 +64,7 @@ public class UserGroupServiceTest extends AbstractTest {
 
 		assertNotNull(entityFromDb);
 		assertEquals(entity.getName(), entityFromDb.getName());
-		assertEquals(entity.getStatus(), entityFromDb.getStatus());
+		assertEquals(entity.getUsersCount(), entityFromDb.getUsersCount());
 		assertNotNull(entityFromDb.getId());
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
@@ -83,7 +83,7 @@ public class UserGroupServiceTest extends AbstractTest {
 
 		for (final IUserGroup entityFromDb : allEntities) {
 			assertNotNull(entityFromDb.getName());
-			assertNotNull(entityFromDb.getStatus());
+			assertNotNull(entityFromDb.getUsersCount());
 			assertNotNull(entityFromDb.getId());
 			assertNotNull(entityFromDb.getCreated());
 			assertNotNull(entityFromDb.getUpdated());

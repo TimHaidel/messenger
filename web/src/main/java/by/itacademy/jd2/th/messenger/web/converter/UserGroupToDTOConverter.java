@@ -15,7 +15,7 @@ public class UserGroupToDTOConverter implements Function<IUserGroup, UserGroupDT
 		UserGroupDTO dto = new UserGroupDTO();
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
-		dto.setStatus(entity.getStatus());
+		dto.setStatus(entity.getUsersCount());
 		dto.setCreated(entity.getCreated());
 		dto.setUpdated(entity.getUpdated());
 		return dto;

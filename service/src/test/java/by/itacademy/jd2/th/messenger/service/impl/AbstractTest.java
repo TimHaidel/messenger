@@ -110,7 +110,7 @@ public abstract class AbstractTest {
 	protected IUserGroup saveNewUserGroup() {
 		final IUserGroup entity = userGroupService.createEntity();
 		entity.setName("Name-" + getRandomPrefix());
-		entity.setStatus(1);
+		entity.setUsersCount(1);
 
 		userGroupService.save(entity);
 		return entity;
