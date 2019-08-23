@@ -3,6 +3,7 @@ package by.itacademy.jd2.th.messenger.dao.orm.impl.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,7 +22,7 @@ import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
 public class Message extends BaseEntity implements IMessage {
 	@Column
 	private String message;
-	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Message.class)
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Message.class, cascade = { CascadeType.ALL })
 	private IMessage parentMessage;
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = UserAccount.class)
 	private IUserAccount user;

@@ -3,11 +3,36 @@ document.addEventListener('DOMContentLoaded', function () {
     var instances = M.Collapsible.init(elems, options);
 });
 
-// Or with jQuery
-
 $(document).ready(function () {
     $('.collapsible').collapsible();
 });
+
+function getMessages() {
+    // alert($("#contact").val());
+    $.post("chat/messages", $("#contactInfo").serialize(), function (data) {
+        // alert(data.message);
+
+        data.forEach(function (element) {
+
+            let text = document.createElement('p');
+            text.innerHTML = element.message;
+
+            $("#msgAcceptor").append(text);
+        });
+        // var content = $(data).find("#message");
+        // console.log(content);
+        // $("#chatbox").empty().append(content);
+    });
+}
+
+function sendMessage() {
+    $.post("chat/send", $("#messageToSend").serialize(), function (data) {
+        let test = $("#messageToSend");
+        alert(test);
+    });
+}
+
+// Or with jQuery
 
 // function getMessages(contextUrl, acceptorId) {
 // $.get(contextUrl + "/chat/messages", function (messages) {

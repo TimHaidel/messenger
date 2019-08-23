@@ -31,4 +31,6 @@ public interface IUserGroupService {
 	@Transactional
 	void save(IUserGroup... entity);
 
+	Integer findGroupId(UserGroupFilter filter);
+
 }

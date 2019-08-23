@@ -12,4 +12,6 @@ public interface IUserGroupDao extends IDao<IUserGroup, Integer> {
     long getCount(UserGroupFilter filter);
 
     void save(IUserGroup... entities);
+
+	Integer findGroupId(UserGroupFilter filter);
 }

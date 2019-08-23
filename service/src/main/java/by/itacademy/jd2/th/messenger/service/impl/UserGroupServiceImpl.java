@@ -67,6 +67,12 @@ public class UserGroupServiceImpl implements IUserGroupService {
 	}
 
 	@Override
+	public Integer findGroupId(UserGroupFilter filter) {
+		return dao.findGroupId(filter);
+
+	}
+
+	@Override
 	public long getCount(final UserGroupFilter filter) {
 		return dao.getCount(filter);
 	}

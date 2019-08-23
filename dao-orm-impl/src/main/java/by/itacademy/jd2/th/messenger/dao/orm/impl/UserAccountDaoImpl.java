@@ -39,8 +39,8 @@ public class UserAccountDaoImpl extends AbstractDaoImpl<IUserAccount, Integer> i
 
 		final CriteriaQuery<IUserAccount> cq = cb.createQuery(IUserAccount.class);
 
-		final Root<UserAccount> from = cq.from(UserAccount.class);// select from
-		cq.select(from); // select what? select *
+		final Root<UserAccount> from = cq.from(UserAccount.class);
+		cq.select(from);
 
 		if (filter.getSortColumn() != null) {
 			final SingularAttribute<? super UserAccount, ?> sortProperty = toMetamodelFormat(filter.getSortColumn());

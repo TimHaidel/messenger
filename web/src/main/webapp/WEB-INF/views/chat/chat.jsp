@@ -12,6 +12,11 @@
 			<c:forEach var="contact" items="${gridItems}" varStatus="loopCounter">
 				<li>
 					<div class="collapsible-header">
+						<form id="contactInfo">
+							<input id="id" type="hidden" name="acceptorId"
+								value="${contact.id}"> <input id="name" type="hidden"
+								name="name" value="${contact.acceptorFirstname}">
+						</form>
 						<i class="material-icons">${contact.avatar}</i>
 						<c:out value="${contact.acceptorFirstname}" />
 						<c:out value="${contact.acceptorLastname}" />
@@ -20,7 +25,7 @@
 					<div class="collapsible-body">
 						<a class="btn-floating" href="${pagesUserAccount}/${contact.id}"><i
 							class="material-icons">info</i></a> <a class="btn-floating"
-							onclick=""><i class="material-icons">message</i></a>
+							onclick="getMessages()"><i class="material-icons">message</i></a>
 					</div>
 
 				</li>
@@ -30,9 +35,17 @@
 	<div class="chatbox">
 		<div class="col s9">
 			<div class="row">
-				<div class="messages col s9">
-					<div id="msgAcceptor" class="msg">
-						<div class="from">Iva</div>
+				<div class="col s12 m6">
+					<div class="card teal darken-3">
+						<div id="msgAcceptor" class="card-content white-text">
+							<span class="card-title">
+								<p>${contact.acceptorFirstname}</p>
+							</span>
+
+						</div>
+						<div class="card-action">
+							<a href="#">This is a link</a> <a href="#">This is a link</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -47,7 +60,8 @@
 			</div>
 
 			<div class="row ">
-				<form class="col s12">
+
+				<form id="messageToSend" class="col s12">
 
 					<div class="row">
 						<div class="input-field col s6">
@@ -58,12 +72,14 @@
 						</div>
 						<div class="input-field col s3">
 							<button class="btn waves-effect waves-light"
-								onClick="sendMessage()">
+								onClick="sendMessage()" type="button">
 								send <i class="material-icons right">send</i>
 							</button>
 						</div>
 					</div>
+
 				</form>
+
 			</div>
 		</div>
 	</div>

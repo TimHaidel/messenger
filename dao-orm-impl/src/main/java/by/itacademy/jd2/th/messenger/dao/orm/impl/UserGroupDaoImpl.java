@@ -3,6 +3,7 @@ package by.itacademy.jd2.th.messenger.dao.orm.impl;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -33,6 +34,25 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<IUserGroup, Integer> imple
 	}
 
 	@Override
+	public Integer findGroupId(UserGroupFilter filter) {
+		final EntityManager em = getEntityManager();
+
+		// native query
+		Query q = em.createNativeQuery("select group_id from user_group ug join user_2_group u2g on u2g.group_id=ug.id "
+				+ "where (u2g.user_id=? or u2g.user_id=?) and ug.users_count=2group by group_id having count(1)=2");
+		q.setParameter(1, filter.getInitiatorId());
+		q.setParameter(2, filter.getAcceptorId());
+		List<Integer> groupsId = q.getResultList();
+		if (!groupsId.isEmpty()) {
+			return groupsId.get(0);
+		} else {
+
+			return null;
+		}
+
+	}
+
+	@Override
 	public List<IUserGroup> find(UserGroupFilter filter) {
 		final EntityManager em = getEntityManager();
 		final CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -40,7 +60,7 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<IUserGroup, Integer> imple
 		final CriteriaQuery<IUserGroup> cq = cb.createQuery(IUserGroup.class);
 
 		final Root<UserGroup> from = cq.from(UserGroup.class);// select from
-		cq.select(from); // select what? select *
+		cq.select(from);
 
 		if (filter.getSortColumn() != null) {
 			final SingularAttribute<? super UserGroup, ?> sortProperty = toMetamodelFormat(filter.getSortColumn());

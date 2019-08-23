@@ -41,8 +41,8 @@ public class UserToGroupDaoImpl extends AbstractDaoImpl<IUserToGroup, Integer> i
 
 		final CriteriaQuery<IUserToGroup> cq = cb.createQuery(IUserToGroup.class);
 
-		final Root<UserToGroup> from = cq.from(UserToGroup.class);// select from
-		cq.select(from); // select what? select *
+		final Root<UserToGroup> from = cq.from(UserToGroup.class);
+		cq.select(from);
 
 		if (filter.getSortColumn() != null) {
 			final SingularAttribute<? super UserToGroup, ?> sortProperty = toMetamodelFormat(filter.getSortColumn());
@@ -90,7 +90,9 @@ public class UserToGroupDaoImpl extends AbstractDaoImpl<IUserToGroup, Integer> i
 
 	@Override
 	public void save(IUserToGroup... entities) {
-		throw new RuntimeException("Not implemented");
+		for (IUserToGroup entity : entities) {
+			insert(entity);
+		}
 
 	}
 
