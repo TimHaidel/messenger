@@ -24,13 +24,13 @@ public interface IUserGroupService {
 	IUserGroup get(final Integer id);
 
 	@Transactional
-	void save(final IUserGroup entity);
+	IUserGroup save(final IUserGroup entity);
 
 	IUserGroup createEntity();
 
 	@Transactional
 	void save(IUserGroup... entity);
 
-	Integer findGroupId(UserGroupFilter filter);
+	Integer findGroupId(Integer user1, Integer user2);
 
 }

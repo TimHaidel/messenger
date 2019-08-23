@@ -1,9 +1,11 @@
 package by.itacademy.jd2.th.messenger.dao.api.filter;
 
 public class UserGroupFilter extends AbstractFilter {
-	private Integer initiatorId;
+/*	private Integer initiatorId;
 	private Integer acceptorId;
-	private String name;
+*/	private String name;
+
+
 
 	public String getName() {
 		return name;
@@ -13,7 +15,10 @@ public class UserGroupFilter extends AbstractFilter {
 		this.name = name;
 	}
 
-	public Integer getInitiatorId() {
+	
+	
+
+/*	public Integer getInitiatorId() {
 		return initiatorId;
 	}
 
@@ -28,5 +33,5 @@ public class UserGroupFilter extends AbstractFilter {
 	public void setAcceptorId(Integer acceptorId) {
 		this.acceptorId = acceptorId;
 	}
-
+*/
 }

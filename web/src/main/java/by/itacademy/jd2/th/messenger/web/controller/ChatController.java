@@ -77,24 +77,29 @@ public class ChatController extends AbstractController {
 		return new ModelAndView("chat", models);
 	}
 
-	@RequestMapping(value = "/messages", method = RequestMethod.POST)
+	@RequestMapping(value = "/messages", method = RequestMethod.GET)
 	public ResponseEntity<List<MessageDTO>> getGroupMessages(
-			@RequestParam(name = "acceptorId", required = true) final Integer acceptorId) {
+			@RequestParam(name = "contactId", required = true) final Integer contactId) {
 
-		Integer initiatorId = AuthHelper.getLoggedUserId();
-		IUserAccount initiator = userAccountService.get(initiatorId);
-		IUserAccount acceptor = userAccountService.get(acceptorId);
+		IContact contact = contactService.getFullInfo(contactId);
 
-		UserGroupFilter groupFilter = new UserGroupFilter();
-		groupFilter.setInitiatorId(initiatorId);
-		groupFilter.setAcceptorId(acceptorId);
+		// Integer initiatorId = AuthHelper.getLoggedUserId();
+		IUserAccount acceptor = contact.getAcceptor();// userAccountService.get(initiatorId);
+		IUserAccount initiator = contact.getInitiator();// userAccountService.get(acceptorId);
+
+		// UserGroupFilter groupFilter = new UserGroupFilter();
+		// groupFilter.setInitiatorId(initiatorId);
+		// groupFilter.setAcceptorId(acceptorId);
+
+		// groupFilter.setUsersPair(new Integer[] { });
 		// find groupId
-		Integer groupId = userGroupService.findGroupId(groupFilter);
+		Integer groupId = userGroupService.findGroupId(acceptor.getId(), initiator.getId());
 		if (groupId == null) {
 			IUserGroup userGroup = userGroupService.createEntity();
-			userGroup.setName("Group with " + initiatorId + " : " + acceptorId);
+			userGroup.setName("Group with " + acceptor.getId() + " : " + initiator.getId());
 			userGroup.setUsersCount(2);
-			userGroupService.save(userGroup);
+			IUserGroup createdGroup = userGroupService.save(userGroup);
+			groupId = createdGroup.getId();
 
 			IUserToGroup userToGroupInitiator = userToGroupService.createEntity();
 			userToGroupInitiator.setUser(initiator);
@@ -106,7 +111,6 @@ public class ChatController extends AbstractController {
 			userToGroupAcceptor.setGroupRole(0);
 			userToGroupService.save(userToGroupInitiator, userToGroupAcceptor);
 
-			groupId = userGroupService.findGroupId(groupFilter);
 		}
 
 		MessageFilter filter = new MessageFilter();

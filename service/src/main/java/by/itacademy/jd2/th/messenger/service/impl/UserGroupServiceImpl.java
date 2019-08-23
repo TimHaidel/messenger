@@ -28,7 +28,7 @@ public class UserGroupServiceImpl implements IUserGroupService {
 	}
 
 	@Override
-	public void save(final IUserGroup entity) {
+	public IUserGroup save(final IUserGroup entity) {
 		final Date modifedOn = new Date();
 		entity.setUpdated(modifedOn);
 		if (entity.getId() == null) {
@@ -37,6 +37,8 @@ public class UserGroupServiceImpl implements IUserGroupService {
 		} else {
 			dao.update(entity);
 		}
+		
+		return entity;
 	}
 
 	@Override
@@ -67,8 +69,8 @@ public class UserGroupServiceImpl implements IUserGroupService {
 	}
 
 	@Override
-	public Integer findGroupId(UserGroupFilter filter) {
-		return dao.findGroupId(filter);
+	public Integer findGroupId(Integer user1, Integer user2) {
+		return dao.findGroupId(user1, user2);
 
 	}
 

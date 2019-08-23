@@ -7,21 +7,60 @@ $(document).ready(function () {
     $('.collapsible').collapsible();
 });
 
-function getMessages() {
-    // alert($("#contact").val());
-    $.post("chat/messages", $("#contactInfo").serialize(), function (data) {
-        // alert(data.message);
-
+function getMessages(contactId) {
+    $.get("chat/messages?contactId=" + contactId, function (data) {
+        console.log(data);
         data.forEach(function (element) {
+
+            // let div2 = document.createElement('div');
+            // div.className = "row";
+            // div.id = "#card2";
+            // $("#card2").append(div);
+
+            let div1 = document.createElement('div');
+            div.className = "card teal darken-3";
+            div.id = "card4";
+
+            let div = document.createElement('div');
+            div.className = "card-content white-text";
+            div.id = "msgAcceptor";
 
             let text = document.createElement('p');
             text.innerHTML = element.message;
+            let name = document.createElement('span');
+            name.className = "card-title";
+            name.innerHTML = element.user.firstname;
 
+            $("#card3").append(div1);
+            $("#card4").append(div);
+            $("#msgAcceptor").append(name);
             $("#msgAcceptor").append(text);
+            //
+            // $('<div>', {
+            // className : 'row',
+            // id : 'card2'
+            // }).appendTo('#card');
+            // $('<div>', {
+            // className : 'col s12 m6',
+            // id : 'card3',
+            // }).appendTo('#card2');
+            // $('<div>', {
+            // className : 'card teal darken-3',
+            // id : 'card4',
+            // }).appendTo('#card3');
+            // $('<div>', {
+            // className : 'card-content white-text',
+            // id : 'msgAcceptor',
+            // }).appendTo('#card4');
+            // $('<span>', {
+            // className : 'card-title',
+            // text : element.user.firstname,
+            // }).appendTo('#msgAcceptor');
+            // $('<p>', {
+            // text : element.message,
+            // }).appendTo('#msgAcceptor');
+
         });
-        // var content = $(data).find("#message");
-        // console.log(content);
-        // $("#chatbox").empty().append(content);
     });
 }
 

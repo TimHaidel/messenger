@@ -34,14 +34,14 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<IUserGroup, Integer> imple
 	}
 
 	@Override
-	public Integer findGroupId(UserGroupFilter filter) {
+	public Integer findGroupId(Integer user1, Integer user2) {
 		final EntityManager em = getEntityManager();
 
 		// native query
 		Query q = em.createNativeQuery("select group_id from user_group ug join user_2_group u2g on u2g.group_id=ug.id "
 				+ "where (u2g.user_id=? or u2g.user_id=?) and ug.users_count=2group by group_id having count(1)=2");
-		q.setParameter(1, filter.getInitiatorId());
-		q.setParameter(2, filter.getAcceptorId());
+		q.setParameter(1, user1);
+		q.setParameter(2, user2);
 		List<Integer> groupsId = q.getResultList();
 		if (!groupsId.isEmpty()) {
 			return groupsId.get(0);
