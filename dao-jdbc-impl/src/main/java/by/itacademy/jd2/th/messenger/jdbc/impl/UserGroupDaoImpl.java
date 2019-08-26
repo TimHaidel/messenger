@@ -103,7 +103,7 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<IUserGroup, Integer> imple
 	}
 
 	@Override
-	public Integer findGroupId(UserGroupFilter filter) {
+	public Integer findGroupId(Integer user1, Integer user2) {
 		// TODO Auto-generated method stub
 		return null;
 	}

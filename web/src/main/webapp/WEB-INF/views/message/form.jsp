@@ -1,6 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<h4 class="header">Edit smile</h4>
+<h4 class="header">Edit message</h4>
 <div class="row">
 
 	<form:form class="col s12" method="POST" action="${pagesMessage}"
@@ -50,7 +50,7 @@
 
 	<script src="${contextPath}/resources/js/sample-alert-with-params.js"></script>
 	<script>
-		showMessage('${contextPath}'); // execute function defined somewhere above
-	</script>
+        showMessage('${contextPath}'); // execute function defined somewhere above
+    </script>
 
 </c:if>
