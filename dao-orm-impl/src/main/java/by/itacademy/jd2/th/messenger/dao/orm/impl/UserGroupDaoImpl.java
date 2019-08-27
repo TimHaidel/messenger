@@ -86,7 +86,7 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<IUserGroup, Integer> imple
 		case "name":
 			return UserGroup_.name;
 		case "status":
-			return UserGroup_.status;
+			return UserGroup_.usersCount;
 		default:
 			throw new UnsupportedOperationException("sorting is not supported by column:" + sortColumn);
 		}

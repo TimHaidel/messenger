@@ -9,7 +9,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 public abstract class UserGroup_ extends by.itacademy.jd2.th.messenger.dao.orm.impl.entity.BaseEntity_ {
 
 	public static volatile SingularAttribute<UserGroup, String> name;
-	public static volatile SingularAttribute<UserGroup, Integer> status;
+	public static volatile SingularAttribute<UserGroup, Integer> usersCount;
 
 }
 
