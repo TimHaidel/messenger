@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -119,10 +120,10 @@ public class ChatController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/send", method = RequestMethod.POST)
-	public ResponseEntity<MessageDTO> saveMessage(@RequestParam(name = "text", required = true) final String text) {
-		System.out.println(text);
+	public ResponseEntity<MessageDTO> saveMessage(@ModelAttribute MessageDTO messageDto) {
+		System.out.println(messageDto);
 		IMessage message = messageService.createEntity();
-		message.setMessage(text);
+		// message.setMessage(text);
 		messageService.save(message);
 
 		MessageDTO dto = messageToDtoConverter.apply(message);

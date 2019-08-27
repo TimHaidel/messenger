@@ -12,11 +12,6 @@
 			<c:forEach var="contact" items="${gridItems}" varStatus="loopCounter">
 				<li>
 					<div class="collapsible-header">
-						<%-- <form id="contactInfo">
-							<input id="id" type="hidden" name="acceptorId"
-								value="${contact.id}"> <input id="name" type="hidden"
-								name="firstName" value="${contact.acceptorFirstname}">
-						</form> --%>
 						<i class="material-icons">${contact.avatar}</i>
 						<c:out value="${contact.acceptorFirstname}" />
 						<c:out value="${contact.acceptorLastname}" />
@@ -32,7 +27,7 @@
 			</c:forEach>
 		</ul>
 	</div>
-	<div class="chatbox">
+	<div class="chatbox" class="col s 9">
 		<div id="card" class="col s9"></div>
 		<div class="row">
 			<div class=" col s3">
@@ -45,28 +40,25 @@
 			</div>
 		</div>
 	</div>
-<div class="row ">
+	<div class="row ">
 
-	<form id="messageToSend" class="col s12">
-
-		<div class="row">
-			<div class="input-field col s6">
-				<i class="material-icons prefix">mode_edit</i>
-				<textarea id="icon_prefix2" class="materialize-textarea"></textarea>
-				<label for="icon_prefix2">Message</label>
-
+		<form id="messageToSend" class="col s12">
+			<div class="row">
+				<div class="input-field col s6">
+					<i class="material-icons prefix">mode_edit</i>
+					<textarea id="icon_prefix2" class="materialize-textarea"></textarea>
+					<label for="icon_prefix2">Message</label>
+				</div>
+				<div class="input-field col s3">
+					<button class="btn waves-effect waves-light"
+						onClick="sendMessage()" type="button">
+						send <i class="material-icons right">send</i>
+					</button>
+				</div>
 			</div>
-			<div class="input-field col s3">
-				<button class="btn waves-effect waves-light" onClick="sendMessage()"
-					type="button">
-					send <i class="material-icons right">send</i>
-				</button>
-			</div>
-		</div>
+		</form>
 
-	</form>
-
-</div>
+	</div>
 </div>
 
 
