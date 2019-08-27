@@ -9,7 +9,6 @@ $(document).ready(function () {
 
 function getMessages(contactId) {
     $.get("chat/messages?contactId=" + contactId, function (data) {
-        console.log(data);
         $("#card").empty();
         data.forEach(function (element) {
 

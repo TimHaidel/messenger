@@ -2,11 +2,38 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
-<c:set var="currentLocale" value="${sessionScope['org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE']}"/> 
+<c:set var="currentLocale"
+	value="${sessionScope['org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE']}" />
 
 <style>
-.highlighted-menu-${currentLocale!=null?currentLocale:'ru'} {
-text-decoration: underline;
+.highlighted-menu-
+ 
+${
+currentLocale
+ 
+!=
+null
+?currentLocale
+:
+ 
+'
+ru
+'
+
+
+}
+{
+text-decoration
+
+
+:
+
+ 
+
+underline
+
+
+;
 }
 </style>
 <header>
@@ -37,7 +64,7 @@ text-decoration: underline;
 					</sec:authorize>
 					<sec:authorize access="isAnonymous()">
 					Logged user is anonymous
-				</sec:authorize>
+					</sec:authorize>
 				</ul>
 
 				<sec:authorize access="!isAnonymous()">

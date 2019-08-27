@@ -23,10 +23,8 @@ import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserToGroup;
 import by.itacademy.jd2.th.messenger.dao.api.filter.ContactFilter;
 import by.itacademy.jd2.th.messenger.dao.api.filter.MessageFilter;
-import by.itacademy.jd2.th.messenger.dao.api.filter.UserGroupFilter;
 import by.itacademy.jd2.th.messenger.service.IContactService;
 import by.itacademy.jd2.th.messenger.service.IMessageService;
-import by.itacademy.jd2.th.messenger.service.IUserAccountService;
 import by.itacademy.jd2.th.messenger.service.IUserGroupService;
 import by.itacademy.jd2.th.messenger.service.IUserToGroupService;
 import by.itacademy.jd2.th.messenger.web.converter.ContactToDTOConverter;
@@ -51,8 +49,6 @@ public class ChatController extends AbstractController {
 	private IUserGroupService userGroupService;
 	@Autowired
 	private IUserToGroupService userToGroupService;
-	@Autowired
-	private IUserAccountService userAccountService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView index(final HttpServletRequest req,

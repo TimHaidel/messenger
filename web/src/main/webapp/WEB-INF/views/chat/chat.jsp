@@ -45,7 +45,6 @@
 			</div>
 		</div>
 	</div>
-</div>
 <div class="row ">
 
 	<form id="messageToSend" class="col s12">
@@ -69,7 +68,6 @@
 
 </div>
 </div>
-
 
 
 <script src="${pageContext.request.contextPath}/resources/js/chat.js"></script>
