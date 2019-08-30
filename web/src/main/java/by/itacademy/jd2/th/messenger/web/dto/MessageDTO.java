@@ -13,6 +13,19 @@ public class MessageDTO {
 	private IUserGroup userGroup;
 	private Date created;
 	private Date updated;
+	
+	private boolean isCurrentUser;
+	
+	
+	
+
+	public boolean isCurrentUser() {
+		return isCurrentUser;
+	}
+
+	public void setCurrentUser(boolean isCurrentUser) {
+		this.isCurrentUser = isCurrentUser;
+	}
 
 	public Integer getId() {
 		return id;

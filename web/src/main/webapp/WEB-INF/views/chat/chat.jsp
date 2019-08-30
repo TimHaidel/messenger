@@ -5,7 +5,7 @@
 	rel="stylesheet">
 
 <div class="row">
-	<div class="col s4">
+	<div class="contact-block col s4">
 		<ul id="tabs-swipe-demo" class="tabs">
 			<li class="tab col s6"><a href="#test-swipe-1">Contacts</a></li>
 			<li class="tab col s6"><a class="active" href="#test-swipe-2">Chats</a></li>
@@ -63,42 +63,44 @@
 				<div class="message-timestamp-right">SMS 13:37</div>
 			</div>	 -->
 		</div>
-		<form id="messageToSend" class="col s12">
-			<div class="row">
-				<div class="input-field col s6">
-					<i class="material-icons prefix">mode_edit</i>
-					<textarea id="icon_prefix2" class="materialize-textarea"></textarea>
-					<label for="icon_prefix2">Message</label>
+		<div id="message-to-send">
+			<form class="col s12">
+				<div class="row">
+					<div class="input-field col s6">
+						<i class="material-icons prefix">mode_edit</i>
+						<textarea id="icon_prefix2" class="materialize-textarea"></textarea>
+						<label for="icon_prefix2">Message</label>
 
-					<div class="smiles">
-						<a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Smiles</a>
+						<div class="smiles">
+							<a class='dropdown-trigger btn-floating btn-small' href='#'
+								data-target='dropdown1'><i class="material-icons">child_care</i></a>
 
-						<!-- Dropdown Structure -->
-						<ul id='dropdown1' class='dropdown-content'>
-							<span><img class="smile"
-								src="${pageContext.request.contextPath}/resources/smiles/ab.png"
-								alt=":ab:"></span>
-							<span><img class="smile"
-								src="${pageContext.request.contextPath}/resources/smiles/ac.gif"
-								alt=":ac:"></span>
-							<span><img class="smile"
-								src="${pageContext.request.contextPath}/resources/smiles/ae.gif"
-								alt=":ae:"></span>
-						</ul>
+							<!-- Dropdown Structure -->
+							<ul id='dropdown1' class='dropdown-content'>
+								<span><img class="smile"
+									src="${pageContext.request.contextPath}/resources/smiles/ab.png"
+									alt=":ab:"></span>
+								<span><img class="smile"
+									src="${pageContext.request.contextPath}/resources/smiles/ac.gif"
+									alt=":ac:"></span>
+								<span><img class="smile"
+									src="${pageContext.request.contextPath}/resources/smiles/ae.gif"
+									alt=":ae:"></span>
+							</ul>
+						</div>
 					</div>
+
+					<div class="input-field col s3">
+						<button class="btn waves-effect waves-light btn-small"
+							onClick="sendMessage()" type="button">
+							send <i class="material-icons right">send</i>
+						</button>
+					</div>
+
+
 				</div>
-
-				<div class="input-field col s3">
-					<button class="btn waves-effect waves-light"
-						onClick="sendMessage()" type="button">
-						send <i class="material-icons right">send</i>
-					</button>
-				</div>
-
-
-			</div>
-		</form>
-
+			</form>
+		</div>
 
 	</div>
 </div>

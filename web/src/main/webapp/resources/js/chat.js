@@ -1,16 +1,16 @@
 $(document).ready(function () {
     $('.tabs').tabs();
-});
-
-$(document).ready(function () {
     $('.collapsible').collapsible();
+    // $(".resizable").resizable();
 });
 
+var groupIdGlob;
 function getMessages(groupId) {
+    groupIdGlob = groupId;
     let tempLength;
     // Логику в контроллер
     function requestMessages () {$.get("chat/messages?groupId=" + groupId, function(data) {
-       if(tempLength != data.length) {
+       if(tempLength !== data.length) {
            
            printMessages(data);
            tempLength = data.length;
@@ -38,25 +38,37 @@ function printMessages(data) {
   
     data.forEach(function (element) {
         // нужен id legged user
-        if(element.user.id === null){
+        if(element.currentUser){
+             $('<div>', {
+                text : element.user.firstname,
+            }).appendTo('.chatbox');
+            
+           
+            // Переписать, добавить дату
+            $('<p>', {
+                class : 'message-content',
+                text : element.message,
+                }).appendTo(
+                     $('<div>', {
+                     class : 'message-orange',
+                     }).appendTo('.chatbox'));
             
         } else {
+            $('<div>', {
+                text : element.user.firstname,
+            }).appendTo('.chatbox');
             
+           
+            // Переписать, добавить дату
+            $('<p>', {
+                class : 'message-content',
+                text : element.message,
+                }).appendTo(
+                     $('<div>', {
+                     class : 'message-blue',
+                     }).appendTo('.chatbox'));
         }
-        $('<div>', {
-            text : element.user.firstname,
-        }).appendTo('.chatbox');
-        
        
-        
-        $('<p>', {
-            class : 'message-content',
-            text : element.message,
-            }).appendTo(
-                 $('<div>', {
-                 class : 'message-blue',
-                 }).appendTo('.chatbox')
-               );
         
 // $('div', {
 // class : 'message-timestamp-left',
@@ -95,11 +107,17 @@ function printMessages(data) {
 
 
 function sendMessage() {
-    let message = ($("#icon_prefix2").val());
+   
 // JSON.stringify(message);
     
     // нужно id logged user, id group
+    console.log(groupIdGlob);
     console.log(message);
+    let messageToSend = {
+            message : ($("#icon_prefix2").val()),
+            groupId : groupIdGlob
+    };
+   
     $.ajax({
         type : "POST",
         url : 'chat/send',
@@ -111,4 +129,5 @@ function sendMessage() {
     // alert(test);
     // });
 }
+
 

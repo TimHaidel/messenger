@@ -99,6 +99,13 @@ public class ChatController extends AbstractController {
 		final List<IMessage> entities = messageService.find(filter);
 		List<MessageDTO> dtos = entities.stream().map(messageToDtoConverter).collect(Collectors.toList());
 
+		
+		Integer loggedUserId = AuthHelper.getLoggedUserId();
+		
+		for (MessageDTO messageDTO : dtos) {
+			messageDTO.setCurrentUser(messageDTO.getUser().getId().equals(loggedUserId));
+		}
+		
 		return new ResponseEntity<List<MessageDTO>>(dtos, HttpStatus.OK);
 	}
 

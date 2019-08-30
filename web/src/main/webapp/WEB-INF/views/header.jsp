@@ -7,30 +7,335 @@
 
 <style>
 .highlighted-menu-
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ${
 currentLocale
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 !=
 null
-?currentLocale
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+?
+currentLocale
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 '
 ru
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 '
-
-
 }
 {
 text-decoration
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
  
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 underline
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ;
@@ -39,10 +344,18 @@ underline
 <header>
 	<nav>
 		<div class="teal accent-4">
+
+
 			<div class="nav-wrapper container ">
+
+
+				<!-- Dropdown Structure -->
+
 				<ul class="left hide-on-med-and-down ">
-					<li><a class="highlighted-menu-ru" href="?lang=ru">RU</a></li>
-					<li><a class="highlighted-menu-en" href="?lang=en">EN</a></li>
+
+
+					<!-- <li><a class="highlighted-menu-ru" href="?lang=ru">RU</a></li>
+					<li><a class="highlighted-menu-en" href="?lang=en">EN</a></li> -->
 					<li><a href="${contextPath}/">home</a></li>
 					<li><a href="${pagesChat}">chats</a></li>
 					<sec:authorize access="hasRole('admin')">
@@ -56,7 +369,15 @@ underline
 					<sec:authorize access="!isAnonymous()">
 						<li><a href="${pagesContact}">contacts</a></li>
 					</sec:authorize>
+
 				</ul>
+				<!--  <a class='dropdown-trigger btn-small' href='#'
+					data-target='dropdown1'><i class="material-icons">language</i></a>
+				<ul id='dropdown1' class='dropdown-content'>
+					<li><a href="?lang=ru">RU</a></li>
+					<li><a href="?lang=en">EN</a></li>
+				</ul>-->
+
 				<ul>
 					<sec:authorize access="!isAnonymous()">
 						<a class="right">Login: <sec:authentication
@@ -65,6 +386,7 @@ underline
 					<sec:authorize access="isAnonymous()">
 					Logged user is anonymous
 					</sec:authorize>
+
 				</ul>
 
 				<sec:authorize access="!isAnonymous()">

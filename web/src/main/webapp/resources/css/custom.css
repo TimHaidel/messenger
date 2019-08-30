@@ -8,6 +8,12 @@ main {
 	flex: 1 0 auto;
 }
 
+#message-to-send {
+	position: fixed;
+	bottom: 160px;
+	width: 50%;
+}
+
 .input-field label.multiselect-label, .input-field label.switch-label {
 	position: absolute;
 	top: -26px;
@@ -30,6 +36,14 @@ main {
 .switch label input[type=checkbox]:checked ~.lever:before, .switch label input[type=checkbox]:checked
     ~.lever:after {
 	left: 18px;
+}
+
+.contact-block {
+	overflow: auto;
+}
+
+.chatbox {
+	overflow: auto;
 }
 
 .messages {
@@ -68,7 +82,7 @@ main {
 	margin-bottom: 10px;
 	padding: 10px;
 	background-color: #A8DDFD;
-	width: 400px;
+	width: 220px;
 	height: 70px;
 	text-align: left;
 	font: 400 .9em 'Open Sans', sans-serif;
@@ -82,7 +96,7 @@ main {
 	margin-left: calc(100% - 240px);
 	padding: 10px;
 	background-color: #f8e896;
-	width: 400px;
+	width: 220px;
 	height: 70px;
 	text-align: left;
 	font: 400 .9em 'Open Sans', sans-serif;
