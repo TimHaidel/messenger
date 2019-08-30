@@ -6,13 +6,13 @@ import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
 
 public class MessageDTO {
-	Integer id;
-	String message;
-	Integer parentMessage;
-	IUserAccount user;
-	IUserGroup userGroup;
-	Date created;
-	Date updated;
+	private Integer id;
+	private String message;
+	private Integer parentMessage;
+	private IUserAccount user;
+	private IUserGroup userGroup;
+	private Date created;
+	private Date updated;
 
 	public Integer getId() {
 		return id;
@@ -68,6 +68,11 @@ public class MessageDTO {
 
 	public void setUserGroup(IUserGroup userGroup) {
 		this.userGroup = userGroup;
+	}
+
+	@Override
+	public String toString() {
+		return "MessageDTO [id=" + id + ", message=" + message + ", user=" + user + ", userGroup=" + userGroup + "]";
 	}
 
 }

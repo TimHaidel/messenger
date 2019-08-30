@@ -29,6 +29,7 @@ public class MessageFromDTOConverter implements Function<MessageDTO, IMessage> {
 		entity.setId(dto.getId());
 		entity.setMessage(dto.getMessage());
 		entity.setCreated(dto.getCreated());
+		entity.setUpdated(dto.getUpdated());
 
 		IMessage parentMessage = messageService.createEntity();
 		parentMessage.setId(dto.getParentMessage());

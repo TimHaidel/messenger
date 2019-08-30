@@ -18,6 +18,7 @@ public class MessageToDTOConverter implements Function<IMessage, MessageDTO> {
 		dto.setId(entity.getId());
 		dto.setMessage(entity.getMessage());
 		dto.setCreated(entity.getCreated());
+		dto.setUpdated(entity.getUpdated());
 
 		IUserAccount user = entity.getUser();
 		if (user != null) {
