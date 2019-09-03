@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -99,13 +100,12 @@ public class ChatController extends AbstractController {
 		final List<IMessage> entities = messageService.find(filter);
 		List<MessageDTO> dtos = entities.stream().map(messageToDtoConverter).collect(Collectors.toList());
 
-		
 		Integer loggedUserId = AuthHelper.getLoggedUserId();
-		
+
 		for (MessageDTO messageDTO : dtos) {
 			messageDTO.setCurrentUser(messageDTO.getUser().getId().equals(loggedUserId));
 		}
-		
+
 		return new ResponseEntity<List<MessageDTO>>(dtos, HttpStatus.OK);
 	}
 
@@ -144,9 +144,9 @@ public class ChatController extends AbstractController {
 
 	@RequestMapping(value = "/send", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
-	public void saveMessage(@RequestBody String text) {
+	public void saveMessage(@RequestBody final MessageDTO messageDto) {
 		IMessage message = messageService.createEntity();
-		message.setMessage(text);
+		message.setMessage(messageDto.getMessage());
 		messageService.save(message);
 
 	}

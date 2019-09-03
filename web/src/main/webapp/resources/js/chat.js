@@ -33,7 +33,7 @@ function toGroup(contactId) {
 
 function printMessages(data) {
     let loggedUserId = $('#loggedUserId').val();
-    console.log(data);
+    // console.log(data);
     $(".chatbox").empty();
   
     data.forEach(function (element) {
@@ -41,7 +41,7 @@ function printMessages(data) {
         if(element.currentUser){
              $('<div>', {
                 text : element.user.firstname,
-            }).appendTo('.chatbox');
+            }).css('text-align','right').appendTo('.chatbox');
             
            
             // Переписать, добавить дату
@@ -69,60 +69,29 @@ function printMessages(data) {
                      }).appendTo('.chatbox'));
         }
        
-        
-// $('div', {
-// class : 'message-timestamp-left',
-// text : '152'
-// }).appendTo('.message-blue');
     });
     
 }
 
 
-// function getMessages1(contactId) {
-// $.get("chat/messages?contactId=" + contactId, function (data) {
-// $("#chatbox").empty();
-// data.forEach(function (element) {
-//
-// $('<div>', {
-// class : 'card blue-grey darken-1',
-// id : 'card2',
-// }).appendTo('#card');
-// $('<div>', {
-// class : 'card-content white-text',
-// id : 'msgFrom',
-// }).appendTo('#card2');
-// $('<span>', {
-// class : 'card-title',
-// text : element.user.firstname,
-// }).appendTo('#msgFrom');
-// $('<p>', {
-// text : element.message,
-// }).appendTo('#msgFrom');
-//            
-// });
-// });
-// }
-
-
-
 function sendMessage() {
    
-// JSON.stringify(message);
+
     
     // нужно id logged user, id group
-    console.log(groupIdGlob);
-    console.log(message);
     let messageToSend = {
             message : ($("#icon_prefix2").val()),
             groupId : groupIdGlob
     };
-   
+
+    // JSON.stringify(messageToSend);
+    console.log(messageToSend);
     $.ajax({
         type : "POST",
         url : 'chat/send',
         contentType: "application/json; charset=utf-8",
-        data : message
+        data : JSON.stringify(messageToSend),
+        processData:false
     });
     // $.post("chat/send", $("#messageToSend").serialize(), function (data) {
     // let test = $("#messageToSend");
