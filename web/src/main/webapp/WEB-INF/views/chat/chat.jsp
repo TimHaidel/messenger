@@ -27,18 +27,6 @@
 		</div>
 		<div id="test-swipe-2" class="col s12 ">
 
-
-
-			<!--  
-			<c:forEach var="userId" items="${loggedUserId}"
-				varStatus="loopCounter">
-				<input type="hidden" id="loggedUserId" value="${userId}">
-			</c:forEach>
--->
-
-
-
-
 			<ul class="collection">
 				<c:forEach var="group" items="${groupItems}" varStatus="loopCounter">
 					<li class="collection-item avatar"><span class="new badge">4</span><a
@@ -51,20 +39,9 @@
 	</div>
 
 	<div class="col s8">
-		<div class="chatbox" class="col s 9 ">
-			<!-- 
-			<div id="messageBlue" class="message-blue">
-				<p class="message-content">This is an awesome message!</p>
-				<div class="message-timestamp-left">SMS 13:37</div>
-			</div>
-
-			<div class="message-orange">
-				<p class="message-content">I agree that your message is awesome!</p>
-				<div class="message-timestamp-right">SMS 13:37</div>
-			</div>	 -->
-		</div>
-		<div id="message-to-send">
-			<form class="col s12">
+		<div id="chatbox" class="chatbox" class="col s 9 "></div>
+		<div id="message-to-send" class="col s12">
+			<form>
 				<div class="row">
 					<div class="input-field col s6">
 						<i class="material-icons prefix">mode_edit</i>

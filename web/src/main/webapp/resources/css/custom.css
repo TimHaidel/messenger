@@ -8,12 +8,6 @@ main {
 	flex: 1 0 auto;
 }
 
-#message-to-send {
-	position: fixed;
-	bottom: 160px;
-	width: 50%;
-}
-
 .input-field label.multiselect-label, .input-field label.switch-label {
 	position: absolute;
 	top: -26px;
@@ -43,6 +37,7 @@ main {
 }
 
 .chatbox {
+	height: 550px;
 	overflow: auto;
 }
 

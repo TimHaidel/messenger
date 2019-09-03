@@ -17,8 +17,8 @@ function getMessages(groupId) {
        }
     });
     }
-    requestMessages();
-    // setInterval(requestMessages, 3000);
+   requestMessages();
+    setInterval(requestMessages, 3000);
 }
 
 
@@ -81,7 +81,7 @@ function sendMessage() {
     // нужно id logged user, id group
     let messageToSend = {
             message : ($("#icon_prefix2").val()),
-            groupId : groupIdGlob
+            userGroupId : groupIdGlob
     };
 
     // JSON.stringify(messageToSend);

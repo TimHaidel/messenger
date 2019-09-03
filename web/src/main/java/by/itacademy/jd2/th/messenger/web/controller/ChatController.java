@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,14 +29,17 @@ import by.itacademy.jd2.th.messenger.dao.api.filter.MessageFilter;
 import by.itacademy.jd2.th.messenger.dao.api.filter.UserGroupFilter;
 import by.itacademy.jd2.th.messenger.service.IContactService;
 import by.itacademy.jd2.th.messenger.service.IMessageService;
+import by.itacademy.jd2.th.messenger.service.IUserAccountService;
 import by.itacademy.jd2.th.messenger.service.IUserGroupService;
 import by.itacademy.jd2.th.messenger.service.IUserToGroupService;
+import by.itacademy.jd2.th.messenger.service.impl.UserAccountServiceImpl;
 import by.itacademy.jd2.th.messenger.web.converter.ContactToDTOConverter;
 import by.itacademy.jd2.th.messenger.web.converter.MessageToDTOConverter;
 import by.itacademy.jd2.th.messenger.web.converter.UserGroupToDTOConverter;
 import by.itacademy.jd2.th.messenger.web.dto.ContactDTO;
 import by.itacademy.jd2.th.messenger.web.dto.MessageDTO;
 import by.itacademy.jd2.th.messenger.web.dto.UserGroupDTO;
+import by.itacademy.jd2.th.messenger.web.dto.ajax.MessageAjaxDTO;
 import by.itacademy.jd2.th.messenger.web.dto.grid.GridStateDTO;
 import by.itacademy.jd2.th.messenger.web.security.AuthHelper;
 
@@ -58,6 +60,8 @@ public class ChatController extends AbstractController {
 	private IUserGroupService userGroupService;
 	@Autowired
 	private IUserToGroupService userToGroupService;
+	@Autowired
+	private IUserAccountService userAccountService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView index(final HttpServletRequest req,
@@ -144,9 +148,18 @@ public class ChatController extends AbstractController {
 
 	@RequestMapping(value = "/send", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
-	public void saveMessage(@RequestBody final MessageDTO messageDto) {
+	public void saveMessage(@RequestBody final MessageAjaxDTO messageDto) {
 		IMessage message = messageService.createEntity();
 		message.setMessage(messageDto.getMessage());
+
+		IUserAccount user = userAccountService.createEntity();
+		user.setId(AuthHelper.getLoggedUserId());
+		message.setUser(user);
+
+		IUserGroup userGroup = userGroupService.createEntity();
+		userGroup.setId(messageDto.getUserGroupId());
+		message.setUserGroup(userGroup);
+
 		messageService.save(message);
 
 	}
