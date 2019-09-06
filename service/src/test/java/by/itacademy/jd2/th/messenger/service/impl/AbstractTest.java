@@ -19,6 +19,7 @@ import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmileGroup;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserToGroup;
+import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.UserGroup;
 import by.itacademy.jd2.th.messenger.service.IAttachmentService;
 import by.itacademy.jd2.th.messenger.service.IContactService;
 import by.itacademy.jd2.th.messenger.service.IMessageService;
@@ -110,7 +111,7 @@ public abstract class AbstractTest {
 	protected IUserGroup saveNewUserGroup() {
 		final IUserGroup entity = userGroupService.createEntity();
 		entity.setName("Name-" + getRandomPrefix());
-		entity.setUsersCount(1);
+		entity.setUsersCount(2);
 
 		userGroupService.save(entity);
 		return entity;
@@ -120,6 +121,15 @@ public abstract class AbstractTest {
 		final IMessage entity = messageService.createEntity();
 		entity.setMessage("message-" + getRandomPrefix());
 		entity.setUserGroup(saveNewUserGroup());
+		entity.setUser(saveNewUserAccount());
+		messageService.save(entity);
+		return entity;
+	}
+
+	protected IMessage saveNewMessageWithGroup(IUserGroup userGroup) {
+		final IMessage entity = messageService.createEntity();
+		entity.setMessage("message-" + getRandomPrefix());
+		entity.setUserGroup(userGroup);
 		entity.setUser(saveNewUserAccount());
 		messageService.save(entity);
 		return entity;

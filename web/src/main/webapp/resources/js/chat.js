@@ -4,8 +4,8 @@ $(document).ready(function () {
     // $(".resizable").resizable();
 });
 
-$('#textarea1').val('New Text');
-M.textareaAutoResize($('#textarea1'));
+// $('#textarea1').val('New Text');
+// M.textareaAutoResize($('#textarea1'));
 
 var groupIdGlob;
 function getMessages(groupId) {
@@ -15,7 +15,6 @@ function getMessages(groupId) {
     var requestMessages=function () {
         $.get("chat/messages?groupId=" + groupId, function(data) {
        if(tempLength !== data.length) {
-           M.toast({html: 'I am a toast!'})
            printMessages(data);
            tempLength = data.length;
        }
@@ -82,7 +81,6 @@ function sendMessage() {
             userGroupId : groupIdGlob
     };
 
-    console.log(messageToSend);
     $.ajax({
         type : "POST",
         url : 'chat/send',
@@ -90,6 +88,7 @@ function sendMessage() {
         data : JSON.stringify(messageToSend),
         processData:false
     });
+    $('#icon_prefix2').val('');
 }
 
 

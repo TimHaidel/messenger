@@ -15,13 +15,15 @@
 				<c:forEach var="contact" items="${contactItems}"
 					varStatus="loopCounter">
 
-					<li class="collection-item avatar"><span class="new badge">4</span><img
-						src="images/yuna.jpg" alt="" class="circle"><a href="#"
+					<li class="collection-item avatar">
+						<!--  <span class="new badge">4</span>--> <img
+						src="${contact.avatar}" alt="" class="circle"><a href="#"
 						id="contactLink" class="collection-item"
 						onclick="toGroup(${contact.id})"> <c:out
 								value="${contact.acceptorFirstname}" /> <br> <c:out
 								value="${contact.acceptorLastname}" />
-					</a></li>
+					</a>
+					</li>
 				</c:forEach>
 			</ul>
 		</div>
@@ -29,10 +31,12 @@
 
 			<ul class="collection">
 				<c:forEach var="group" items="${groupItems}" varStatus="loopCounter">
-					<li class="collection-item avatar"><span class="new badge">4</span><a
-						href="#" id="contactLink" class="collection-item"
+					<li class="collection-item avatar">
+						<!--  <span class="new badge">4</span>--> <a href="#"
+						id="contactLink" class="collection-item"
 						onclick="getMessages(${group.id})"> <c:out
-								value="${group.name}" /></a></li>
+								value="${group.name}" /></a>
+					</li>
 
 				</c:forEach>
 			</ul>

@@ -41,8 +41,11 @@ public class ContactDaoImpl extends AbstractDaoImpl<IContact, Integer> implement
 		final CriteriaQuery<IContact> cq = cb.createQuery(IContact.class);
 
 		final Root<Contact> from = cq.from(Contact.class);
-		cq.select(from).where(cb.equal(from.get("initiator"), filter.getInitiatorId()));
-
+		if (filter.getInitiatorId() == null) {
+			cq.select(from);
+		} else {
+			cq.select(from).where(cb.equal(from.get("initiator"), filter.getInitiatorId()));
+		}
 		from.fetch(Contact_.initiator, JoinType.LEFT);
 		from.fetch(Contact_.acceptor, JoinType.LEFT);
 

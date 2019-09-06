@@ -21,13 +21,11 @@
 			<tr>
 				<td><c:out value="${message.id}" /></td>
 				<td><c:out value="${message.message}" /></td>
-				<td><c:out value="${message.user}" /></td>
-				<td><c:out value="${message.userGroup}" /></td>
+				<td><c:out value="${message.user.firstname}" /></td>
+				<td><c:out value="${message.userGroup.name}" /></td>
 				<td><c:out value="${message.created}" /></td>
 
 				<td class="right"><a class="btn-floating"
-					href="${pagesMessage}/${message.id}/attach"><i
-						class="material-icons">attach</i></a> <a class="btn-floating"
 					href="${pagesMessage}/${message.id}"><i class="material-icons">info</i></a>
 					<a class="btn-floating" href="${pagesMessage}/${message.id}/edit"><i
 						class="material-icons">edit</i></a> <a class="btn-floating red"

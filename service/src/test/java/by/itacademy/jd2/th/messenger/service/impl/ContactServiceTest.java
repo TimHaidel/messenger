@@ -54,27 +54,6 @@ public class ContactServiceTest extends AbstractTest {
 	}
 
 	@Test
-	public void testGetAll() {
-		final int intialCount = contactService.getAll().size();
-
-		final int randomObjectsCount = getRandomObjectsCount();
-		for (int i = 0; i < randomObjectsCount; i++) {
-			saveNewContact();
-		}
-
-		final List<IContact> allEntities = contactService.getAll();
-
-		for (final IContact entityFromDb : allEntities) {
-			assertNotNull(entityFromDb.getId());
-			assertNotNull(entityFromDb.getInitiator().getId().intValue());
-			assertNotNull(entityFromDb.getAcceptor().getId().intValue());
-			assertNotNull(entityFromDb.getStatus());
-		}
-
-		assertEquals(randomObjectsCount + intialCount, allEntities.size());
-	}
-
-	@Test
 	public void testDelete() {
 		final IContact entity = saveNewContact();
 		contactService.delete(entity.getId());

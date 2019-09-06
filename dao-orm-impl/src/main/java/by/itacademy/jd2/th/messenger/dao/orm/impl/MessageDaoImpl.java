@@ -20,6 +20,7 @@ import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.filter.MessageFilter;
 import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.Message;
 import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.Message_;
+import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.UserGroup_;
 
 @Repository
 public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implements IMessageDao {
@@ -42,9 +43,15 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 		final CriteriaQuery<IMessage> cq = cb.createQuery(IMessage.class);
 
 		final Root<Message> from = cq.from(Message.class);
-		cq.select(from).orderBy(cb.asc(from.get("created")))
-				.where(cb.equal(from.get("userGroup"), filter.getUserGroupId()));
 
+		Integer userGroupId = filter.getUserGroupId();
+		if (userGroupId == null) {
+			cq.select(from).orderBy(cb.asc(from.get(Message_.created)));
+		} else {
+			cq.select(from).orderBy(cb.asc(from.get(Message_.created)))
+					.where(cb.equal(from.get(Message_.userGroup).get(UserGroup_.id), filter.getUserGroupId()));
+
+		}
 		from.fetch(Message_.user, JoinType.LEFT);
 		from.fetch(Message_.attachment, JoinType.LEFT);
 		from.fetch(Message_.parentMessage, JoinType.LEFT);

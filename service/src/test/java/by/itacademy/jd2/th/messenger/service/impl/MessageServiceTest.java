@@ -12,11 +12,9 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IMessage;
-import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmile;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
 import by.itacademy.jd2.th.messenger.dao.api.filter.MessageFilter;
-import by.itacademy.jd2.th.messenger.dao.api.filter.SmileFilter;
 
 public class MessageServiceTest extends AbstractTest {
 
@@ -127,11 +125,13 @@ public class MessageServiceTest extends AbstractTest {
 
 	@Test
 	public void testFind() {
+		IUserGroup userGroup = saveNewUserGroup();
 		for (int i = 0; i < 6; i++) {
-			saveNewMessage();
+			saveNewMessageWithGroup(userGroup);
 		}
 
 		MessageFilter filter = new MessageFilter();
+		filter.setUserGroupId(userGroup.getId());
 
 		assertEquals(6, messageService.getCount(filter));
 		assertEquals(6, messageService.find(filter).size());

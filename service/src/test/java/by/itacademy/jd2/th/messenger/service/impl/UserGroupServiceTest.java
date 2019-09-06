@@ -22,7 +22,7 @@ public class UserGroupServiceTest extends AbstractTest {
 
 		assertNotNull(entityFromDb);
 		assertEquals(entity.getName(), entityFromDb.getName());
-		assertEquals(entity.getUsersCount(), entityFromDb.getUsersCount());
+		assertEquals(entity.getUsersCount().intValue(), entityFromDb.getUsersCount().intValue());
 		assertNotNull(entityFromDb.getId());
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
@@ -64,7 +64,7 @@ public class UserGroupServiceTest extends AbstractTest {
 
 		assertNotNull(entityFromDb);
 		assertEquals(entity.getName(), entityFromDb.getName());
-		assertEquals(entity.getUsersCount(), entityFromDb.getUsersCount());
+		assertEquals(entity.getUsersCount().intValue(), entityFromDb.getUsersCount().intValue());
 		assertNotNull(entityFromDb.getId());
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
