@@ -33,6 +33,7 @@
 						href="#" id="contactLink" class="collection-item"
 						onclick="getMessages(${group.id})"> <c:out
 								value="${group.name}" /></a></li>
+
 				</c:forEach>
 			</ul>
 		</div>

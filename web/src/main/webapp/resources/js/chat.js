@@ -4,6 +4,9 @@ $(document).ready(function () {
     // $(".resizable").resizable();
 });
 
+$('#textarea1').val('New Text');
+M.textareaAutoResize($('#textarea1'));
+
 var groupIdGlob;
 function getMessages(groupId) {
     groupIdGlob = groupId;
@@ -11,7 +14,7 @@ function getMessages(groupId) {
     // Логику в контроллер
     function requestMessages () {$.get("chat/messages?groupId=" + groupId, function(data) {
        if(tempLength !== data.length) {
-           
+           M.toast({html: 'I am a toast!'})
            printMessages(data);
            tempLength = data.length;
        }
@@ -33,11 +36,9 @@ function toGroup(contactId) {
 
 function printMessages(data) {
     let loggedUserId = $('#loggedUserId').val();
-    // console.log(data);
     $(".chatbox").empty();
   
     data.forEach(function (element) {
-        // нужен id legged user
         if(element.currentUser){
              $('<div>', {
                 text : element.user.firstname,
@@ -75,16 +76,11 @@ function printMessages(data) {
 
 
 function sendMessage() {
-   
-
-    
-    // нужно id logged user, id group
     let messageToSend = {
             message : ($("#icon_prefix2").val()),
             userGroupId : groupIdGlob
     };
 
-    // JSON.stringify(messageToSend);
     console.log(messageToSend);
     $.ajax({
         type : "POST",
@@ -93,10 +89,6 @@ function sendMessage() {
         data : JSON.stringify(messageToSend),
         processData:false
     });
-    // $.post("chat/send", $("#messageToSend").serialize(), function (data) {
-    // let test = $("#messageToSend");
-    // alert(test);
-    // });
 }
 
 

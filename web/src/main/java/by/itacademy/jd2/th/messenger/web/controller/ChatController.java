@@ -32,7 +32,6 @@ import by.itacademy.jd2.th.messenger.service.IMessageService;
 import by.itacademy.jd2.th.messenger.service.IUserAccountService;
 import by.itacademy.jd2.th.messenger.service.IUserGroupService;
 import by.itacademy.jd2.th.messenger.service.IUserToGroupService;
-import by.itacademy.jd2.th.messenger.service.impl.UserAccountServiceImpl;
 import by.itacademy.jd2.th.messenger.web.converter.ContactToDTOConverter;
 import by.itacademy.jd2.th.messenger.web.converter.MessageToDTOConverter;
 import by.itacademy.jd2.th.messenger.web.converter.UserGroupToDTOConverter;
@@ -126,7 +125,9 @@ public class ChatController extends AbstractController {
 		Integer groupId = userGroupService.findGroupId(acceptor.getId(), initiator.getId());
 		if (groupId == null) {
 			IUserGroup userGroup = userGroupService.createEntity();
-			userGroup.setName("Group with " + acceptor.getFirstname() + " : " + initiator.getFirstname());
+			String groupName = acceptor.getFirstname() + " " + acceptor.getLastname() + ", " + initiator.getFirstname()
+					+ " " + initiator.getLastname();
+			userGroup.setName(groupName);
 			userGroup.setUsersCount(2);
 			createdGroup = userGroupService.save(userGroup);
 			groupId = createdGroup.getId();
