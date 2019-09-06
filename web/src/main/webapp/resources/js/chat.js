@@ -9,7 +9,8 @@ function getMessages(groupId) {
     groupIdGlob = groupId;
     let tempLength;
     // Логику в контроллер
-    function requestMessages () {$.get("chat/messages?groupId=" + groupId, function(data) {
+    var requestMessages=function () {
+        $.get("chat/messages?groupId=" + groupId, function(data) {
        if(tempLength !== data.length) {
            
            printMessages(data);
