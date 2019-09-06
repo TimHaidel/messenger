@@ -42,7 +42,8 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 		final CriteriaQuery<IMessage> cq = cb.createQuery(IMessage.class);
 
 		final Root<Message> from = cq.from(Message.class);
-		cq.select(from).where(cb.equal(from.get("userGroup"), filter.getUserGroupId()));
+		cq.select(from).orderBy(cb.asc(from.get("created")))
+				.where(cb.equal(from.get("userGroup"), filter.getUserGroupId()));
 
 		from.fetch(Message_.user, JoinType.LEFT);
 		from.fetch(Message_.attachment, JoinType.LEFT);
