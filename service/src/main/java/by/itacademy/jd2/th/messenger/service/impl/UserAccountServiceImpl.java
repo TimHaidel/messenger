@@ -84,6 +84,11 @@ public class UserAccountServiceImpl implements IUserAccountService {
 	public List<IUserAccount> find(final UserAccountFilter filter) {
 		return dao.find(filter);
 	}
+	
+	@Override
+	public List<IUserAccount> findForAutocomplete(String field) {
+		return dao.findForAutocomplete(field);
+	}
 
 	@Override
 	public long getCount(final UserAccountFilter filter) {

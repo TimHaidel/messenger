@@ -15,4 +15,6 @@ public interface IUserAccountDao extends IDao<IUserAccount, Integer> {
 
 	IUserAccount findNickname(String username) ;
 
+	List<IUserAccount> findForAutocomplete(String field);
+
 }

@@ -33,4 +33,6 @@ public interface IUserAccountService {
 
 	IUserAccount getByEmail(String email);
 
+	List<IUserAccount> findForAutocomplete(String field);
+
 }

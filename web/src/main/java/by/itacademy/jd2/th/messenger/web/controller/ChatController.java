@@ -26,6 +26,7 @@ import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserToGroup;
 import by.itacademy.jd2.th.messenger.dao.api.filter.ContactFilter;
 import by.itacademy.jd2.th.messenger.dao.api.filter.MessageFilter;
+import by.itacademy.jd2.th.messenger.dao.api.filter.UserAccountFilter;
 import by.itacademy.jd2.th.messenger.dao.api.filter.UserGroupFilter;
 import by.itacademy.jd2.th.messenger.service.IContactService;
 import by.itacademy.jd2.th.messenger.service.IMessageService;
@@ -34,9 +35,11 @@ import by.itacademy.jd2.th.messenger.service.IUserGroupService;
 import by.itacademy.jd2.th.messenger.service.IUserToGroupService;
 import by.itacademy.jd2.th.messenger.web.converter.ContactToDTOConverter;
 import by.itacademy.jd2.th.messenger.web.converter.MessageToDTOConverter;
+import by.itacademy.jd2.th.messenger.web.converter.UserAccountToDTOConverter;
 import by.itacademy.jd2.th.messenger.web.converter.UserGroupToDTOConverter;
 import by.itacademy.jd2.th.messenger.web.dto.ContactDTO;
 import by.itacademy.jd2.th.messenger.web.dto.MessageDTO;
+import by.itacademy.jd2.th.messenger.web.dto.UserAccountDTO;
 import by.itacademy.jd2.th.messenger.web.dto.UserGroupDTO;
 import by.itacademy.jd2.th.messenger.web.dto.ajax.MessageAjaxDTO;
 import by.itacademy.jd2.th.messenger.web.dto.grid.GridStateDTO;
@@ -61,6 +64,8 @@ public class ChatController extends AbstractController {
 	private IUserToGroupService userToGroupService;
 	@Autowired
 	private IUserAccountService userAccountService;
+	@Autowired
+	private UserAccountToDTOConverter userAccountToDTOConverter;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView index(final HttpServletRequest req,
@@ -91,6 +96,16 @@ public class ChatController extends AbstractController {
 		// models.put("loggedUserId", loggedUserId);
 
 		return new ModelAndView("chat", models);
+	}
+
+	@RequestMapping(value = "/autocomplete", method = RequestMethod.GET)
+	public ResponseEntity<List<UserAccountDTO>> getUserAutocomplete(
+			@RequestParam(name = "field", required = true) final String field) {
+
+		final List<IUserAccount> entities = userAccountService.findForAutocomplete(field);
+		List<UserAccountDTO> dtos = entities.stream().map(userAccountToDTOConverter).collect(Collectors.toList());
+
+		return new ResponseEntity<List<UserAccountDTO>>(dtos, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/messages", method = RequestMethod.GET)
@@ -162,6 +177,40 @@ public class ChatController extends AbstractController {
 		message.setUserGroup(userGroup);
 
 		messageService.save(message);
+
+	}
+
+	@RequestMapping(value = "/contact", method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void addContact(@RequestParam(name = "contactEmail", required = true) final String contactEmail) {
+
+		IContact contact = contactService.createEntity();
+
+		IUserAccount acceptor = userAccountService.getByEmail(contactEmail);
+		IUserAccount initiator = userAccountService.get(AuthHelper.getLoggedUserId());
+
+		contact.setAcceptor(acceptor);
+		contact.setInitiator(initiator);
+		contact.setStatus(0);
+
+		contactService.save(contact);
+
+	}
+	
+	@RequestMapping(value = "/pin", method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void pinMessage(@RequestParam(name = "messageId", required = true) final Integer messageId) {
+
+		IContact contact = contactService.createEntity();
+
+		IUserAccount acceptor = userAccountService.getByEmail(contactEmail);
+		IUserAccount initiator = userAccountService.get(AuthHelper.getLoggedUserId());
+
+		contact.setAcceptor(acceptor);
+		contact.setInitiator(initiator);
+		contact.setStatus(0);
+
+		contactService.save(contact);
 
 	}
 

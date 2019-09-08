@@ -177,4 +177,10 @@ public class UserAccountDaoImpl extends AbstractDaoImpl<IUserAccount, Integer> i
 
 	}
 
+	@Override
+	public List<IUserAccount> findForAutocomplete(String field) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -55,6 +55,21 @@ public class UserAccountDaoImpl extends AbstractDaoImpl<IUserAccount, Integer> i
 		return q.getResultList();
 	}
 
+	@Override
+	public List<IUserAccount> findForAutocomplete(String field) {
+		final EntityManager em = getEntityManager();
+		final CriteriaBuilder cb = em.getCriteriaBuilder();
+
+		final CriteriaQuery<IUserAccount> cq = cb.createQuery(IUserAccount.class);
+
+		final Root<UserAccount> from = cq.from(UserAccount.class);
+		cq.select(from).where(cb.like(from.get(UserAccount_.email), field + "%"));
+
+		final TypedQuery<IUserAccount> q = em.createQuery(cq);
+
+		return q.getResultList();
+	}
+
 	private SingularAttribute<? super UserAccount, ?> toMetamodelFormat(final String sortColumn) {
 		switch (sortColumn) {
 		case "created":

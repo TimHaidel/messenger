@@ -11,6 +11,35 @@
 			<li class="tab col s6"><a class="active" href="#test-swipe-2">Chats</a></li>
 		</ul>
 		<div id="test-swipe-1" class="col s12 ">
+			<!-- Modal Trigger -->
+			<a class="waves-effect waves-light btn modal-trigger" href="#modal1"><i
+				class="material-icons prefix">search</i> </a>
+
+			<!-- Modal Structure -->
+			<div id="modal1" class="modal">
+				<div class="modal-content">
+					<div class="row">
+						<div class="col s12">
+							<form>
+								<div class="row">
+									<div class="input-field col s12">
+										<i class="material-icons prefix">search</i> <input type="text"
+											id="autocomplete-input" name="auto" class="autocomplete">
+										<label for="autocomplete-input">Search</label><a
+											class="btn-floating "
+											onclick="addContact(document.getElementById('autocomplete-input').value)"><i
+											class="material-icons">add</i></a>add contact
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+				</div>
+			</div>
+
 			<ul class="collection">
 				<c:forEach var="contact" items="${contactItems}"
 					varStatus="loopCounter">

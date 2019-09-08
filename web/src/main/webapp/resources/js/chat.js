@@ -1,13 +1,47 @@
 $(document).ready(function () {
     $('.tabs').tabs();
     $('.collapsible').collapsible();
+    $('.modal').modal();
     // $(".resizable").resizable();
+    
 });
 
 // $('#textarea1').val('New Text');
 // M.textareaAutoResize($('#textarea1'));
 
+
+ $('.autocomplete').keypress(function(){
+ let url = 'chat/autocomplete?field=' + $('#autocomplete-input').val();
+ $(function (){
+ $.ajax({
+ type: 'GET',
+ url: url,
+ success: function(response) {
+ var userArray = response;
+ var dataUser = {};
+ for (var i = 0; i < userArray.length; i++) {
+ dataUser[userArray[i].email] = userArray[i].flag;
+                                                                       
+ }
+          
+ $('input.autocomplete').autocomplete({
+ data: dataUser,
+ limit: 5,
+ });
+ }
+ });
+ }) ;
+ });
+
+function addContact(autocomplete) {
+    $.get("chat/contact?contactEmail=" + autocomplete, function () {
+        location.reload();
+     });
+}
+
+    
 var groupIdGlob;
+
 function getMessages(groupId) {
     groupIdGlob = groupId;
     let tempLength;
@@ -27,11 +61,17 @@ function getMessages(groupId) {
 
 
 
+
 function toGroup(contactId) {
     $.get("chat/group?contactId=" + contactId, function (data) {
        getMessages(data);
     });
     
+}
+function pinMessage(messageId) {
+    $.get("chat/pin?messageId=" + messageId, function (data) {
+        getMessages(data);
+     });
 }
 
 function printMessages(data) {
@@ -40,9 +80,17 @@ function printMessages(data) {
   
     data.forEach(function (element) {
         if(element.currentUser){
-             $('<div>', {
+            var pin = "pinMessage(" + element.id + ")";
+            
+            $('<i>', {
+                class : 'tiny material-icons',
+                text : 'assistant_photo',
+                onclick : pin,
+                
+            }).css('align','right').css('cursor','pointer').appendTo( $('<div>', {
                 text : element.user.firstname,
-            }).css('text-align','right').appendTo('.chatbox');
+            }).css('text-align','right').appendTo('.chatbox')
+           );
             
            
             // Переписать, добавить дату
@@ -55,11 +103,17 @@ function printMessages(data) {
                      }).appendTo('.chatbox'));
             
         } else {
+            var pin = "pinMessage(" + element.id + ")";
             $('<div>', {
                 text : element.user.firstname,
             }).appendTo('.chatbox');
+            $('<i>', {
+                name : 'pin',
+                class : 'tiny material-icons',
+                text : 'assistant_photo',
+                onclick : pin,
+            }).css('cursor','pointer').appendTo('.chatbox');
             
-           
             // Переписать, добавить дату
             $('<p>', {
                 class : 'message-content',
