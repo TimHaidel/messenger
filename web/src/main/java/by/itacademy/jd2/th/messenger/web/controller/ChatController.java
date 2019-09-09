@@ -196,17 +196,17 @@ public class ChatController extends AbstractController {
 		contactService.save(contact);
 
 	}
-	
+
 	@RequestMapping(value = "/pin", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void pinMessage(@RequestParam(name = "messageId", required = true) final Integer messageId) {
 
 		IContact contact = contactService.createEntity();
 
-		IUserAccount acceptor = userAccountService.getByEmail(contactEmail);
+		// IUserAccount acceptor = userAccountService.getByEmail(contactEmail);
 		IUserAccount initiator = userAccountService.get(AuthHelper.getLoggedUserId());
 
-		contact.setAcceptor(acceptor);
+		// contact.setAcceptor(acceptor);
 		contact.setInitiator(initiator);
 		contact.setStatus(0);
 
