@@ -139,7 +139,7 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 	}
 
 	@Override
-	public void insertPinMessage(IMessage message, IUserAccount user) {
+	public void insertPinMessage(Integer messageId, Integer userId) {
 		throw new RuntimeException("Not implemented");
 
 	}

@@ -36,7 +36,7 @@ public interface IMessageService {
 	void unpinMessage(IMessage message);
 
 	@Transactional
-	void pinMessage(IMessage message, IUserAccount user);
+	void pinMessage(Integer messageId, Integer userId);
 
 	IMessage getPinned(final Integer id);
 
