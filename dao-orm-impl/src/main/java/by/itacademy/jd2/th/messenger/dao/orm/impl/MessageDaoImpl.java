@@ -17,7 +17,6 @@ import org.springframework.stereotype.Repository;
 
 import by.itacademy.jd2.th.messenger.dao.api.IMessageDao;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IMessage;
-import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.filter.MessageFilter;
 import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.Message;
 import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.Message_;
@@ -152,19 +151,26 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 	}
 
 	@Override
-	public IMessage getPinnedMessage(Integer id) {
-		throw new RuntimeException("Not implemented");
+	public List<Integer> getPinnedMessageIds(Integer userId) {
+		final EntityManager em = getEntityManager();
+
+		// native query
+		Query q = em.createNativeQuery(
+				"SELECT m.id FROM message m JOIN pinned_message pm ON pm.message_id=m.id WHERE pm.user_id=?");
+		q.setParameter(1, userId);
+		List<Integer> messages = q.getResultList();
+
+		return messages;
 	}
 
 	@Override
-	public void deleteAllPinnedMessages() {
-		throw new RuntimeException("Not implemented");
+	public void deleteAllPinnedMessages(Integer userId) {
+		final EntityManager em = getEntityManager();
+
+		// native query
+		Query q = em.createNativeQuery("DELETE FROM pinned_message WHERE user_id=?");
+		q.setParameter(1, userId);
 
 	}
-
-	/*
-	 * select * from message m join pinned_message pm on pm.message_id=m.id where
-	 * pm.user_id=1;
-	 */
 
 }

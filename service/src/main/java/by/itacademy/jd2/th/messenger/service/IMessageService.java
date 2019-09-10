@@ -38,11 +38,11 @@ public interface IMessageService {
 	@Transactional
 	void pinMessage(Integer messageId, Integer userId);
 
-	IMessage getPinned(final Integer id);
-
 	@Transactional
-	void deleteAllPinned();
+	void deleteAllPinned(Integer userId);
 
 	IMessage getFullInfo(Integer id);
+
+	List<IMessage> getPinnedMessage(final Integer id);
 
 }

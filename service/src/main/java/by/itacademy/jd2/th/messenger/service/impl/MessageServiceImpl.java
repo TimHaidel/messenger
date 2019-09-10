@@ -1,5 +1,6 @@
 package by.itacademy.jd2.th.messenger.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,9 +28,18 @@ public class MessageServiceImpl implements IMessageService {
 	}
 
 	@Override
-	public IMessage getPinned(final Integer id) {
-		final IMessage entity = dao.getPinnedMessage(id);
-		return entity;
+	public List<IMessage> getPinnedMessage(final Integer id) {
+		final List<Integer> messageIds = dao.getPinnedMessageIds(id);
+		
+		
+		List<IMessage> messages  =new ArrayList<IMessage>();
+		for (Integer mId : messageIds) {
+			
+			messages.add(getFullInfo(mId));
+			
+		}
+		
+		return messages;
 	}
 
 	@Override
@@ -94,8 +104,8 @@ public class MessageServiceImpl implements IMessageService {
 	}
 
 	@Override
-	public void deleteAllPinned() {
-		dao.deleteAllPinnedMessages();
+	public void deleteAllPinned(Integer userId) {
+		dao.deleteAllPinnedMessages(userId);
 
 	}
 
