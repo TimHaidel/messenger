@@ -162,4 +162,9 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 
 	}
 
+	/*
+	 * select * from message m join pinned_message pm on pm.message_id=m.id where
+	 * pm.user_id=1;
+	 */
+
 }
