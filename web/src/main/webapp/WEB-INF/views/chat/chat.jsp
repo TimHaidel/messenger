@@ -107,13 +107,22 @@
 							send <i class="material-icons right">send</i>
 						</button>
 					</div>
-
+					<ul id="slide-out" class="sidenav ">
+					</ul>
+					<a href="" data-target="slide-out" class="sidenav-trigger"
+						onclick="getPinedMessages()">pinned messages<i
+						class="material-icons">message</i>
+					</a>
 
 				</div>
 			</form>
 		</div>
 
+
+
+
 	</div>
+
 </div>
 
 

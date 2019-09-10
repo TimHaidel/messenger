@@ -86,47 +86,11 @@ public class ContactDaoImpl extends AbstractDaoImpl<IContact, Integer> implement
 
 		final IUserAccount initiator = new UserAccount();
 		initiator.setId(initiatorId);
-		/*
-		 * if (columns.contains("firstname")) {
-		 * initiator.setFirstname(resultSet.getString("firstname")); } if
-		 * (columns.contains("lastname")) {
-		 * initiator.setLastname(resultSet.getString("lastname")); } if
-		 * (columns.contains("password")) {
-		 * initiator.setPassword(resultSet.getString("password")); } if
-		 * (columns.contains("email")) {
-		 * initiator.setEmail(resultSet.getString("email")); } if
-		 * (columns.contains("avatar")) {
-		 * initiator.setAvatar(resultSet.getString("avatar")); } if
-		 * (columns.contains("role")) {
-		 * initiator.setRole(Roles.valueOf(resultSet.getString("role"))); } if
-		 * (columns.contains("created")) {
-		 * initiator.setCreated(resultSet.getDate("created")); } if
-		 * (columns.contains("updated")) {
-		 * initiator.setUpdated(resultSet.getDate("updated")); }
-		 */
 		entity.setInitiator(initiator);
 
 		final Integer acceptorId = (Integer) resultSet.getObject("acceptor_id");
 		final IUserAccount acceptor = new UserAccount();
 		acceptor.setId(acceptorId);
-		/*
-		 * if (columns.contains("firstname")) {
-		 * acceptor.setFirstname(resultSet.getString("firstname")); } if
-		 * (columns.contains("lastname")) {
-		 * acceptor.setLastname(resultSet.getString("lastname")); } if
-		 * (columns.contains("password")) {
-		 * acceptor.setPassword(resultSet.getString("password")); } if
-		 * (columns.contains("email")) {
-		 * acceptor.setEmail(resultSet.getString("email")); } if
-		 * (columns.contains("avatar")) {
-		 * acceptor.setAvatar(resultSet.getString("avatar")); } if
-		 * (columns.contains("role")) {
-		 * acceptor.setRole(Roles.valueOf(resultSet.getString("role"))); } if
-		 * (columns.contains("created")) {
-		 * acceptor.setCreated(resultSet.getDate("created")); } if
-		 * (columns.contains("updated")) {
-		 * acceptor.setUpdated(resultSet.getDate("updated")); }
-		 */
 
 		entity.setAcceptor(acceptor);
 

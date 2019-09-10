@@ -48,6 +48,8 @@ import by.itacademy.jd2.th.messenger.web.security.AuthHelper;
 @Controller
 @RequestMapping(value = "/chat")
 public class ChatController extends AbstractController {
+	private Integer currentUser = AuthHelper.getLoggedUserId();
+
 	@Autowired
 	private IContactService contactService;
 	@Autowired
@@ -76,9 +78,8 @@ public class ChatController extends AbstractController {
 		gridState.setPage(pageNumber);
 		gridState.setSort(sortColumn, "id");
 
-		Integer loggedUserId = AuthHelper.getLoggedUserId();
 		final ContactFilter filter = new ContactFilter();
-		filter.setInitiatorId(loggedUserId);
+		filter.setInitiatorId(currentUser);
 		prepareFilter(gridState, filter);
 
 		final List<IContact> contacts = contactService.find(filter);
@@ -86,7 +87,7 @@ public class ChatController extends AbstractController {
 		gridState.setTotalCount(contactService.getCount(filter));
 
 		UserGroupFilter userGroupFilter = new UserGroupFilter();
-		userGroupFilter.setUserId(loggedUserId);
+		userGroupFilter.setUserId(currentUser);
 		List<IUserGroup> groups = userGroupService.find(userGroupFilter);
 		List<UserGroupDTO> groupDtos = groups.stream().map(userGroupToDtoConverter).collect(Collectors.toList());
 
@@ -118,10 +119,24 @@ public class ChatController extends AbstractController {
 		final List<IMessage> entities = messageService.find(filter);
 		List<MessageDTO> dtos = entities.stream().map(messageToDtoConverter).collect(Collectors.toList());
 
-		Integer loggedUserId = AuthHelper.getLoggedUserId();
+		for (MessageDTO messageDTO : dtos) {
+			messageDTO.setCurrentUser(messageDTO.getUser().getId().equals(currentUser));
+		}
+
+		return new ResponseEntity<List<MessageDTO>>(dtos, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/getpined", method = RequestMethod.GET)
+	public ResponseEntity<List<MessageDTO>> getPinedMessages() {
+
+		MessageFilter filter = new MessageFilter();
+		filter.setUserAccountId(currentUser);
+
+		final List<IMessage> entities = messageService.find(filter);
+		List<MessageDTO> dtos = entities.stream().map(messageToDtoConverter).collect(Collectors.toList());
 
 		for (MessageDTO messageDTO : dtos) {
-			messageDTO.setCurrentUser(messageDTO.getUser().getId().equals(loggedUserId));
+			messageDTO.setCurrentUser(messageDTO.getUser().getId().equals(currentUser));
 		}
 
 		return new ResponseEntity<List<MessageDTO>>(dtos, HttpStatus.OK);
@@ -169,7 +184,7 @@ public class ChatController extends AbstractController {
 		message.setMessage(messageDto.getMessage());
 
 		IUserAccount user = userAccountService.createEntity();
-		user.setId(AuthHelper.getLoggedUserId());
+		user.setId(currentUser);
 		message.setUser(user);
 
 		IUserGroup userGroup = userGroupService.createEntity();
@@ -187,7 +202,7 @@ public class ChatController extends AbstractController {
 		IContact contact = contactService.createEntity();
 
 		IUserAccount acceptor = userAccountService.getByEmail(contactEmail);
-		IUserAccount initiator = userAccountService.get(AuthHelper.getLoggedUserId());
+		IUserAccount initiator = userAccountService.get(currentUser);
 
 		contact.setAcceptor(acceptor);
 		contact.setInitiator(initiator);
@@ -201,7 +216,7 @@ public class ChatController extends AbstractController {
 	@ResponseStatus(value = HttpStatus.OK)
 	public void pinMessage(@RequestParam(name = "messageId", required = true) final Integer messageId) {
 
-		messageService.pinMessage(message, user);
+		messageService.pinMessage(messageId, currentUser);
 	}
 
 }

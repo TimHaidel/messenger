@@ -2,12 +2,19 @@ $(document).ready(function () {
     $('.tabs').tabs();
     $('.collapsible').collapsible();
     $('.modal').modal();
+    $('.sidenav').sidenav();
     // $(".resizable").resizable();
     
 });
 
 // $('#textarea1').val('New Text');
 // M.textareaAutoResize($('#textarea1'));
+
+function getPinedMessages() {
+    $.get("chat/getpined", function (data) {
+        console.log(data);
+     });
+}
 
 
  $('.autocomplete').keypress(function(){
@@ -69,9 +76,7 @@ function toGroup(contactId) {
     
 }
 function pinMessage(messageId) {
-    $.get("chat/pin?messageId=" + messageId, function (data) {
-        getMessages(data);
-     });
+    $.get("chat/pin?messageId=" + messageId);
 }
 
 function printMessages(data) {

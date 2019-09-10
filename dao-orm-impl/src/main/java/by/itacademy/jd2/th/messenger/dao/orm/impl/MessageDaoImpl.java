@@ -3,6 +3,7 @@ package by.itacademy.jd2.th.messenger.dao.orm.impl;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -140,7 +141,13 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 
 	@Override
 	public void insertPinMessage(Integer messageId, Integer userId) {
-		throw new RuntimeException("Not implemented");
+		final EntityManager em = getEntityManager();
+
+		// native query
+		Query q = em.createNativeQuery("INSERT INTO pinned_message (message_id, user_id) VALUES (?, ?)");
+		q.setParameter(1, messageId);
+		q.setParameter(2, userId);
+		q.executeUpdate();
 
 	}
 

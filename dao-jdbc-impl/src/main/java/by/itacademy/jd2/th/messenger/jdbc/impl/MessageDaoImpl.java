@@ -42,12 +42,12 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 	}
 
 	@Override
-	public void insertPinMessage(IMessage message, IUserAccount user) {
+	public void insertPinMessage(Integer messageId, Integer userId) {
 		try (Connection c = getConnection()) {
 
 			PreparedStatement stmt = c.prepareStatement("insert into pinned_message (message_id, user_id) values(?,?)");
-			stmt.setInt(1, message.getId());
-			stmt.setInt(2, user.getId());
+			stmt.setInt(1, messageId);
+			stmt.setInt(2, userId);
 			stmt.executeUpdate();
 			stmt.close();
 		} catch (final SQLException e) {
