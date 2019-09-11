@@ -48,21 +48,31 @@ function addContact(autocomplete) {
 
     
 var groupIdGlob;
-
+var tempGroupId;
+var intervalId;
 function getMessages(groupId) {
+    $("#messageForm").show();
     groupIdGlob = groupId;
-    let tempLength;
+    var tempLength;
+    
     // Логику в контроллер
     var requestMessages=function () {
         $.get("chat/messages?groupId=" + groupId, function(data) {
        if(tempLength !== data.length) {
            printMessages(data);
            tempLength = data.length;
+           
        }
+       if(tempGroupId != groupId) {
+           clearInterval(intervalId);
+           tempGroupId = groupId;
+           intervalId = setInterval(requestMessages, 3000);
+        }
     });
     }
-   requestMessages();
-    setInterval(requestMessages, 3000);
+    requestMessages(); 
+    
+   
 }
 
 
@@ -82,7 +92,7 @@ function pinMessage(messageId) {
 function printMessages(data) {
     let loggedUserId = $('#loggedUserId').val();
     $(".chatbox").empty();
-  
+    // debugger;
     data.forEach(function (element) {
         if(element.currentUser){
             var pin = "pinMessage(" + element.id + ")";

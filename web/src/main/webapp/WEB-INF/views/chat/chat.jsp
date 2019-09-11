@@ -5,6 +5,7 @@
 	rel="stylesheet">
 
 <div class="row">
+
 	<div class="contact-block col s4">
 		<ul id="tabs-swipe-demo" class="tabs">
 			<li class="tab col s6"><a href="#test-swipe-1">Contacts</a></li>
@@ -44,15 +45,12 @@
 				<c:forEach var="contact" items="${contactItems}"
 					varStatus="loopCounter">
 
-					<li class="collection-item avatar">
-						<!--  <span class="new badge">4</span>--> <img
-						src="${contact.avatar}" alt="" class="circle"><a href="#"
-						id="contactLink" class="collection-item"
+					<img src="${contact.avatar}" alt="" class="circle">
+					<a href="#" id="contactLink" class="collection-item"
 						onclick="toGroup(${contact.id})"> <c:out
-								value="${contact.acceptorFirstname}" /> <br> <c:out
-								value="${contact.acceptorLastname}" />
+							value="${contact.acceptorFirstname}" /> <c:out
+							value="${contact.acceptorLastname}" />
 					</a>
-					</li>
 				</c:forEach>
 			</ul>
 		</div>
@@ -60,12 +58,9 @@
 
 			<ul class="collection">
 				<c:forEach var="group" items="${groupItems}" varStatus="loopCounter">
-					<li class="collection-item avatar">
-						<!--  <span class="new badge">4</span>--> <a href="#"
-						id="contactLink" class="collection-item"
+					<a href="#" id="contactLink" class="collection-item"
 						onclick="getMessages(${group.id})"> <c:out
-								value="${group.name}" /></a>
-					</li>
+							value="${group.name}" /></a>
 
 				</c:forEach>
 			</ul>
@@ -75,7 +70,7 @@
 	<div class="col s8">
 		<div id="chatbox" class="chatbox" class="col s 9 "></div>
 		<div id="message-to-send" class="col s12">
-			<form>
+			<form id="messageForm" hidden="true">
 				<div class="row">
 					<div class="input-field col s6">
 						<i class="material-icons prefix">mode_edit</i>
@@ -107,15 +102,17 @@
 							send <i class="material-icons right">send</i>
 						</button>
 					</div>
-					<ul id="slide-out" class="sidenav ">
-					</ul>
-					<a href="" data-target="slide-out" class="sidenav-trigger"
-						onclick="getPinedMessages()">pinned messages<i
-						class="material-icons">message</i>
-					</a>
 
 				</div>
+
 			</form>
+			<ul id="slide-out" class="sidenav ">
+			</ul>
+			<a href="" data-target="slide-out" class="sidenav-trigger"
+				onclick="getPinedMessages()">pinned messages<i
+				class="material-icons">message</i>
+			</a>
+
 		</div>
 
 

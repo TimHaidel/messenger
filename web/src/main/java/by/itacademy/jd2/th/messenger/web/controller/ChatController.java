@@ -26,7 +26,6 @@ import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserToGroup;
 import by.itacademy.jd2.th.messenger.dao.api.filter.ContactFilter;
 import by.itacademy.jd2.th.messenger.dao.api.filter.MessageFilter;
-import by.itacademy.jd2.th.messenger.dao.api.filter.UserAccountFilter;
 import by.itacademy.jd2.th.messenger.dao.api.filter.UserGroupFilter;
 import by.itacademy.jd2.th.messenger.service.IContactService;
 import by.itacademy.jd2.th.messenger.service.IMessageService;
@@ -48,7 +47,6 @@ import by.itacademy.jd2.th.messenger.web.security.AuthHelper;
 @Controller
 @RequestMapping(value = "/chat")
 public class ChatController extends AbstractController {
-	private Integer currentUser = AuthHelper.getLoggedUserId();
 
 	@Autowired
 	private IContactService contactService;
@@ -79,7 +77,7 @@ public class ChatController extends AbstractController {
 		gridState.setSort(sortColumn, "id");
 
 		final ContactFilter filter = new ContactFilter();
-		filter.setInitiatorId(currentUser);
+		filter.setInitiatorId(AuthHelper.getLoggedUserId());
 		prepareFilter(gridState, filter);
 
 		final List<IContact> contacts = contactService.find(filter);
@@ -87,7 +85,7 @@ public class ChatController extends AbstractController {
 		gridState.setTotalCount(contactService.getCount(filter));
 
 		UserGroupFilter userGroupFilter = new UserGroupFilter();
-		userGroupFilter.setUserId(currentUser);
+		userGroupFilter.setUserId(AuthHelper.getLoggedUserId());
 		List<IUserGroup> groups = userGroupService.find(userGroupFilter);
 		List<UserGroupDTO> groupDtos = groups.stream().map(userGroupToDtoConverter).collect(Collectors.toList());
 
@@ -112,7 +110,7 @@ public class ChatController extends AbstractController {
 	@RequestMapping(value = "/messages", method = RequestMethod.GET)
 	public ResponseEntity<List<MessageDTO>> getGroupMessages(
 			@RequestParam(name = "groupId", required = true) final Integer groupId) {
-
+		Integer us = AuthHelper.getLoggedUserId();
 		MessageFilter filter = new MessageFilter();
 		filter.setUserGroupId(groupId);
 
@@ -120,7 +118,7 @@ public class ChatController extends AbstractController {
 		List<MessageDTO> dtos = entities.stream().map(messageToDtoConverter).collect(Collectors.toList());
 
 		for (MessageDTO messageDTO : dtos) {
-			messageDTO.setCurrentUser(messageDTO.getUser().getId().equals(currentUser));
+			messageDTO.setCurrentUser(messageDTO.getUser().getId().equals(AuthHelper.getLoggedUserId()));
 		}
 
 		return new ResponseEntity<List<MessageDTO>>(dtos, HttpStatus.OK);
@@ -130,13 +128,13 @@ public class ChatController extends AbstractController {
 	public ResponseEntity<List<MessageDTO>> getPinedMessages() {
 
 		MessageFilter filter = new MessageFilter();
-		filter.setUserAccountId(currentUser);
+		filter.setUserAccountId(AuthHelper.getLoggedUserId());
 
 		final List<IMessage> entities = messageService.find(filter);
 		List<MessageDTO> dtos = entities.stream().map(messageToDtoConverter).collect(Collectors.toList());
 
 		for (MessageDTO messageDTO : dtos) {
-			messageDTO.setCurrentUser(messageDTO.getUser().getId().equals(currentUser));
+			messageDTO.setCurrentUser(messageDTO.getUser().getId().equals(AuthHelper.getLoggedUserId()));
 		}
 
 		return new ResponseEntity<List<MessageDTO>>(dtos, HttpStatus.OK);
@@ -184,7 +182,7 @@ public class ChatController extends AbstractController {
 		message.setMessage(messageDto.getMessage());
 
 		IUserAccount user = userAccountService.createEntity();
-		user.setId(currentUser);
+		user.setId(AuthHelper.getLoggedUserId());
 		message.setUser(user);
 
 		IUserGroup userGroup = userGroupService.createEntity();
@@ -202,7 +200,7 @@ public class ChatController extends AbstractController {
 		IContact contact = contactService.createEntity();
 
 		IUserAccount acceptor = userAccountService.getByEmail(contactEmail);
-		IUserAccount initiator = userAccountService.get(currentUser);
+		IUserAccount initiator = userAccountService.get(AuthHelper.getLoggedUserId());
 
 		contact.setAcceptor(acceptor);
 		contact.setInitiator(initiator);
@@ -216,7 +214,7 @@ public class ChatController extends AbstractController {
 	@ResponseStatus(value = HttpStatus.OK)
 	public void pinMessage(@RequestParam(name = "messageId", required = true) final Integer messageId) {
 
-		messageService.pinMessage(messageId, currentUser);
+		messageService.pinMessage(messageId, AuthHelper.getLoggedUserId());
 	}
 
 }
