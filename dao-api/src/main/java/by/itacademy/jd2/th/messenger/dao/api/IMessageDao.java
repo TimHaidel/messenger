@@ -12,7 +12,7 @@ public interface IMessageDao extends IDao<IMessage, Integer> {
 
 	void save(IMessage... entities);
 
-	void deletePinnedMessage(IMessage message);
+	void deletePinnedMessage(Integer messageId);
 
 	void insertPinMessage(Integer messageId, Integer userId);
 

@@ -33,7 +33,7 @@ public interface IMessageService {
 	IMessage createEntity();
 
 	@Transactional
-	void unpinMessage(IMessage message);
+	void unpinMessage(Integer messageId);
 
 	@Transactional
 	void pinMessage(Integer messageId, Integer userId);

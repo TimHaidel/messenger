@@ -3,6 +3,7 @@ $(document).ready(function () {
     $('.collapsible').collapsible();
     $('.modal').modal();
     $('.sidenav').sidenav();
+    $('.dropdown-trigger').dropdown();
     // $(".resizable").resizable();
     
 });
@@ -11,11 +12,33 @@ $(document).ready(function () {
 // M.textareaAutoResize($('#textarea1'));
 
 function getPinedMessages() {
-    $.get("chat/getpined", function (data) {
-        console.log(data);
-     });
+    $.get("message/getpined", function (data){
+       printPinnedMessages(data);
+    });
+}
+function printPinnedMessages(data) {
+    $("#slide-out").empty();
+    data.forEach(function(element) {
+        var unpin = "unPinMessage(" + element.id + ")";
+        $('<i>', {
+            name : 'pin',
+            class : 'tiny material-icons',
+            text : 'message',
+            onclick : unpin,
+        }).css('cursor','pointer').appendTo('#slide-out');
+        $('<li>', {
+            class: 'collection-item',
+            text : element.message,
+        }).appendTo('#slide-out');
+       
+    })
 }
 
+function unPinMessage(messageId) {
+    $.get("message/unpin?messageId=" + messageId, function() {
+        getPinedMessages();
+    });
+}
 
  $('.autocomplete').keypress(function(){
  let url = 'chat/autocomplete?field=' + $('#autocomplete-input').val();
@@ -86,7 +109,7 @@ function toGroup(contactId) {
     
 }
 function pinMessage(messageId) {
-    $.get("chat/pin?messageId=" + messageId);
+    $.get("message/pin?messageId=" + messageId);
 }
 
 function printMessages(data) {
@@ -99,7 +122,7 @@ function printMessages(data) {
             
             $('<i>', {
                 class : 'tiny material-icons',
-                text : 'assistant_photo',
+                text : 'message',
                 onclick : pin,
                 
             }).css('align','right').css('cursor','pointer').appendTo( $('<div>', {
@@ -125,7 +148,7 @@ function printMessages(data) {
             $('<i>', {
                 name : 'pin',
                 class : 'tiny material-icons',
-                text : 'assistant_photo',
+                text : 'message',
                 onclick : pin,
             }).css('cursor','pointer').appendTo('.chatbox');
             

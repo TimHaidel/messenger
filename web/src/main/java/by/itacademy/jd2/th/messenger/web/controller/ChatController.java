@@ -124,21 +124,7 @@ public class ChatController extends AbstractController {
 		return new ResponseEntity<List<MessageDTO>>(dtos, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/getpined", method = RequestMethod.GET)
-	public ResponseEntity<List<MessageDTO>> getPinedMessages() {
-
-		MessageFilter filter = new MessageFilter();
-		filter.setUserAccountId(AuthHelper.getLoggedUserId());
-
-		final List<IMessage> entities = messageService.find(filter);
-		List<MessageDTO> dtos = entities.stream().map(messageToDtoConverter).collect(Collectors.toList());
-
-		for (MessageDTO messageDTO : dtos) {
-			messageDTO.setCurrentUser(messageDTO.getUser().getId().equals(AuthHelper.getLoggedUserId()));
-		}
-
-		return new ResponseEntity<List<MessageDTO>>(dtos, HttpStatus.OK);
-	}
+	
 
 	@RequestMapping(value = "/group", method = RequestMethod.GET)
 	@ResponseBody
@@ -210,11 +196,5 @@ public class ChatController extends AbstractController {
 
 	}
 
-	@RequestMapping(value = "/pin", method = RequestMethod.GET)
-	@ResponseStatus(value = HttpStatus.OK)
-	public void pinMessage(@RequestParam(name = "messageId", required = true) final Integer messageId) {
-
-		messageService.pinMessage(messageId, AuthHelper.getLoggedUserId());
-	}
 
 }

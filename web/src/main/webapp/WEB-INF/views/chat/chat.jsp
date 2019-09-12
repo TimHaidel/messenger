@@ -11,35 +11,45 @@
 			<li class="tab col s6"><a href="#test-swipe-1">Contacts</a></li>
 			<li class="tab col s6"><a class="active" href="#test-swipe-2">Chats</a></li>
 		</ul>
-		<div id="test-swipe-1" class="col s12 ">
+		<div>
 			<!-- Modal Trigger -->
 			<a class="waves-effect waves-light btn modal-trigger" href="#modal1"><i
 				class="material-icons prefix">search</i> </a>
-
 			<!-- Modal Structure -->
-			<div id="modal1" class="modal">
-				<div class="modal-content">
-					<div class="row">
-						<div class="col s12">
-							<form>
-								<div class="row">
-									<div class="input-field col s12">
-										<i class="material-icons prefix">search</i> <input type="text"
-											id="autocomplete-input" name="auto" class="autocomplete">
-										<label for="autocomplete-input">Search</label><a
-											class="btn-floating "
-											onclick="addContact(document.getElementById('autocomplete-input').value)"><i
-											class="material-icons">add</i></a>add contact
-									</div>
+			<a href="" onclick="getPinedMessages()" data-target="slide-out"
+				class="waves-effect waves-light btn sidenav-trigger"
+				onclick="getPinedMessages()"><i class="material-icons">message</i>
+			</a>
+		</div>
+		<ul id="slide-out" class="sidenav collection">
+
+		</ul>
+		<div id="modal1" class="modal">
+			<div class="modal-content">
+				<div class="row">
+					<div class="col s12">
+						<form>
+							<div class="row">
+								<div class="input-field col s12">
+									<i class="material-icons prefix">search</i> <input type="text"
+										id="autocomplete-input" name="auto" class="autocomplete">
+									<label for="autocomplete-input">Search</label><a
+										class="btn-floating "
+										onclick="addContact(document.getElementById('autocomplete-input').value)"><i
+										class="material-icons">add</i></a>add contact
 								</div>
-							</form>
-						</div>
+							</div>
+						</form>
 					</div>
 				</div>
-				<div class="modal-footer">
-					<a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
-				</div>
 			</div>
+			<div class="modal-footer">
+				<a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+			</div>
+		</div>
+
+		<div id="test-swipe-1" class="col s12 ">
+
 
 			<ul class="collection">
 				<c:forEach var="contact" items="${contactItems}"
@@ -106,12 +116,7 @@
 				</div>
 
 			</form>
-			<ul id="slide-out" class="sidenav ">
-			</ul>
-			<a href="" data-target="slide-out" class="sidenav-trigger"
-				onclick="getPinedMessages()">pinned messages<i
-				class="material-icons">message</i>
-			</a>
+
 
 		</div>
 

@@ -133,15 +133,20 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 	}
 
 	@Override
-	public void deletePinnedMessage(IMessage message) {
-		throw new RuntimeException("Not implemented");
+	public void deletePinnedMessage(Integer messageId) {
+		final EntityManager em = getEntityManager();
+
+		// native query
+		Query q = em.createNativeQuery("DELETE FROM pinned_message WHERE message_id=?");
+		q.setParameter(1, messageId);
+		q.executeUpdate();
 
 	}
 
 	@Override
 	public void insertPinMessage(Integer messageId, Integer userId) {
 		final EntityManager em = getEntityManager();
-
+		Query query = em.createNativeQuery("SELECT ");
 		// native query
 		Query q = em.createNativeQuery("INSERT INTO pinned_message (message_id, user_id) VALUES (?, ?)");
 		q.setParameter(1, messageId);

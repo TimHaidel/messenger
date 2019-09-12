@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IMessage;
@@ -25,6 +28,7 @@ import by.itacademy.jd2.th.messenger.web.converter.MessageFromDTOConverter;
 import by.itacademy.jd2.th.messenger.web.converter.MessageToDTOConverter;
 import by.itacademy.jd2.th.messenger.web.dto.MessageDTO;
 import by.itacademy.jd2.th.messenger.web.dto.grid.GridStateDTO;
+import by.itacademy.jd2.th.messenger.web.security.AuthHelper;
 
 @Controller
 @RequestMapping(value = "/message")
@@ -33,14 +37,16 @@ public class MessageController extends AbstractController {
 	IMessageService messageService;
 	MessageToDTOConverter toDtoConverter;
 	MessageFromDTOConverter fromDtoConverter;
+	private MessageToDTOConverter messageToDtoConverter;
 
 	@Autowired
 	public MessageController(IMessageService messageService, MessageToDTOConverter toDtoConverter,
-			MessageFromDTOConverter fromDtoConverter) {
+			MessageFromDTOConverter fromDtoConverter, MessageToDTOConverter messageToDtoConverter) {
 		super();
 		this.messageService = messageService;
 		this.toDtoConverter = toDtoConverter;
 		this.fromDtoConverter = fromDtoConverter;
+		this.messageToDtoConverter = messageToDtoConverter;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -72,6 +78,7 @@ public class MessageController extends AbstractController {
 
 		return new ModelAndView("message.edit", hashMap);
 	}
+
 	@RequestMapping(value = "/{id}/attach", method = RequestMethod.POST)
 	public String attach(@Valid @ModelAttribute("formModel") final MessageDTO formModel, final BindingResult result) {
 		if (result.hasErrors()) {
@@ -119,6 +126,36 @@ public class MessageController extends AbstractController {
 		hashMap.put("formModel", dto);
 
 		return new ModelAndView("message.edit", hashMap);
+	}
+
+	@RequestMapping(value = "/getpined", method = RequestMethod.GET)
+	public ResponseEntity<List<MessageDTO>> getPinedMessages() {
+
+		MessageFilter filter = new MessageFilter();
+		filter.setUserAccountId(AuthHelper.getLoggedUserId());
+
+		final List<IMessage> entities = messageService.getPinnedMessage(AuthHelper.getLoggedUserId());
+		List<MessageDTO> dtos = entities.stream().map(messageToDtoConverter).collect(Collectors.toList());
+
+		for (MessageDTO messageDTO : dtos) {
+			messageDTO.setCurrentUser(messageDTO.getUser().getId().equals(AuthHelper.getLoggedUserId()));
+		}
+
+		return new ResponseEntity<List<MessageDTO>>(dtos, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/pin", method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void pinMessage(@RequestParam(name = "messageId", required = true) final Integer messageId) {
+
+		messageService.pinMessage(messageId, AuthHelper.getLoggedUserId());
+	}
+
+	@RequestMapping(value = "/unpin", method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void unPinMessage(@RequestParam(name = "messageId", required = true) final Integer messageId) {
+
+		messageService.unpinMessage(messageId);
 	}
 
 }

@@ -50,9 +50,9 @@ public class MessageServiceImpl implements IMessageService {
 	}
 
 	@Override
-	public void unpinMessage(IMessage message) {
+	public void unpinMessage(Integer messageId) {
 
-		dao.deletePinnedMessage(message);
+		dao.deletePinnedMessage(messageId);
 
 	}
 
