@@ -1,15 +1,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="jspFragments" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
+
 
 <div class="row">
 
 	<div class="contact-block col s4">
 		<ul id="tabs-swipe-demo" class="tabs">
-			<li class="tab col s6"><a href="#test-swipe-1">Contacts</a></li>
-			<li class="tab col s6"><a class="active" href="#test-swipe-2">Chats</a></li>
+			<li class="tab col s6"><a href="#test-swipe-1"><spring:message
+						code="page.chat.contacts" /></a></li>
+			<li class="tab col s6"><a class="active" href="#test-swipe-2"><spring:message
+						code="page.chat.chats" /></a></li>
 		</ul>
 		<div>
 			<!-- Modal Trigger -->
@@ -33,10 +37,11 @@
 								<div class="input-field col s12">
 									<i class="material-icons prefix">search</i> <input type="text"
 										id="autocomplete-input" name="auto" class="autocomplete">
-									<label for="autocomplete-input">Search</label><a
-										class="btn-floating "
+									<label for="autocomplete-input"><spring:message
+											code="page.chat.search" /></label><a class="btn-floating "
 										onclick="addContact(document.getElementById('autocomplete-input').value)"><i
-										class="material-icons">add</i></a>add contact
+										class="material-icons">add</i></a>
+									<spring:message code="page.chat.addContact" />
 								</div>
 							</div>
 						</form>
@@ -109,7 +114,8 @@
 					<div class="input-field col s3">
 						<button class="btn waves-effect waves-light btn-small"
 							onClick="sendMessage()" type="button">
-							send <i class="material-icons right">send</i>
+							<spring:message code="page.chat.send" />
+							<i class="material-icons right">send</i>
 						</button>
 					</div>
 

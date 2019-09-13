@@ -3,5 +3,118 @@
 <properties>
 	<entry key="page.home.title">Домашняя страница</entry>
 	<entry key="page.home.welcomeMessage">Привет, {0}</entry>
+	<entry key="page.home.send">отправить</entry>
 	<entry key="page.login.credentialsError">неверный логин или пароль!</entry>
+
+	<entry key="page.footer.name">Тимур Гайдель</entry>
+	<entry key="page.footer.dataModel">Модель данных</entry>
+	<entry key="page.footer.mindMap">Майнд карта</entry>
+	<entry key="page.footer.list">Список пользователей и паролей</entry>
+
+	<entry key="page.header.chats">Чаты</entry>
+	<entry key="page.header.smiles">Смайлы</entry>
+	<entry key="page.header.smilesGroup">Группы смайлов</entry>
+	<entry key="page.header.userAccount">Аккаунты пользователей</entry>
+	<entry key="page.header.attachments">Прикрепление</entry>
+	<entry key="page.header.userGroup">Группы пользователей</entry>
+	<entry key="page.header.messages">Сообщения</entry>
+	<entry key="page.header.contacts">Контакты</entry>
+	<entry key="page.header.login">Логин: </entry>
+	<entry key="page.header.loggedUser">Анонимный пользователь </entry>
+
+	<entry key="form.attachment.edit">Редактирование прикрепления</entry>
+	<entry key="form.attachment.message">Сообщение</entry>
+	<entry key="form.attachment.content">Содержание</entry>
+	<entry key="form.attachment.contentType">Тип содержания</entry>
+	<entry key="form.attachment.save">сохранить</entry>
+	<entry key="form.attachment.toList">к списку</entry>
+
+	<entry key="list.attachment.id">id</entry>
+	<entry key="list.attachment.content">содержание</entry>
+	<entry key="list.attachment.contentType">Тип содержания</entry>
+	<entry key="list.attachment.created">созданно</entry>
+
+	<entry key="page.chat.contacts">Контакты</entry>
+	<entry key="page.chat.chats">Чаты</entry>
+	<entry key="page.chat.addContact">добавить контакт</entry>
+	<entry key="page.chat.search">поиск</entry>
+	<entry key="page.chat.send">отправить</entry>
+
+	<entry key="form.contact.editContact">Редактирование котакта</entry>
+	<entry key="form.contact.acceptor">акцептант</entry>
+	<entry key="form.contact.initiator">инициатор</entry>
+	<entry key="form.contact.status">статус</entry>
+	<entry key="form.contact.save">сохранить</entry>
+	<entry key="form.contact.toList">к списку</entry>
+
+	<entry key="list.contact.contacts">Котакты</entry>
+	<entry key="list.contact.id">id</entry>
+	<entry key="list.contact.acceptor">акцептант</entry>
+	<entry key="list.contact.initiator">инициатор</entry>
+
+	<entry key="form.message.editMessage">Редактирование сообщения</entry>
+	<entry key="form.message.text">Текст</entry>
+	<entry key="form.message.user">Пользователь</entry>
+	<entry key="form.message.group">Группа</entry>
+	<entry key="form.message.save">Сохранить</entry>
+
+	<entry key="list.message.messages">Сообщения</entry>
+	<entry key="list.message.id">id</entry>
+	<entry key="list.message.user">Пользователь</entry>
+	<entry key="list.message.group">Группа</entry>
+	<entry key="list.message.created">созданно</entry>
+
+	<entry key="form.smile.editSmile">Редактирование Смайла</entry>
+	<entry key="form.smile.name">имя</entry>
+	<entry key="form.smile.marker">маркер</entry>
+	<entry key="form.smile.smileGroup">группа смайла</entry>
+	<entry key="form.smile.save">сохранить</entry>
+	<entry key="form.smile.toList">к списку</entry>
+
+	<entry key="list.smile.id">id</entry>
+	<entry key="list.smile.name">имя</entry>
+	<entry key="list.smile.marker">маркер</entry>
+	<entry key="list.smile.group">группа</entry>
+
+	<entry key="form.smileGroup.editSmileGroup">Редактировать группу смайлов</entry>
+	<entry key="form.smileGroup.name">имя</entry>
+	<entry key="form.smileGroup.save">сохранить</entry>
+	<entry key="form.smileGroup.toList">к списку</entry>
+
+	<entry key="list.smileGroup.smileGroups">Группа Смайлов</entry>
+	<entry key="list.smileGroup.id">id</entry>
+	<entry key="list.smileGroup.name">имя</entry>
+
+	<entry key="form.userAccount.editUserAccount">Редактировать пользователя</entry>
+	<entry key="form.userAccount.firstname">имя</entry>
+	<entry key="form.userAccount.lastname">фамилия</entry>
+	<entry key="form.userAccount.email">э-почта</entry>
+	<entry key="form.userAccount.phone">телефон</entry>
+	<entry key="form.userAccount.role">роль</entry>
+	<entry key="form.userAccount.avatar">аватар</entry>
+	<entry key="form.userAccount.password">пароль</entry>
+	<entry key="form.userAccount.save">сохранить</entry>
+	<entry key="form.userAccount.toList">к списку</entry>
+
+	<entry key="list.userAccount.UserAccounts">Пользователь</entry>
+	<entry key="list.userAccount.id">id</entry>
+	<entry key="list.userAccount.firstname">имя</entry>
+	<entry key="list.userAccount.lastname">фамилия</entry>
+	<entry key="list.userAccount.email">э-почта</entry>
+	<entry key="list.userAccount.phone">телефон</entry>
+	<entry key="list.userAccount.role">роль</entry>
+	<entry key="list.userAccount.avatar">аватар</entry>
+	<entry key="list.userAccount.password">пароль</entry>
+
+	<entry key="form.userGroup.editUserGroup">Редактировать Группу Пользователя</entry>
+	<entry key="form.userGroup.name">имя</entry>
+	<entry key="form.userGroup.status">статус</entry>
+	<entry key="form.userGroup.save">сохранить</entry>
+	<entry key="form.userGroup.to list">к списку</entry>
+
+	<entry key="list.userGroup.userGroups">Группы Пользователя</entry>
+	<entry key="list.userGroup.id">id</entry>
+	<entry key="list.userGroup.name">имя</entry>
+
+
 </properties>

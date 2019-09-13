@@ -17,9 +17,6 @@ public interface IUserAccountService {
 	void save(IUserAccount entity);
 
 	@Transactional
-	void save(IUserAccount... entity);
-
-	@Transactional
 	void delete(Integer id);
 
 	@Transactional

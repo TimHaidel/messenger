@@ -20,7 +20,9 @@
 
 	<div>
 		<div id="content"></div>
-		<button onClick="sendRequest()">send</button>
+		<button onClick="sendRequest()">
+			<spring:message code="page.home.send" />
+		</button>
 	</div>
 </body>
 </html>

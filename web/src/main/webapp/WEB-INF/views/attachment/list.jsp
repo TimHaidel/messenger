@@ -2,18 +2,23 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="jspFragments" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <h4 class="header">Attachments</h4>
 <table class="bordered highlight">
 	<tbody>
 		<tr>
-			<th><mytaglib:sort-link pageUrl="${pagesAttachment}" column="id">id</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link pageUrl="${pagesAttachment}" column="id"><spring:message
+						code="list.attachment.id" /></mytaglib:sort-link></th>
 			<th><mytaglib:sort-link pageUrl="${pagesAttachment}"
-					column="content">content</mytaglib:sort-link></th>
+					column="content"><spring:message
+						code="list.attachment.content" /></mytaglib:sort-link></th>
 			<th><mytaglib:sort-link pageUrl="${pagesAttachment}"
-					column="contentType">content type</mytaglib:sort-link></th>
+					column="contentType"><spring:message
+						code="list.attachment.contentType" /></mytaglib:sort-link></th>
 			<th><mytaglib:sort-link pageUrl="${pagesAttachment}"
-					column="created">created</mytaglib:sort-link></th>
+					column="created"><spring:message
+						code="list.attachment.created" /></mytaglib:sort-link></th>
 		</tr>
 		<c:forEach var="attachment" items="${gridItems}"
 			varStatus="loopCounter">
