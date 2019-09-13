@@ -32,8 +32,8 @@
 			<tr>
 				<td><c:out value="${message.id}" /></td>
 				<td><c:out value="${message.message}" /></td>
-				<td><c:out value="${message.user.firstname}" /></td>
-				<td><c:out value="${message.userGroup.name}" /></td>
+				<td><c:out value="${message.userId}" /></td>
+				<td><c:out value="${message.userGroupId}" /></td>
 				<td><c:out value="${message.created}" /></td>
 
 				<td class="right"><a class="btn-floating"

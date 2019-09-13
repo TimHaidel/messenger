@@ -31,7 +31,7 @@
 			<div class="col s3">
 				<a class="btn waves-effect waves-light right"
 					href="${pagesSmileGroup}"><spring:message
-						code="form.smileGroup.to list" /><i class="material-icons right"></i>
+						code="form.smileGroup.toList" /><i class="material-icons right"></i>
 				</a>
 			</div>
 		</div>

@@ -35,10 +35,10 @@ public class MessageFromDTOConverter implements Function<MessageDTO, IMessage> {
 		parentMessage.setId(dto.getParentMessage());
 		entity.setParentMessage(parentMessage);
 
-		IUserAccount user = dto.getUser();
+		IUserAccount user = userAccountService.get(dto.getUserId());
 		entity.setUser(user);
 
-		IUserGroup userGroup = dto.getUserGroup();
+		IUserGroup userGroup = userGroupService.get(dto.getUserGroupId());
 		entity.setUserGroup(userGroup);
 
 		return entity;

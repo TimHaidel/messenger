@@ -138,7 +138,7 @@ public class MessageController extends AbstractController {
 		List<MessageDTO> dtos = entities.stream().map(messageToDtoConverter).collect(Collectors.toList());
 
 		for (MessageDTO messageDTO : dtos) {
-			messageDTO.setCurrentUser(messageDTO.getUser().getId().equals(AuthHelper.getLoggedUserId()));
+			messageDTO.setCurrentUser(messageDTO.getUserId().equals(AuthHelper.getLoggedUserId()));
 		}
 
 		return new ResponseEntity<List<MessageDTO>>(dtos, HttpStatus.OK);

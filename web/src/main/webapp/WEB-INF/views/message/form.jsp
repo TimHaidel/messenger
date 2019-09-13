@@ -20,16 +20,16 @@
 		</div>
 		<div class="row">
 			<div class="input-field col s12">
-				<form:input path="user.id" type="text" disabled="${readonly}" />
-				<form:errors path="user" cssClass="red-text" />
-				<label for="user"><spring:message code="form.message.user" /></label>
+				<form:input path="userId" type="text" disabled="${readonly}" />
+				<form:errors path="userId" cssClass="red-text" />
+				<label for="userId"><spring:message code="form.message.user" /></label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="input-field col s12">
-				<form:input path="userGroup" type="text" disabled="${readonly}" />
-				<form:errors path="userGroup" cssClass="red-text" />
-				<label for="userGroup"><spring:message
+				<form:input path="userGroupId" type="text" disabled="${readonly}" />
+				<form:errors path="userGroupId" cssClass="red-text" />
+				<label for="userGroupId"><spring:message
 						code="form.message.group" /></label>
 			</div>
 		</div>
@@ -58,7 +58,7 @@
 
 	<script src="${contextPath}/resources/js/sample-alert-with-params.js"></script>
 	<script>
-        showMessage('${contextPath}'); // execute function defined somewhere above
+        showMessage('${contextPath}');
     </script>
 
 </c:if>
