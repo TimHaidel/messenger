@@ -7,13 +7,11 @@ import by.itacademy.jd2.th.messenger.dao.api.filter.UserAccountFilter;
 
 public interface IUserAccountDao extends IDao<IUserAccount, Integer> {
 
-    List<IUserAccount> find(UserAccountFilter filter);
+	List<IUserAccount> find(UserAccountFilter filter);
 
-    long getCount(UserAccountFilter filter);
+	long getCount(UserAccountFilter filter);
 
-    void save(IUserAccount... entities);
-
-	IUserAccount findNickname(String username) ;
+	IUserAccount findNickname(String username);
 
 	List<IUserAccount> findForAutocomplete(String field);
 

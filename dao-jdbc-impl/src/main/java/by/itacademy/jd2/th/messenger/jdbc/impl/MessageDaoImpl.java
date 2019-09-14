@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -30,7 +31,6 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 		return new Message();
 	}
 
-	@Override
 	public void deleteAllPinnedMessages() {
 		executeStatement(new PreparedStatementAction<Integer>("delete from pinned_message") {
 			@Override
@@ -42,12 +42,20 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void insertPinMessage(Integer messageId, Integer userAccountId) {
+=======
+	public void insertPinMessage(Integer messageId, Integer userId) {
+>>>>>>> d71f6ceb9b32cd04d849108686f943707fcfca4f
 		try (Connection c = getConnection()) {
 
 			PreparedStatement stmt = c.prepareStatement("insert into pinned_message (message_id, user_id) values(?,?)");
 			stmt.setInt(1, messageId);
+<<<<<<< HEAD
 			stmt.setInt(2, userAccountId);
+=======
+			stmt.setInt(2, userId);
+>>>>>>> d71f6ceb9b32cd04d849108686f943707fcfca4f
 			stmt.executeUpdate();
 			stmt.close();
 		} catch (final SQLException e) {
@@ -69,8 +77,9 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 	}
 
 	@Override
-	public IMessage getPinnedMessage(Integer id) {
+	public List<IMessage> getPinnedMessage(Integer id) {
 		IMessage entity = createEntity();
+		List<IMessage> entities = new ArrayList<IMessage>();
 		try (Connection c = getConnection()) {
 			Statement statement = c.createStatement();
 			statement.executeQuery("select * from pinned_message where message_id=" + id);
@@ -88,7 +97,7 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 		} catch (final SQLException e) {
 			throw new SQLExecutionException(e);
 		}
-		return entity;
+		return entities;
 	}
 
 	@Override
@@ -264,6 +273,12 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 	@Override
 	public IMessage getFullInfo(Integer id) {
 		throw new RuntimeException("Not implemented");
+	}
+
+	@Override
+	public void deleteAllPinnedMessages(Integer userId) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

@@ -16,6 +16,7 @@ import org.hibernate.jpa.criteria.OrderImpl;
 import org.springframework.stereotype.Repository;
 
 import by.itacademy.jd2.th.messenger.dao.api.IMessageDao;
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.IContact;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IMessage;
 import by.itacademy.jd2.th.messenger.dao.api.filter.MessageFilter;
 import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.Message;
@@ -53,6 +54,7 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 
 		}
 		from.fetch(Message_.user, JoinType.LEFT);
+		from.fetch(Message_.userAccounts, JoinType.LEFT);
 		from.fetch(Message_.attachment, JoinType.LEFT);
 		from.fetch(Message_.parentMessage, JoinType.LEFT);
 		from.fetch(Message_.userGroup, JoinType.LEFT);
@@ -68,6 +70,27 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 		setPaging(filter, q);
 
 		return q.getResultList();
+	}
+
+	@Override
+	public IMessage get(Integer id) {
+		final EntityManager em = getEntityManager();
+		final CriteriaBuilder cb = em.getCriteriaBuilder();
+
+		final CriteriaQuery<IMessage> cq = cb.createQuery(IMessage.class);
+
+		final Root<Message> from = cq.from(Message.class);
+
+		cq.select(from).where(cb.equal(from.get("id"), id));
+
+		from.fetch(Message_.user, JoinType.LEFT);
+		from.fetch(Message_.userAccounts, JoinType.LEFT);
+		from.fetch(Message_.attachment, JoinType.LEFT);
+		from.fetch(Message_.parentMessage, JoinType.LEFT);
+		from.fetch(Message_.userGroup, JoinType.LEFT);
+
+		final TypedQuery<IMessage> q = em.createQuery(cq);
+		return q.getSingleResult();
 	}
 
 	private SingularAttribute<? super Message, ?> toMetamodelFormat(final String sortColumn) {
@@ -133,12 +156,18 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 	}
 
 	@Override
-	public void deletePinnedMessage(IMessage message) {
-		throw new RuntimeException("Not implemented");
+	public void deletePinnedMessage(Integer messageId) {
+		final EntityManager em = getEntityManager();
+
+		// native query
+		Query q = em.createNativeQuery("DELETE FROM pinned_message WHERE message_id=?");
+		q.setParameter(1, messageId);
+		q.executeUpdate();
 
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void insertPinMessage(Integer messageId, Integer userAccountId) {
 		final EntityManager em = getEntityManager();
 
@@ -146,10 +175,21 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 		Query q = em.createNativeQuery("INSERT INTO pinned_message (message_id, user_id) VALUES(?, ?)");
 		q.setParameter(1, messageId);
 		q.setParameter(2, userAccountId);
+=======
+	public void insertPinMessage(Integer messageId, Integer userId) {
+		final EntityManager em = getEntityManager();
+		Query query = em.createNativeQuery("SELECT ");
+		// native query
+		Query q = em.createNativeQuery("INSERT INTO pinned_message (message_id, user_id) VALUES (?, ?)");
+		q.setParameter(1, messageId);
+		q.setParameter(2, userId);
+		q.executeUpdate();
+>>>>>>> d71f6ceb9b32cd04d849108686f943707fcfca4f
 
 	}
 
 	@Override
+<<<<<<< HEAD
 	public List<IMessage> getPinnedMessage(Integer userAccountId) {
 		final EntityManager em = getEntityManager();
 		final CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -197,11 +237,27 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 
 		return q.getResultList();
 
+=======
+	public List<Integer> getPinnedMessageIds(Integer userId) {
+		final EntityManager em = getEntityManager();
+
+		// native query
+		Query q = em.createNativeQuery(
+				"SELECT m.id FROM message m JOIN pinned_message pm ON pm.message_id=m.id WHERE pm.user_id=?");
+		q.setParameter(1, userId);
+		List<Integer> messages = q.getResultList();
+
+		return messages;
+>>>>>>> d71f6ceb9b32cd04d849108686f943707fcfca4f
 	}
 
 	@Override
-	public void deleteAllPinnedMessages() {
-		throw new RuntimeException("Not implemented");
+	public void deleteAllPinnedMessages(Integer userId) {
+		final EntityManager em = getEntityManager();
+
+		// native query
+		Query q = em.createNativeQuery("DELETE FROM pinned_message WHERE user_id=?");
+		q.setParameter(1, userId);
 
 	}
 

@@ -46,19 +46,6 @@ public class UserAccountServiceImpl implements IUserAccountService {
 	}
 
 	@Override
-	public void save(final IUserAccount... entities) {
-		final Date modified = new Date();
-		for (final IUserAccount iUserAccount : entities) {
-
-			iUserAccount.setUpdated(modified);
-			iUserAccount.setCreated(modified);
-
-		}
-
-		dao.save(entities);
-	}
-
-	@Override
 	public IUserAccount get(final Integer id) {
 		final IUserAccount entity = dao.get(id);
 		return entity;
@@ -84,7 +71,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
 	public List<IUserAccount> find(final UserAccountFilter filter) {
 		return dao.find(filter);
 	}
-	
+
 	@Override
 	public List<IUserAccount> findForAutocomplete(String field) {
 		return dao.findForAutocomplete(field);

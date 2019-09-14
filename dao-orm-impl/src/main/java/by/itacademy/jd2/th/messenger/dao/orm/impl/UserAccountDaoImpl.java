@@ -111,11 +111,6 @@ public class UserAccountDaoImpl extends AbstractDaoImpl<IUserAccount, Integer> i
 	}
 
 	@Override
-	public void save(IUserAccount... entities) {
-		throw new RuntimeException("Not implemented");
-	}
-
-	@Override
 	public IUserAccount findNickname(String username) {
 		final EntityManager em = getEntityManager();
 		final CriteriaBuilder cb = em.getCriteriaBuilder();

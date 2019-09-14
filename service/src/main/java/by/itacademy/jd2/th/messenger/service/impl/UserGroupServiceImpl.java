@@ -37,7 +37,7 @@ public class UserGroupServiceImpl implements IUserGroupService {
 		} else {
 			dao.update(entity);
 		}
-		
+
 		return entity;
 	}
 

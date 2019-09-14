@@ -36,6 +36,11 @@ main {
 	overflow: auto;
 }
 
+.collection {
+	height: 550px;
+	overflow: auto;
+}
+
 .chatbox {
 	height: 550px;
 	overflow: auto;

@@ -2,6 +2,8 @@ $(document).ready(function () {
     $('.tabs').tabs();
     $('.collapsible').collapsible();
     $('.modal').modal();
+    $('.sidenav').sidenav();
+    $('.dropdown-trigger').dropdown();
     // $(".resizable").resizable();
     
 });
@@ -9,6 +11,34 @@ $(document).ready(function () {
 // $('#textarea1').val('New Text');
 // M.textareaAutoResize($('#textarea1'));
 
+function getPinedMessages() {
+    $.get("message/getpined", function (data){
+       printPinnedMessages(data);
+    });
+}
+function printPinnedMessages(data) {
+    $("#slide-out").empty();
+    data.forEach(function(element) {
+        var unpin = "unPinMessage(" + element.id + ")";
+        $('<i>', {
+            name : 'pin',
+            class : 'tiny material-icons',
+            text : 'message',
+            onclick : unpin,
+        }).css('cursor','pointer').appendTo('#slide-out');
+        $('<li>', {
+            class: 'collection-item',
+            text : element.message,
+        }).appendTo('#slide-out');
+       
+    })
+}
+
+function unPinMessage(messageId) {
+    $.get("message/unpin?messageId=" + messageId, function() {
+        getPinedMessages();
+    });
+}
 
  $('.autocomplete').keypress(function(){
  let url = 'chat/autocomplete?field=' + $('#autocomplete-input').val();
@@ -41,21 +71,31 @@ function addContact(autocomplete) {
 
     
 var groupIdGlob;
-
+var tempGroupId;
+var intervalId;
 function getMessages(groupId) {
+    $("#messageForm").show();
     groupIdGlob = groupId;
-    let tempLength;
+    var tempLength;
+    
     // Логику в контроллер
     var requestMessages=function () {
         $.get("chat/messages?groupId=" + groupId, function(data) {
        if(tempLength !== data.length) {
            printMessages(data);
            tempLength = data.length;
+           
        }
+       if(tempGroupId != groupId) {
+           clearInterval(intervalId);
+           tempGroupId = groupId;
+           intervalId = setInterval(requestMessages, 3000);
+        }
     });
     }
-   requestMessages();
-    setInterval(requestMessages, 3000);
+    requestMessages(); 
+    
+   
 }
 
 
@@ -69,22 +109,20 @@ function toGroup(contactId) {
     
 }
 function pinMessage(messageId) {
-    $.get("chat/pin?messageId=" + messageId, function (data) {
-        getMessages(data);
-     });
+    $.get("message/pin?messageId=" + messageId);
 }
 
 function printMessages(data) {
     let loggedUserId = $('#loggedUserId').val();
     $(".chatbox").empty();
-  
+    // debugger;
     data.forEach(function (element) {
         if(element.currentUser){
             var pin = "pinMessage(" + element.id + ")";
             
             $('<i>', {
                 class : 'tiny material-icons',
-                text : 'assistant_photo',
+                text : 'message',
                 onclick : pin,
                 
             }).css('align','right').css('cursor','pointer').appendTo( $('<div>', {
@@ -110,7 +148,7 @@ function printMessages(data) {
             $('<i>', {
                 name : 'pin',
                 class : 'tiny material-icons',
-                text : 'assistant_photo',
+                text : 'message',
                 onclick : pin,
             }).css('cursor','pointer').appendTo('.chatbox');
             

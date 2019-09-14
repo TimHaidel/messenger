@@ -1,12 +1,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<h4 class="header">SmileGroups</h4>
+<h4 class="header">
+	<spring:message code="list.smileGroup.smileGroups" />
+</h4>
 <table class="bordered highlight">
 	<tbody>
 		<tr>
-			<th>id</th>
-			<th>name</th>
+			<th><spring:message code="list.smileGroup.id" /></th>
+			<th><spring:message code="list.smileGroup.name" /></th>
 			<th></th>
 		</tr>
 		<c:forEach var="smileGroup" items="${gridItems}"

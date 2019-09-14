@@ -3,5 +3,118 @@
 <properties>
 	<entry key="page.home.title">Home Page</entry>
 	<entry key="page.home.welcomeMessage">Hello, {0}</entry>
+	<entry key="page.home.send">send</entry>
 	<entry key="page.login.credentialsError">Invalid username and password!</entry>
+
+	<entry key="page.footer.name">Tsimur Haidel</entry>
+	<entry key="page.footer.dataModel">Data model</entry>
+	<entry key="page.footer.mindMap">Mind map</entry>
+	<entry key="page.footer.list">List of accounts and passwords</entry>
+
+	<entry key="page.header.chats">Chats</entry>
+	<entry key="page.header.smiles">Smiles</entry>
+	<entry key="page.header.smilesGroup">Smile's groups</entry>
+	<entry key="page.header.userAccount">User Account</entry>
+	<entry key="page.header.attachments">Attachments</entry>
+	<entry key="page.header.userGroup">UserGroup</entry>
+	<entry key="page.header.messages">Messages</entry>
+	<entry key="page.header.contacts">Contacts</entry>
+	<entry key="page.header.login">Login: </entry>
+	<entry key="page.header.loggedUser">Logged user is anonymous</entry>
+
+	<entry key="form.attachment.edit">Edit attachment</entry>
+	<entry key="form.attachment.message">Message</entry>
+	<entry key="form.attachment.content">Content</entry>
+	<entry key="form.attachment.contentType">Content type</entry>
+	<entry key="form.attachment.save">save</entry>
+	<entry key="form.attachment.toList">to list</entry>
+
+	<entry key="list.attachment.id">id</entry>
+	<entry key="list.attachment.content">content</entry>
+	<entry key="list.attachment.contentType">content type</entry>
+	<entry key="list.attachment.created">created</entry>
+
+	<entry key="page.chat.contacts">Contacts</entry>
+	<entry key="page.chat.chats">Chats</entry>
+	<entry key="page.chat.addContact">add contact</entry>
+	<entry key="page.chat.search">search</entry>
+	<entry key="page.chat.send">send</entry>
+
+	<entry key="form.contact.editContact">Edit contact</entry>
+	<entry key="form.contact.acceptor">acceptor</entry>
+	<entry key="form.contact.initiator">initiator</entry>
+	<entry key="form.contact.status">status</entry>
+	<entry key="form.contact.save">save</entry>
+	<entry key="form.contact.toList">to list</entry>
+
+	<entry key="list.contact.contacts">Contacts</entry>
+	<entry key="list.contact.id">id</entry>
+	<entry key="list.contact.acceptor">acceptor</entry>
+	<entry key="list.contact.initiator">initiator</entry>
+
+	<entry key="form.message.editMessage">Edit message</entry>
+	<entry key="form.message.text">Text</entry>
+	<entry key="form.message.user">User</entry>
+	<entry key="form.message.group">Group</entry>
+	<entry key="form.message.save">Save</entry>
+
+	<entry key="list.message.messages">Messages</entry>
+	<entry key="list.message.id">id</entry>
+	<entry key="list.message.user">user</entry>
+	<entry key="list.message.group">group</entry>
+	<entry key="list.message.created">created</entry>
+
+	<entry key="form.smile.editSmile">Edit smile</entry>
+	<entry key="form.smile.name">name</entry>
+	<entry key="form.smile.marker">marker</entry>
+	<entry key="form.smile.smileGroup">smile group</entry>
+	<entry key="form.smile.save">save</entry>
+	<entry key="form.smile.toList">to list</entry>
+
+	<entry key="list.smile.id">id</entry>
+	<entry key="list.smile.name">name</entry>
+	<entry key="list.smile.marker">marker</entry>
+	<entry key="list.smile.group">group</entry>
+
+	<entry key="form.smileGroup.editSmileGroup">Edit Smile Group</entry>
+	<entry key="form.smileGroup.name">name</entry>
+	<entry key="form.smileGroup.save">save</entry>
+	<entry key="form.smileGroup.toList">to list</entry>
+
+	<entry key="list.smileGroup.smileGroups">Smile Groups</entry>
+	<entry key="list.smileGroup.id">id</entry>
+	<entry key="list.smileGroup.name">name</entry>
+
+	<entry key="form.userAccount.editUserAccount">Edit User Account</entry>
+	<entry key="form.userAccount.firstname">firstname</entry>
+	<entry key="form.userAccount.lastname">lastname</entry>
+	<entry key="form.userAccount.email">e-mail</entry>
+	<entry key="form.userAccount.phone">phone</entry>
+	<entry key="form.userAccount.role">role</entry>
+	<entry key="form.userAccount.avatar">avatar</entry>
+	<entry key="form.userAccount.password">password</entry>
+	<entry key="form.userAccount.save">save</entry>
+	<entry key="form.userAccount.toList">to list</entry>
+
+	<entry key="list.userAccount.UserAccounts">User Accounts</entry>
+	<entry key="list.userAccount.id">id</entry>
+	<entry key="list.userAccount.firstname">firstname</entry>
+	<entry key="list.userAccount.lastname">lastname</entry>
+	<entry key="list.userAccount.email">e-mail</entry>
+	<entry key="list.userAccount.phone">phone</entry>
+	<entry key="list.userAccount.role">role</entry>
+	<entry key="list.userAccount.avatar">avatar</entry>
+	<entry key="list.userAccount.password">password</entry>
+
+	<entry key="form.userGroup.editUserGroup">Edit User Group</entry>
+	<entry key="form.userGroup.name">name</entry>
+	<entry key="form.userGroup.status">status</entry>
+	<entry key="form.userGroup.save">save</entry>
+	<entry key="form.userGroup.to list">to list</entry>
+
+	<entry key="list.userGroup.userGroups">User Groups</entry>
+	<entry key="list.userGroup.id">id</entry>
+	<entry key="list.userGroup.name">name</entry>
+
+
 </properties>

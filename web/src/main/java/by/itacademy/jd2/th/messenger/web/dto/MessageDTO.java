@@ -2,22 +2,16 @@ package by.itacademy.jd2.th.messenger.web.dto;
 
 import java.util.Date;
 
-import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
-import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
-
 public class MessageDTO {
 	private Integer id;
 	private String message;
 	private Integer parentMessage;
-	private IUserAccount user;
-	private IUserGroup userGroup;
+	private Integer userId;
+	private Integer userGroupId;
 	private Date created;
 	private Date updated;
-	
+
 	private boolean isCurrentUser;
-	
-	
-	
 
 	public boolean isCurrentUser() {
 		return isCurrentUser;
@@ -67,25 +61,20 @@ public class MessageDTO {
 		this.updated = updated;
 	}
 
-	public IUserAccount getUser() {
-		return user;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setUser(IUserAccount user) {
-		this.user = user;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
-	public IUserGroup getUserGroup() {
-		return userGroup;
+	public Integer getUserGroupId() {
+		return userGroupId;
 	}
 
-	public void setUserGroup(IUserGroup userGroup) {
-		this.userGroup = userGroup;
-	}
-
-	@Override
-	public String toString() {
-		return "MessageDTO [id=" + id + ", message=" + message + ", user=" + user + ", userGroup=" + userGroup + "]";
+	public void setUserGroupId(Integer userGroupId) {
+		this.userGroupId = userGroupId;
 	}
 
 }

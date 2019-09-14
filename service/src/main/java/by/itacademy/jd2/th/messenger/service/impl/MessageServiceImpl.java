@@ -1,5 +1,6 @@
 package by.itacademy.jd2.th.messenger.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,22 +28,37 @@ public class MessageServiceImpl implements IMessageService {
 	}
 
 	@Override
-	public IMessage getPinned(final Integer id) {
-		final IMessage entity = dao.getPinnedMessage(id);
-		return entity;
+	public List<IMessage> getPinnedMessage(final Integer id) {
+		final List<Integer> messageIds = dao.getPinnedMessageIds(id);
+		
+		
+		List<IMessage> messages  =new ArrayList<IMessage>();
+		for (Integer mId : messageIds) {
+			
+			messages.add(getFullInfo(mId));
+			
+		}
+		
+		return messages;
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void pinMessage(Integer messageId, Integer userAccountId) {
 
 		dao.insertPinMessage(messageId, userAccountId);
+=======
+	public void pinMessage(Integer messageId, Integer userId) {
+
+		dao.insertPinMessage(messageId, userId);
+>>>>>>> d71f6ceb9b32cd04d849108686f943707fcfca4f
 
 	}
 
 	@Override
-	public void unpinMessage(IMessage message) {
+	public void unpinMessage(Integer messageId) {
 
-		dao.deletePinnedMessage(message);
+		dao.deletePinnedMessage(messageId);
 
 	}
 
@@ -94,8 +110,8 @@ public class MessageServiceImpl implements IMessageService {
 	}
 
 	@Override
-	public void deleteAllPinned() {
-		dao.deleteAllPinnedMessages();
+	public void deleteAllPinned(Integer userId) {
+		dao.deleteAllPinnedMessages(userId);
 
 	}
 

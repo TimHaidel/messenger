@@ -1,17 +1,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<h4 class="header">UserAccount</h4>
+<h4 class="header"><spring:message code="list.userAccount.UserAccounts" /></h4>
 <table class="bordered highlight">
 	<tbody>
 		<tr>
-			<th>id</th>
-			<th>firstname</th>
-			<th>lastname</th>
-			<th>email</th>
-			<th>phone</th>
-			<th>role</th>
-			<th>avatar</th>
+			<th><spring:message code="list.userAccount.id" /></th>
+			<th><spring:message code="list.userAccount.firstname" /></th>
+			<th><spring:message code="list.userAccount.lastname" /></th>
+			<th><spring:message code="list.userAccount.email" /></th>
+			<th><spring:message code="list.userAccount.phone" /></th>
+			<th><spring:message code="list.userAccount.role" /></th>
+			<th><spring:message code="list.userAccount.avatar" /></th>
 		</tr>
 		<c:forEach var="userAccount" items="${gridItems}"
 			varStatus="loopCounter">

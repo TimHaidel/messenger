@@ -1,6 +1,7 @@
 package by.itacademy.jd2.th.messenger.service.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -21,10 +22,12 @@ public class MessageServiceTest extends AbstractTest {
 	@Test
 	public void testPinMessage() throws SQLException {
 		IMessage entity = pinNewMessage();
-		IMessage entityFromDb = messageService.getPinned(entity.getId());
+		
+		
+		List<IMessage> pinnedMessages = messageService.getPinnedMessage(entity.getUser().getId());
 
-		assertNotNull(entityFromDb);
-		assertEquals(entity.getId(), entityFromDb.getId());
+		assertFalse(pinnedMessages.isEmpty());
+		assertEquals(entity.getId().intValue(), pinnedMessages.get(0).getId().intValue());
 
 	}
 
@@ -36,8 +39,6 @@ public class MessageServiceTest extends AbstractTest {
 
 		assertNotNull(entityFromDb);
 		assertEquals(entity.getMessage(), entityFromDb.getMessage());
-		// assertEquals(entity.getParrentMessage().getId(),
-		// entityFromDb.getParrentMessage().getId());
 		assertEquals(entity.getUser().getId().intValue(), entityFromDb.getUser().getId().intValue());
 		assertEquals(entity.getUserGroup().getId().intValue(), entityFromDb.getUserGroup().getId().intValue());
 		assertNotNull(entityFromDb.getId());

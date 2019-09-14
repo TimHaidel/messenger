@@ -2,16 +2,25 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="jspFragments" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <h4 class="header">Smiles</h4>
 <table class="bordered highlight">
 	<tbody>
 		<tr>
-			<th><mytaglib:sort-link pageUrl="${pagesSmile}" column="id">id</mytaglib:sort-link></th>
-			<th><mytaglib:sort-link pageUrl="${pagesSmile}" column="name">name</mytaglib:sort-link></th>
-			<th><mytaglib:sort-link pageUrl="${pagesSmile}" column="marker">marker</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link pageUrl="${pagesSmile}" column="id">
+					<spring:message code="list.smile.id" />
+				</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link pageUrl="${pagesSmile}" column="name">
+					<spring:message code="list.smile.name" />
+				</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link pageUrl="${pagesSmile}" column="marker">
+					<spring:message code="list.smile.marker" />
+				</mytaglib:sort-link></th>
 			<th><mytaglib:sort-link pageUrl="${pagesSmile}"
-					column="smileGroup">group</mytaglib:sort-link></th>
+					column="smileGroup">
+					<spring:message code="list.smile.group" />
+				</mytaglib:sort-link></th>
 		</tr>
 		<c:forEach var="smile" items="${gridItems}" varStatus="loopCounter">
 			<tr>

@@ -22,7 +22,8 @@ public class MessageToDTOConverter implements Function<IMessage, MessageDTO> {
 
 		IUserAccount user = entity.getUser();
 		if (user != null) {
-			dto.setUser(user);
+			dto.setUserId(entity.getUser().getId());
+			;
 		}
 
 		IMessage parentMessage = entity.getParentMessage();
@@ -32,7 +33,7 @@ public class MessageToDTOConverter implements Function<IMessage, MessageDTO> {
 
 		IUserGroup userGroup = entity.getUserGroup();
 		if (userGroup != null) {
-			dto.setUserGroup(userGroup);
+			dto.setUserGroupId(entity.getUserGroup().getId());
 		}
 		return dto;
 	}

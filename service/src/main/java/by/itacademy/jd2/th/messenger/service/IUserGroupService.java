@@ -28,9 +28,8 @@ public interface IUserGroupService {
 
 	IUserGroup createEntity();
 
-	@Transactional
-	void save(IUserGroup... entity);
-
 	Integer findGroupId(Integer user1, Integer user2);
+
+	void save(final IUserGroup... entities);
 
 }

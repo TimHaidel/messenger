@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
@@ -29,28 +28,6 @@ public class UserAccountServiceTest extends AbstractTest {
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
 		assertTrue(entityFromDb.getCreated().equals(entityFromDb.getUpdated()));
-	}
-
-	@Test
-	public void testCreateMultiple() {
-		final int initialSize = userAccountService.getAll().size();
-
-		final IUserAccount entity1 = userAccountService.createEntity();
-		entity1.setFirstname("firstName-" + getRandomPrefix());
-		entity1.setLastname("lastName-" + getRandomPrefix());
-		entity1.setPassword("password-" + getRandomPrefix());
-		entity1.setEmail("email-" + getRandomPrefix());
-		entity1.setAvatar("avatar-" + getRandomPrefix());
-		entity1.setRole(Roles.admin);
-
-		try {
-			final IUserAccount entity2 = userAccountService.createEntity();
-			userAccountService.save(entity1, entity2);
-			fail("User save should fail if name not specified");
-		} catch (final Exception e) {
-			assertEquals(initialSize, userAccountService.getAll().size());
-		}
-
 	}
 
 	@Test
