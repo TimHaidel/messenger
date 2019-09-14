@@ -33,9 +33,9 @@ public class MessageServiceImpl implements IMessageService {
 	}
 
 	@Override
-	public void pinMessage(IMessage message, IUserAccount user) {
+	public void pinMessage(Integer messageId, Integer userAccountId) {
 
-		dao.insertPinMessage(message, user);
+		dao.insertPinMessage(messageId, userAccountId);
 
 	}
 

@@ -15,7 +15,7 @@ public interface IMessageDao extends IDao<IMessage, Integer> {
 
 	void deletePinnedMessage(IMessage message);
 
-	void insertPinMessage(IMessage message, IUserAccount user);
+	void insertPinMessage(Integer messageId, Integer userAccountId);
 
 	IMessage getPinnedMessage(Integer id);
 

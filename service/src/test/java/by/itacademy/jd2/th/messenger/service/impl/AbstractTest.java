@@ -79,7 +79,7 @@ public abstract class AbstractTest {
 	protected IMessage pinNewMessage() {
 		IMessage message = saveNewMessage();
 		IUserAccount user = saveNewUserAccount();
-		messageService.pinMessage(message, user);
+		messageService.pinMessage(message.getId(), user.getId());
 		return message;
 	}
 

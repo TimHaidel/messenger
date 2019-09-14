@@ -26,7 +26,6 @@ import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserToGroup;
 import by.itacademy.jd2.th.messenger.dao.api.filter.ContactFilter;
 import by.itacademy.jd2.th.messenger.dao.api.filter.MessageFilter;
-import by.itacademy.jd2.th.messenger.dao.api.filter.UserAccountFilter;
 import by.itacademy.jd2.th.messenger.dao.api.filter.UserGroupFilter;
 import by.itacademy.jd2.th.messenger.service.IContactService;
 import by.itacademy.jd2.th.messenger.service.IMessageService;
@@ -196,22 +195,12 @@ public class ChatController extends AbstractController {
 		contactService.save(contact);
 
 	}
-	
+
 	@RequestMapping(value = "/pin", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void pinMessage(@RequestParam(name = "messageId", required = true) final Integer messageId) {
-
-		IContact contact = contactService.createEntity();
-
-		IUserAccount acceptor = userAccountService.getByEmail(contactEmail);
-		IUserAccount initiator = userAccountService.get(AuthHelper.getLoggedUserId());
-
-		contact.setAcceptor(acceptor);
-		contact.setInitiator(initiator);
-		contact.setStatus(0);
-
-		contactService.save(contact);
-
+		Integer userAccountId = AuthHelper.getLoggedUserId();
+		messageService.pinMessage(messageId, userAccountId);
 	}
 
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IMessage;
-import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.filter.MessageFilter;
 
 public interface IMessageService {
@@ -36,7 +35,7 @@ public interface IMessageService {
 	void unpinMessage(IMessage message);
 
 	@Transactional
-	void pinMessage(IMessage message, IUserAccount user);
+	void pinMessage(Integer messageId, Integer userAccountId);
 
 	IMessage getPinned(final Integer id);
 

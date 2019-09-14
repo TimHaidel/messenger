@@ -87,10 +87,10 @@ public class ContactDaoImpl extends AbstractDaoImpl<IContact, Integer> implement
 		final CriteriaBuilder cb = em.getCriteriaBuilder();
 
 		final CriteriaQuery<Long> cq = cb.createQuery(Long.class);
-		final Root<Contact> from = cq.from(Contact.class); // select from
-		cq.select(cb.count(from)); // select what? select count(*)
+		final Root<Contact> from = cq.from(Contact.class);
+		cq.select(cb.count(from));
 		final TypedQuery<Long> q = em.createQuery(cq);
-		return q.getSingleResult(); // execute query
+		return q.getSingleResult();
 	}
 
 	@Override
