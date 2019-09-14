@@ -1,5 +1,6 @@
 package by.itacademy.jd2.th.messenger.dao.orm.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -16,9 +17,11 @@ import org.springframework.stereotype.Repository;
 
 import by.itacademy.jd2.th.messenger.dao.api.IUserGroupDao;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserToGroup;
 import by.itacademy.jd2.th.messenger.dao.api.filter.UserGroupFilter;
 import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.UserGroup;
 import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.UserGroup_;
+import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.UserToGroup;
 
 @Repository
 public class UserGroupDaoImpl extends AbstractDaoImpl<IUserGroup, Integer> implements IUserGroupDao {
@@ -52,6 +55,34 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<IUserGroup, Integer> imple
 
 	}
 
+	public List<IUserGroup> getLoggedUserGroups(Integer userId) {
+		final EntityManager em = getEntityManager();
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		// native query
+		Query q = em.createNativeQuery(
+				"select group_id from user_group ug join user_2_group u2g on u2g.group_id=ug.id where (u2g.user_id=?) group by group_id");
+		q.setParameter(1, userId);
+		List<Integer> groupsId = q.getResultList();
+
+		CriteriaQuery<IUserGroup> cq = cb.createQuery(IUserGroup.class);
+		final Root<UserGroup> from = cq.from(UserGroup.class);
+
+		TypedQuery<IUserGroup> tq = null;
+		List<IUserGroup> groups = new ArrayList<IUserGroup>();
+		if (!groupsId.isEmpty()) {
+			for (Integer id : groupsId) {
+				cq.select(from).where(cb.equal(from.get("id"), id));
+				tq = em.createQuery(cq);
+				groups.add(tq.getSingleResult());
+
+			}
+		} else {
+
+			return null;
+		}
+		return groups;
+	}
+
 	@Override
 	public List<IUserGroup> find(UserGroupFilter filter) {
 		final EntityManager em = getEntityManager();
@@ -59,7 +90,7 @@ public class UserGroupDaoImpl extends AbstractDaoImpl<IUserGroup, Integer> imple
 
 		final CriteriaQuery<IUserGroup> cq = cb.createQuery(IUserGroup.class);
 
-		final Root<UserGroup> from = cq.from(UserGroup.class);// select from
+		final Root<UserGroup> from = cq.from(UserGroup.class);
 		cq.select(from);
 
 		if (filter.getSortColumn() != null) {

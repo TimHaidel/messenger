@@ -32,4 +32,6 @@ public interface IUserGroupService {
 
 	void save(final IUserGroup... entities);
 
+	List<IUserGroup> getLoggedUserGroups(Integer loggedUserId);
+
 }

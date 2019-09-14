@@ -109,7 +109,7 @@ public class MessageController extends AbstractController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ModelAndView viewDetails(@PathVariable(name = "id", required = true) final Integer id) {
-		final IMessage dbModel = messageService.get(id);
+		final IMessage dbModel = messageService.getFullInfo(id);
 		final MessageDTO dto = toDtoConverter.apply(dbModel);
 		final Map<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
@@ -120,7 +120,7 @@ public class MessageController extends AbstractController {
 
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@PathVariable(name = "id", required = true) final Integer id) {
-		final MessageDTO dto = toDtoConverter.apply(messageService.get(id));
+		final MessageDTO dto = toDtoConverter.apply(messageService.getFullInfo(id));
 
 		final Map<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);

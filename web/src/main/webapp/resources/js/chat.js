@@ -126,7 +126,7 @@ function printMessages(data) {
                 onclick : pin,
                 
             }).css('align','right').css('cursor','pointer').appendTo( $('<div>', {
-                text : element.user.firstname,
+                text : element.userName,
             }).css('text-align','right').appendTo('.chatbox')
            );
             
@@ -143,7 +143,7 @@ function printMessages(data) {
         } else {
             var pin = "pinMessage(" + element.id + ")";
             $('<div>', {
-                text : element.user.firstname,
+                text : element.userName,
             }).appendTo('.chatbox');
             $('<i>', {
                 name : 'pin',

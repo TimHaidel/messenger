@@ -84,9 +84,7 @@ public class ChatController extends AbstractController {
 		List<ContactDTO> contactDtos = contacts.stream().map(contactToDtoConverter).collect(Collectors.toList());
 		gridState.setTotalCount(contactService.getCount(filter));
 
-		UserGroupFilter userGroupFilter = new UserGroupFilter();
-		userGroupFilter.setUserId(AuthHelper.getLoggedUserId());
-		List<IUserGroup> groups = userGroupService.find(userGroupFilter);
+		List<IUserGroup> groups = userGroupService.getLoggedUserGroups(AuthHelper.getLoggedUserId());
 		List<UserGroupDTO> groupDtos = groups.stream().map(userGroupToDtoConverter).collect(Collectors.toList());
 
 		final Map<String, Object> models = new HashMap<>();

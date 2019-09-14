@@ -8,6 +8,7 @@ public class MessageDTO {
 	private Integer parentMessage;
 	private Integer userId;
 	private Integer userGroupId;
+	private String userName;
 	private Date created;
 	private Date updated;
 
@@ -75,6 +76,14 @@ public class MessageDTO {
 
 	public void setUserGroupId(Integer userGroupId) {
 		this.userGroupId = userGroupId;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 }

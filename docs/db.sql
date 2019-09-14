@@ -6,7 +6,7 @@ CREATE TABLE "user_account" (
 	"email" character varying(50) NOT NULL UNIQUE,
 	"phone" character varying(100) UNIQUE,
 	"role" character varying NOT NULL,
-	"avatar" character varying NOT NULL,
+	"avatar" character varying,
 	"created" timestamp with time zone NOT NULL DEFAULT 'now()',
 	"updated" timestamp with time zone NOT NULL DEFAULT 'now()',
 	CONSTRAINT "user_account_pk" PRIMARY KEY ("id")
@@ -19,7 +19,7 @@ CREATE TABLE "user_account" (
 CREATE TABLE "user_group" (
 	"id" serial NOT NULL,
 	"name" character varying NOT NULL UNIQUE,
-	"status" integer,
+	"users_count" integer,
 	"created" timestamp with time zone NOT NULL DEFAULT 'now()',
 	"updated" timestamp with time zone NOT NULL DEFAULT 'now()',
 	CONSTRAINT "user_group_pk" PRIMARY KEY ("id")
@@ -31,8 +31,8 @@ CREATE TABLE "user_group" (
 
 CREATE TABLE "user_2_group" (
 	"id" serial NOT NULL,
-	"group_id" integer NOT NULL,
-	"user_id" integer NOT NULL,
+	"group_id" integer,
+	"user_id" integer,
 	"group_role" integer NOT NULL,
 	"created" timestamp with time zone NOT NULL DEFAULT 'now()',
 	"updated" timestamp with time zone NOT NULL DEFAULT 'now()',
@@ -46,9 +46,8 @@ CREATE TABLE "user_2_group" (
 CREATE TABLE "message" (
 	"id" serial NOT NULL,
 	"message" TEXT,
-	"parent_message" integer,
-	"user_id" integer NOT NULL,
-	"group_id" integer NOT NULL,
+	"user_id" integer,
+	"user_group_id" integer,
 	"created" time with time zone NOT NULL DEFAULT 'now()',
 	"updated" time with time zone NOT NULL DEFAULT 'now()',
 	CONSTRAINT "message_pk" PRIMARY KEY ("id")
@@ -59,8 +58,8 @@ CREATE TABLE "message" (
 
 
 CREATE TABLE "pinned_message" (
-	"message_id" integer NOT NULL,
-	"user_id" integer NOT NULL
+	"message_id" integer,
+	"user_id" integer
 ) WITH (
   OIDS=FALSE
 );
@@ -69,8 +68,8 @@ CREATE TABLE "pinned_message" (
 
 CREATE TABLE "contact" (
 	"id" serial NOT NULL,
-	"initiator_id" integer NOT NULL,
-	"acceptor_id" integer NOT NULL,
+	"initiator_id" integer,
+	"acceptor_id" integer,
 	"status" integer NOT NULL,
 	"created" timestamp with time zone NOT NULL DEFAULT 'now()',
 	"updated" timestamp with time zone NOT NULL DEFAULT 'now()',
@@ -125,9 +124,8 @@ CREATE TABLE "attachment" (
 ALTER TABLE "user_2_group" ADD CONSTRAINT "user_2_group_fk0" FOREIGN KEY ("group_id") REFERENCES "user_group"("id");
 ALTER TABLE "user_2_group" ADD CONSTRAINT "user_2_group_fk1" FOREIGN KEY ("user_id") REFERENCES "user_account"("id");
 
-ALTER TABLE "message" ADD CONSTRAINT "message_fk0" FOREIGN KEY ("parent_message") REFERENCES "message"("id");
-ALTER TABLE "message" ADD CONSTRAINT "message_fk1" FOREIGN KEY ("user_id") REFERENCES "user_account"("id");
-ALTER TABLE "message" ADD CONSTRAINT "message_fk2" FOREIGN KEY ("group_id") REFERENCES "user_group"("id");
+ALTER TABLE "message" ADD CONSTRAINT "message_fk0" FOREIGN KEY ("user_id") REFERENCES "user_account"("id");
+ALTER TABLE "message" ADD CONSTRAINT "message_fk1" FOREIGN KEY ("user_group_id") REFERENCES "user_group"("id");
 
 ALTER TABLE "pinned_message" ADD CONSTRAINT "pinned_message_fk0" FOREIGN KEY ("message_id") REFERENCES "message"("id");
 ALTER TABLE "pinned_message" ADD CONSTRAINT "pinned_message_fk1" FOREIGN KEY ("user_id") REFERENCES "user_account"("id");

@@ -16,7 +16,6 @@ import org.hibernate.jpa.criteria.OrderImpl;
 import org.springframework.stereotype.Repository;
 
 import by.itacademy.jd2.th.messenger.dao.api.IMessageDao;
-import by.itacademy.jd2.th.messenger.dao.api.entity.table.IContact;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IMessage;
 import by.itacademy.jd2.th.messenger.dao.api.filter.MessageFilter;
 import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.Message;
@@ -56,7 +55,6 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 		from.fetch(Message_.user, JoinType.LEFT);
 		from.fetch(Message_.userAccounts, JoinType.LEFT);
 		from.fetch(Message_.attachment, JoinType.LEFT);
-		from.fetch(Message_.parentMessage, JoinType.LEFT);
 		from.fetch(Message_.userGroup, JoinType.LEFT);
 
 		if (filter.getSortColumn() != null) {
@@ -72,27 +70,6 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 		return q.getResultList();
 	}
 
-	@Override
-	public IMessage get(Integer id) {
-		final EntityManager em = getEntityManager();
-		final CriteriaBuilder cb = em.getCriteriaBuilder();
-
-		final CriteriaQuery<IMessage> cq = cb.createQuery(IMessage.class);
-
-		final Root<Message> from = cq.from(Message.class);
-
-		cq.select(from).where(cb.equal(from.get("id"), id));
-
-		from.fetch(Message_.user, JoinType.LEFT);
-		from.fetch(Message_.userAccounts, JoinType.LEFT);
-		from.fetch(Message_.attachment, JoinType.LEFT);
-		from.fetch(Message_.parentMessage, JoinType.LEFT);
-		from.fetch(Message_.userGroup, JoinType.LEFT);
-
-		final TypedQuery<IMessage> q = em.createQuery(cq);
-		return q.getSingleResult();
-	}
-
 	private SingularAttribute<? super Message, ?> toMetamodelFormat(final String sortColumn) {
 		switch (sortColumn) {
 		case "created":
@@ -105,8 +82,6 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 			return Message_.attachment;
 		case "message":
 			return Message_.message;
-		case "parentMessage":
-			return Message_.parentMessage;
 		case "user":
 			return Message_.user;
 		case "userGroup":
@@ -138,7 +113,6 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 
 		cq.select(from);
 		from.fetch(Message_.attachment, JoinType.LEFT);
-		from.fetch(Message_.parentMessage, JoinType.LEFT);
 		from.fetch(Message_.user, JoinType.LEFT);
 		from.fetch(Message_.userGroup, JoinType.LEFT);
 

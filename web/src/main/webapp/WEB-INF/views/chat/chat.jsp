@@ -60,7 +60,7 @@
 				<c:forEach var="contact" items="${contactItems}"
 					varStatus="loopCounter">
 
-					<img src="${contact.avatar}" alt="" class="circle">
+					<!--  <img src="${contact.avatar}" alt="" class="circle">-->
 					<a href="#" id="contactLink" class="collection-item"
 						onclick="toGroup(${contact.id})"> <c:out
 							value="${contact.acceptorFirstname}" /> <c:out

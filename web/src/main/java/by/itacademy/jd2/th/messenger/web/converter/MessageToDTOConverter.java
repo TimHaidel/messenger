@@ -19,16 +19,14 @@ public class MessageToDTOConverter implements Function<IMessage, MessageDTO> {
 		dto.setMessage(entity.getMessage());
 		dto.setCreated(entity.getCreated());
 		dto.setUpdated(entity.getUpdated());
+		if (entity.getUser() != null) {
+			dto.setUserName(entity.getUser().getFirstname() + " " + entity.getUser().getLastname());
+		}
 
 		IUserAccount user = entity.getUser();
 		if (user != null) {
 			dto.setUserId(entity.getUser().getId());
 			;
-		}
-
-		IMessage parentMessage = entity.getParentMessage();
-		if (parentMessage != null) {
-			dto.setParentMessage(parentMessage.getId());
 		}
 
 		IUserGroup userGroup = entity.getUserGroup();
