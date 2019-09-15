@@ -19,7 +19,6 @@ import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmileGroup;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserToGroup;
-import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.UserGroup;
 import by.itacademy.jd2.th.messenger.service.IAttachmentService;
 import by.itacademy.jd2.th.messenger.service.IContactService;
 import by.itacademy.jd2.th.messenger.service.IMessageService;
@@ -78,12 +77,8 @@ public abstract class AbstractTest {
 
 	protected IMessage pinNewMessage() {
 		IMessage message = saveNewMessage();
-<<<<<<< HEAD
-		IUserAccount user = saveNewUserAccount();
-=======
-		
+
 		IUserAccount user = message.getUser();
->>>>>>> d71f6ceb9b32cd04d849108686f943707fcfca4f
 		messageService.pinMessage(message.getId(), user.getId());
 		return message;
 	}

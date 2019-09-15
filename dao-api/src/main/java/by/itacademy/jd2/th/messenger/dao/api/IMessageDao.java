@@ -14,11 +14,7 @@ public interface IMessageDao extends IDao<IMessage, Integer> {
 
 	void deletePinnedMessage(Integer messageId);
 
-<<<<<<< HEAD
 	void insertPinMessage(Integer messageId, Integer userAccountId);
-=======
-	void insertPinMessage(Integer messageId, Integer userId);
->>>>>>> d71f6ceb9b32cd04d849108686f943707fcfca4f
 
 	List<Integer> getPinnedMessageIds(Integer id);
 

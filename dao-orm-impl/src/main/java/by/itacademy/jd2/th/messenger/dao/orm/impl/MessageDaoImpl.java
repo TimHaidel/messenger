@@ -141,7 +141,6 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 	}
 
 	@Override
-<<<<<<< HEAD
 	public void insertPinMessage(Integer messageId, Integer userAccountId) {
 		final EntityManager em = getEntityManager();
 
@@ -149,21 +148,11 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 		Query q = em.createNativeQuery("INSERT INTO pinned_message (message_id, user_id) VALUES(?, ?)");
 		q.setParameter(1, messageId);
 		q.setParameter(2, userAccountId);
-=======
-	public void insertPinMessage(Integer messageId, Integer userId) {
-		final EntityManager em = getEntityManager();
-		Query query = em.createNativeQuery("SELECT ");
-		// native query
-		Query q = em.createNativeQuery("INSERT INTO pinned_message (message_id, user_id) VALUES (?, ?)");
-		q.setParameter(1, messageId);
-		q.setParameter(2, userId);
 		q.executeUpdate();
->>>>>>> d71f6ceb9b32cd04d849108686f943707fcfca4f
 
 	}
 
 	@Override
-<<<<<<< HEAD
 	public List<IMessage> getPinnedMessage(Integer userAccountId) {
 		final EntityManager em = getEntityManager();
 		final CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -211,7 +200,8 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 
 		return q.getResultList();
 
-=======
+	}
+
 	public List<Integer> getPinnedMessageIds(Integer userId) {
 		final EntityManager em = getEntityManager();
 
@@ -222,7 +212,6 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 		List<Integer> messages = q.getResultList();
 
 		return messages;
->>>>>>> d71f6ceb9b32cd04d849108686f943707fcfca4f
 	}
 
 	@Override

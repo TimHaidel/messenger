@@ -35,13 +35,7 @@ public interface IMessageService {
 	void unpinMessage(Integer messageId);
 
 	@Transactional
-<<<<<<< HEAD
 	void pinMessage(Integer messageId, Integer userAccountId);
-
-	IMessage getPinned(final Integer id);
-=======
-	void pinMessage(Integer messageId, Integer userId);
->>>>>>> d71f6ceb9b32cd04d849108686f943707fcfca4f
 
 	@Transactional
 	void deleteAllPinned(Integer userId);

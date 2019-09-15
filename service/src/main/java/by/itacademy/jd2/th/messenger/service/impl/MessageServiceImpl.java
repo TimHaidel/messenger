@@ -41,15 +41,9 @@ public class MessageServiceImpl implements IMessageService {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public void pinMessage(Integer messageId, Integer userAccountId) {
 
 		dao.insertPinMessage(messageId, userAccountId);
-=======
-	public void pinMessage(Integer messageId, Integer userId) {
-
-		dao.insertPinMessage(messageId, userId);
->>>>>>> d71f6ceb9b32cd04d849108686f943707fcfca4f
 
 	}
 
@@ -133,4 +127,5 @@ public class MessageServiceImpl implements IMessageService {
 	public IMessage getFullInfo(Integer id) {
 		return dao.getFullInfo(id);
 	}
+
 }

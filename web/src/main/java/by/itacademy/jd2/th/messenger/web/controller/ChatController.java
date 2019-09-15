@@ -204,7 +204,6 @@ public class ChatController extends AbstractController {
 		contactService.save(contact);
 
 	}
-<<<<<<< HEAD
 
 	@RequestMapping(value = "/pin", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
@@ -212,7 +211,5 @@ public class ChatController extends AbstractController {
 		Integer userAccountId = AuthHelper.getLoggedUserId();
 		messageService.pinMessage(messageId, userAccountId);
 	}
-=======
->>>>>>> d71f6ceb9b32cd04d849108686f943707fcfca4f
 
 }
