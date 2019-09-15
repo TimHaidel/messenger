@@ -22,8 +22,6 @@ import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
 public class Message extends BaseEntity implements IMessage {
 	@Column
 	private String message;
-	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Message.class, cascade = { CascadeType.ALL })
-	private IMessage parentMessage;
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = UserAccount.class)
 	private IUserAccount user;
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = UserGroup.class)
@@ -58,16 +56,6 @@ public class Message extends BaseEntity implements IMessage {
 	}
 
 	@Override
-	public IMessage getParentMessage() {
-		return parentMessage;
-	}
-
-	@Override
-	public void setParentMessage(IMessage parentMessage) {
-		this.parentMessage = parentMessage;
-	}
-
-	@Override
 	public Set<IUserAccount> getUserAccounts() {
 		return userAccounts;
 	}
@@ -95,12 +83,6 @@ public class Message extends BaseEntity implements IMessage {
 	@Override
 	public void setUserGroup(final IUserGroup group) {
 		this.userGroup = group;
-	}
-
-	@Override
-	public String toString() {
-		return "Message [message=" + message + ", parentMessage=" + parentMessage + ", user=" + user + ", userGroup="
-				+ userGroup + ", attachment=" + attachment + ", userAccounts=" + userAccounts + "]";
 	}
 
 }

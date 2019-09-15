@@ -110,7 +110,7 @@
 	<entry key="form.userGroup.name">имя</entry>
 	<entry key="form.userGroup.status">статус</entry>
 	<entry key="form.userGroup.save">сохранить</entry>
-	<entry key="form.userGroup.to list">к списку</entry>
+	<entry key="form.userGroup.toList">к списку</entry>
 
 	<entry key="list.userGroup.userGroups">Группы Пользователя</entry>
 	<entry key="list.userGroup.id">id</entry>

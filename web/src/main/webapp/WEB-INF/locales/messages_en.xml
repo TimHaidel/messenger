@@ -110,7 +110,7 @@
 	<entry key="form.userGroup.name">name</entry>
 	<entry key="form.userGroup.status">status</entry>
 	<entry key="form.userGroup.save">save</entry>
-	<entry key="form.userGroup.to list">to list</entry>
+	<entry key="form.userGroup.toList">to list</entry>
 
 	<entry key="list.userGroup.userGroups">User Groups</entry>
 	<entry key="list.userGroup.id">id</entry>

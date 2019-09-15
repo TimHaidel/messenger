@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import by.itacademy.jd2.th.messenger.dao.api.IAttachmentDao;
 import by.itacademy.jd2.th.messenger.dao.api.IMessageDao;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IMessage;
-import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.filter.MessageFilter;
 import by.itacademy.jd2.th.messenger.service.IMessageService;
 
@@ -30,15 +29,14 @@ public class MessageServiceImpl implements IMessageService {
 	@Override
 	public List<IMessage> getPinnedMessage(final Integer id) {
 		final List<Integer> messageIds = dao.getPinnedMessageIds(id);
-		
-		
-		List<IMessage> messages  =new ArrayList<IMessage>();
+
+		List<IMessage> messages = new ArrayList<IMessage>();
 		for (Integer mId : messageIds) {
-			
+
 			messages.add(getFullInfo(mId));
-			
+
 		}
-		
+
 		return messages;
 	}
 

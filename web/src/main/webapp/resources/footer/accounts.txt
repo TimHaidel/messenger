@@ -1,0 +1,17 @@
+Administrator:
+login: admin@admin
+password: admin
+___________________________________________
+Users:
+
+login: petrov@mail
+password: 123
+
+login: alex@mail
+password: 123
+
+login: max@mail
+password: 123
+
+login: pepper@mail
+password: 123

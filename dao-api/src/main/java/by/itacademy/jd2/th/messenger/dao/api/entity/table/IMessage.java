@@ -24,8 +24,4 @@ public interface IMessage extends IBaseEntity {
 
 	Set<IUserAccount> getUserAccounts();
 
-	void setParentMessage(IMessage parentMessage);
-
-	IMessage getParentMessage();
-
 }

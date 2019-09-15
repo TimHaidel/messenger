@@ -92,4 +92,9 @@ public class UserGroupServiceImpl implements IUserGroupService {
 		dao.save(entities);
 
 	}
+
+	@Override
+	public List<IUserGroup> getLoggedUserGroups(Integer loggedUserId) {
+		return dao.getLoggedUserGroups(loggedUserId);
+	}
 }

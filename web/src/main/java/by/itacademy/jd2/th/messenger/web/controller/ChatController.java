@@ -21,23 +21,27 @@ import org.springframework.web.servlet.ModelAndView;
 
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IContact;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IMessage;
+import by.itacademy.jd2.th.messenger.dao.api.entity.table.ISmile;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserAccount;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserToGroup;
 import by.itacademy.jd2.th.messenger.dao.api.filter.ContactFilter;
 import by.itacademy.jd2.th.messenger.dao.api.filter.MessageFilter;
-import by.itacademy.jd2.th.messenger.dao.api.filter.UserGroupFilter;
+import by.itacademy.jd2.th.messenger.dao.api.filter.SmileFilter;
 import by.itacademy.jd2.th.messenger.service.IContactService;
 import by.itacademy.jd2.th.messenger.service.IMessageService;
+import by.itacademy.jd2.th.messenger.service.ISmileService;
 import by.itacademy.jd2.th.messenger.service.IUserAccountService;
 import by.itacademy.jd2.th.messenger.service.IUserGroupService;
 import by.itacademy.jd2.th.messenger.service.IUserToGroupService;
 import by.itacademy.jd2.th.messenger.web.converter.ContactToDTOConverter;
 import by.itacademy.jd2.th.messenger.web.converter.MessageToDTOConverter;
+import by.itacademy.jd2.th.messenger.web.converter.SmileToDTOConverter;
 import by.itacademy.jd2.th.messenger.web.converter.UserAccountToDTOConverter;
 import by.itacademy.jd2.th.messenger.web.converter.UserGroupToDTOConverter;
 import by.itacademy.jd2.th.messenger.web.dto.ContactDTO;
 import by.itacademy.jd2.th.messenger.web.dto.MessageDTO;
+import by.itacademy.jd2.th.messenger.web.dto.SmileDTO;
 import by.itacademy.jd2.th.messenger.web.dto.UserAccountDTO;
 import by.itacademy.jd2.th.messenger.web.dto.UserGroupDTO;
 import by.itacademy.jd2.th.messenger.web.dto.ajax.MessageAjaxDTO;
@@ -66,6 +70,10 @@ public class ChatController extends AbstractController {
 	private IUserAccountService userAccountService;
 	@Autowired
 	private UserAccountToDTOConverter userAccountToDTOConverter;
+	@Autowired
+	private ISmileService smileService;
+	@Autowired
+	private SmileToDTOConverter smileToDTOComverter;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView index(final HttpServletRequest req,
@@ -84,14 +92,17 @@ public class ChatController extends AbstractController {
 		List<ContactDTO> contactDtos = contacts.stream().map(contactToDtoConverter).collect(Collectors.toList());
 		gridState.setTotalCount(contactService.getCount(filter));
 
-		UserGroupFilter userGroupFilter = new UserGroupFilter();
-		userGroupFilter.setUserId(AuthHelper.getLoggedUserId());
-		List<IUserGroup> groups = userGroupService.find(userGroupFilter);
+		List<IUserGroup> groups = userGroupService.getLoggedUserGroups(AuthHelper.getLoggedUserId());
 		List<UserGroupDTO> groupDtos = groups.stream().map(userGroupToDtoConverter).collect(Collectors.toList());
+
+		SmileFilter smileFilter = new SmileFilter();
+		List<ISmile> smiles = smileService.find(smileFilter);
+		List<SmileDTO> smileDtos = smiles.stream().map(smileToDTOComverter).collect(Collectors.toList());
 
 		final Map<String, Object> models = new HashMap<>();
 		models.put("contactItems", contactDtos);
 		models.put("groupItems", groupDtos);
+		models.put("smileItems", smileDtos);
 		// models.put("loggedUserId", loggedUserId);
 
 		return new ModelAndView("chat", models);

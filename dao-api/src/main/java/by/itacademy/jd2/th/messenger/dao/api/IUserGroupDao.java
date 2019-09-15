@@ -14,4 +14,6 @@ public interface IUserGroupDao extends IDao<IUserGroup, Integer> {
 	Integer findGroupId(Integer user1, Integer user2);
 
 	void save(IUserGroup... entities);
+
+	List<IUserGroup> getLoggedUserGroups(Integer loggedUserId);
 }
