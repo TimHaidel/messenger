@@ -1,6 +1,8 @@
 /.metadata/
 dao-api/target/
 dao-jdbc-impl/target/
+dao-orm-impl/target/
+dao-orm-impl/.settings/
 service/target/
 web/target/
 service/logs/
