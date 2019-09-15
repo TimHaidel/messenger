@@ -141,67 +141,18 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 	}
 
 	@Override
-	public void insertPinMessage(Integer messageId, Integer userAccountId) {
+	public void insertPinMessage(Integer messageId, Integer userId) {
 		final EntityManager em = getEntityManager();
-
+		Query query = em.createNativeQuery("SELECT ");
 		// native query
-		Query q = em.createNativeQuery("INSERT INTO pinned_message (message_id, user_id) VALUES(?, ?)");
+		Query q = em.createNativeQuery("INSERT INTO pinned_message (message_id, user_id) VALUES (?, ?)");
 		q.setParameter(1, messageId);
-		q.setParameter(2, userAccountId);
+		q.setParameter(2, userId);
 		q.executeUpdate();
 
 	}
 
 	@Override
-	public List<IMessage> getPinnedMessage(Integer userAccountId) {
-		final EntityManager em = getEntityManager();
-		final CriteriaBuilder cb = em.getCriteriaBuilder();
-
-		// native query
-		Query q = em.createNativeQuery("SELECT message_id FROM pinned_message WHERE user_id = ?");
-		q.setParameter(1, userAccountId);
-		List<Integer> messagesId = q.getResultList();
-
-		final TypedQuery<IMessage> tq = null;
-		MessageFilter filter = new MessageFilter();
-		filter.setUserAccountId(userAccountId);
-		if (!messagesId.isEmpty()) {
-			tq = find(filter);
-		} else {
-
-			return null;
-		}
-
-		final CriteriaQuery<IMessage> cq = cb.createQuery(IMessage.class);
-
-		final Root<Message> from = cq.from(Message.class);
-
-		if (userGroupId == null) {
-			cq.select(from).orderBy(cb.asc(from.get(Message_.created)));
-		} else {
-			cq.select(from).orderBy(cb.asc(from.get(Message_.created)))
-					.where(cb.equal(from.get(Message_.userGroup).get(UserGroup_.id), filter.getUserGroupId()));
-
-		}
-		from.fetch(Message_.user, JoinType.LEFT);
-		from.fetch(Message_.attachment, JoinType.LEFT);
-		from.fetch(Message_.parentMessage, JoinType.LEFT);
-		from.fetch(Message_.userGroup, JoinType.LEFT);
-
-		if (filter.getSortColumn() != null) {
-			final SingularAttribute<? super Message, ?> sortProperty = toMetamodelFormat(filter.getSortColumn());
-
-			final Path<?> expression = from.get(sortProperty);
-			cq.orderBy(new OrderImpl(expression, filter.getSortOrder()));
-		}
-
-		final TypedQuery<IMessage> q = em.createQuery(cq);
-		setPaging(filter, q);
-
-		return q.getResultList();
-
-	}
-
 	public List<Integer> getPinnedMessageIds(Integer userId) {
 		final EntityManager em = getEntityManager();
 

@@ -12,7 +12,8 @@
 	</definition>
 
 	<definition name="home" extends="DefaultTemplate">
-		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
+		<put-attribute name="body"
+	value="/WEB-INF/views/home.jsp" />
 	</definition>
 
 	<definition name="user-account.list" extends="DefaultTemplate">
