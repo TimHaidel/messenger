@@ -98,7 +98,7 @@
 
 							<!-- Dropdown Structure -->
 							<ul id='dropdown1' class='dropdown-content'>
-								<span><img class="smile"
+								<!--  <span><img class="smile"
 									src="${pageContext.request.contextPath}/resources/smiles/ab.png"
 									alt=":ab:"></span>
 								<span><img class="smile"
@@ -106,7 +106,16 @@
 									alt=":ac:"></span>
 								<span><img class="smile"
 									src="${pageContext.request.contextPath}/resources/smiles/ae.gif"
-									alt=":ae:"></span>
+									alt=":ae:"></span>-->
+								<c:forEach var="smile" items="${smileItems}"
+									varStatus="loopCounter">
+									<span><img class="smile"
+										src="data:image/jpeg;base64, <c:out
+											value="${smile.marker}"/>"
+										alt="${smile.name}"></span>
+
+								</c:forEach>
+
 							</ul>
 						</div>
 					</div>

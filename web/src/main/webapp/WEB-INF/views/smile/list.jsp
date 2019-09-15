@@ -14,9 +14,6 @@
 			<th><mytaglib:sort-link pageUrl="${pagesSmile}" column="name">
 					<spring:message code="list.smile.name" />
 				</mytaglib:sort-link></th>
-			<th><mytaglib:sort-link pageUrl="${pagesSmile}" column="marker">
-					<spring:message code="list.smile.marker" />
-				</mytaglib:sort-link></th>
 			<th><mytaglib:sort-link pageUrl="${pagesSmile}"
 					column="smileGroup">
 					<spring:message code="list.smile.group" />
@@ -26,7 +23,6 @@
 			<tr>
 				<td><c:out value="${smile.id}" /></td>
 				<td><c:out value="${smile.name}" /></td>
-				<td><c:out value="${smile.marker}" /></td>
 				<td><c:out value="${smile.smileGroupId}" /></td>
 
 				<td class="right"><a class="btn-floating"

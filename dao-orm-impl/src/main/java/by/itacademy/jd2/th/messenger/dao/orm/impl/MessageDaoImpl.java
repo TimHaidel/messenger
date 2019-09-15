@@ -46,9 +46,9 @@ public class MessageDaoImpl extends AbstractDaoImpl<IMessage, Integer> implement
 
 		Integer userGroupId = filter.getUserGroupId();
 		if (userGroupId == null) {
-			cq.select(from).orderBy(cb.asc(from.get(Message_.created)));
+			cq.select(from).orderBy(cb.asc(from.get(Message_.id)));
 		} else {
-			cq.select(from).orderBy(cb.asc(from.get(Message_.created)))
+			cq.select(from).orderBy(cb.asc(from.get(Message_.id)))
 					.where(cb.equal(from.get(Message_.userGroup).get(UserGroup_.id), filter.getUserGroupId()));
 
 		}
