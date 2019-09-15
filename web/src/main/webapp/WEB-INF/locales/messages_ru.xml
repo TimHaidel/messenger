@@ -116,5 +116,6 @@
 	<entry key="list.userGroup.id">id</entry>
 	<entry key="list.userGroup.name">имя</entry>
 
+	<entry key="page.home.header">Добро пожаловать в Spyke чат!</entry>
 
 </properties>

@@ -2,6 +2,7 @@
 <%@ taglib prefix="jspFragments" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
@@ -10,19 +11,9 @@
 <script src="${contextPath}/resources/js/json.js"></script>
 </head>
 <body>
-	<h4 class="header">Home</h4>
+	<h4 class="header">
+		<spring:message code="page.home.header" />
+	</h4>
 
-	<div>
-		<spring:message code="page.home.title" />
-	</div>
-
-	<div>${welcomeMessage}</div>
-
-	<div>
-		<div id="content"></div>
-		<button onClick="sendRequest()">
-			<spring:message code="page.home.send" />
-		</button>
-	</div>
 </body>
 </html>

@@ -120,6 +120,8 @@
 						</div>
 					</div>
 
+
+
 					<div class="input-field col s3">
 						<button class="btn waves-effect waves-light btn-small"
 							onClick="sendMessage()" type="button">
@@ -127,7 +129,6 @@
 							<i class="material-icons right">send</i>
 						</button>
 					</div>
-
 				</div>
 
 			</form>

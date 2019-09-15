@@ -17,11 +17,9 @@ import org.springframework.stereotype.Repository;
 
 import by.itacademy.jd2.th.messenger.dao.api.IUserGroupDao;
 import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserGroup;
-import by.itacademy.jd2.th.messenger.dao.api.entity.table.IUserToGroup;
 import by.itacademy.jd2.th.messenger.dao.api.filter.UserGroupFilter;
 import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.UserGroup;
 import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.UserGroup_;
-import by.itacademy.jd2.th.messenger.dao.orm.impl.entity.UserToGroup;
 
 @Repository
 public class UserGroupDaoImpl extends AbstractDaoImpl<IUserGroup, Integer> implements IUserGroupDao {
