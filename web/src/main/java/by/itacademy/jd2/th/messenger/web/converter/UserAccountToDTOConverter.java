@@ -19,7 +19,9 @@ public class UserAccountToDTOConverter implements Function<IUserAccount, UserAcc
 		dto.setFirstname(entity.getFirstname());
 		dto.setLastname(entity.getLastname());
 		dto.setPhone(entity.getPhone());
-		dto.setRole(entity.getRole());
+		if (entity.getPhone() != null) {
+			dto.setRole(entity.getRole());
+		}
 		dto.setPassword(entity.getPassword());
 
 		return dto;

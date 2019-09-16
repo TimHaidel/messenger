@@ -93,7 +93,10 @@ public class ChatController extends AbstractController {
 		gridState.setTotalCount(contactService.getCount(filter));
 
 		List<IUserGroup> groups = userGroupService.getLoggedUserGroups(AuthHelper.getLoggedUserId());
-		List<UserGroupDTO> groupDtos = groups.stream().map(userGroupToDtoConverter).collect(Collectors.toList());
+		List<UserGroupDTO> groupDtos = null;
+		if (groups != null) {
+			groupDtos = groups.stream().map(userGroupToDtoConverter).collect(Collectors.toList());
+		}
 
 		SmileFilter smileFilter = new SmileFilter();
 		List<ISmile> smiles = smileService.find(smileFilter);
